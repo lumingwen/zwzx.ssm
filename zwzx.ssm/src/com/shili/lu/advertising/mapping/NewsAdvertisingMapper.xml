@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.advertising.dao.NewsAdvertisingMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.advertising.model.NewsAdvertising" >
+    <id column="advertising_id" property="advertisingId" jdbcType="INTEGER" />
+    <result column="adspace_id" property="adspaceId" jdbcType="INTEGER" />
+    <result column="ad_name" property="adName" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="ad_weight" property="adWeight" jdbcType="INTEGER" />
+    <result column="display_count" property="displayCount" jdbcType="BIGINT" />
+    <result column="click_count" property="clickCount" jdbcType="BIGINT" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="is_enabled" property="isEnabled" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="image_link" property="imageLink" jdbcType="VARCHAR" />
+    <result column="image_point" property="imagePoint" jdbcType="VARCHAR" />
+    <result column="image_target" property="imageTarget" jdbcType="VARCHAR" />
+    <result column="font_detail" property="fontDetail" jdbcType="VARCHAR" />
+    <result column="font_link" property="fontLink" jdbcType="VARCHAR" />
+    <result column="font_color" property="fontColor" jdbcType="VARCHAR" />
+    <result column="font_size" property="fontSize" jdbcType="INTEGER" />
+    <result column="font_target" property="fontTarget" jdbcType="VARCHAR" />
+    <result column="image_id" property="imageId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.shili.lu.advertising.model.NewsAdvertising" extends="BaseResultMap" >
+    <result column="ad_code" property="adCode" jdbcType="LONGVARCHAR" />
+  </resultMap>
+   <resultMap id="DtoResultMap" type="com.shili.lu.advertising.dto.NewsAdvertisingDto" extends="BaseResultMap" >
+  	<result column="name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    advertising_id, adspace_id, ad_name, category, ad_weight, display_count, click_count, 
+    start_time, end_time, is_enabled, user_id, create_time, update_time, delete_flag, 
+    type, image_url, image_link, image_point, image_target, font_detail, font_link, font_color, 
+    font_size, font_target, image_id
+  </sql>
+  
+    <sql id="Base_Column_List1" >
+    t1.advertising_id,  t1.adspace_id,  t1.ad_name,  t1.category,  t1.ad_weight,  t1.display_count,  t1.click_count, 
+     t1.start_time,  t1.end_time,  t1.is_enabled,  t1.user_id,  t1.create_time,  t1.update_time,  t1.delete_flag, 
+     t1.type,  t1.image_url,  t1.image_link,  t1.image_point,  t1.image_target,  t1.font_detail,  t1.font_link,  t1.font_color, 
+     t1.font_size,  t1.font_target, t1. image_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    ad_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news_advertising
+    where advertising_id = #{advertisingId,jdbcType=INTEGER}
+  </select>
+  
+   <!-- 广告列表 -->
+   <select id="listNewsAdvertisingByPage" resultMap="DtoResultMap" >
+    select 
+    <include refid="Base_Column_List1" />
+    ,t2.`name` as name
+    from news_advertising t1
+    LEFT JOIN rms_user t2 ON t2.`id`=t1.`user_id`
+    WHERE t1.delete_flag=0
+    <if test="adName!=null and  adName!=''">
+		and t1.`ad_name` like concat('%',#{adName},'%')
+	</if>
+    <if test="param!=null and param!=''">
+		${param}
+	</if>
+	<if test="userName!=null and userName!=''">
+		and t2.`name` like concat('%',#{userName},'%')
+	</if>
+	<if test="isEnabled!=null and isEnabled!=''">
+		and t1.`is_enabled` =#{isEnabled,jdbcType=INTEGER}
+	</if>
+	<if test="category!=null and category!=''">
+		and t1.`category` =#{category,jdbcType=INTEGER}
+	</if>
+	<if test="createTimeStart!=null and createTimeStart!=''">
+		<![CDATA[and DATE_FORMAT(t1.create_time,'%Y-%m-%d')>=#{createTimeStart}]]>
+	</if>
+	<if test="createTimeEnd!=null and createTimeEnd!=''">
+		<![CDATA[and DATE_FORMAT(t1.create_time,'%Y-%m-%d')<=#{createTimeEnd}]]>
+	</if>
+  </select>
+  
+  <!-- 广告 -->
+   <select id="listNewsAdvertising" resultMap="DtoResultMap" >
+   select
+   <include refid="Base_Column_List1" />
+    from news_advertising t1
+   left join news_advertising_space t2 
+   on 
+   t2.`adspace_id`=t1.`adspace_id`
+   where t1.`delete_flag`=0
+   and 
+   t1.`is_enabled`=1
+   order by 
+   t1.`ad_weight`
+   </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update  news_advertising
+    set delete_flag=1
+    where advertising_id = #{advertisingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shili.lu.advertising.model.NewsAdvertising" >
+    insert into news_advertising (advertising_id, adspace_id, ad_name, 
+      category, ad_weight, display_count, 
+      click_count, start_time, end_time, 
+      is_enabled, user_id, create_time, 
+      update_time, delete_flag, type, 
+      image_url, image_link, image_point, 
+      image_target, font_detail, font_link, 
+      font_color, font_size, font_target, 
+      image_id, ad_code)
+    values (#{advertisingId,jdbcType=INTEGER}, #{adspaceId,jdbcType=INTEGER}, #{adName,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{adWeight,jdbcType=INTEGER}, #{displayCount,jdbcType=BIGINT}, 
+      #{clickCount,jdbcType=BIGINT}, #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}, 
+      #{isEnabled,jdbcType=CHAR}, #{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{imageUrl,jdbcType=VARCHAR}, #{imageLink,jdbcType=VARCHAR}, #{imagePoint,jdbcType=VARCHAR}, 
+      #{imageTarget,jdbcType=VARCHAR}, #{fontDetail,jdbcType=VARCHAR}, #{fontLink,jdbcType=VARCHAR}, 
+      #{fontColor,jdbcType=VARCHAR}, #{fontSize,jdbcType=INTEGER}, #{fontTarget,jdbcType=VARCHAR}, 
+      #{imageId,jdbcType=BIGINT}, #{adCode,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.advertising.model.NewsAdvertising" >
+    update news_advertising
+    set adspace_id = #{adspaceId,jdbcType=INTEGER},
+      ad_name = #{adName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      ad_weight = #{adWeight,jdbcType=INTEGER},
+      display_count = #{displayCount,jdbcType=BIGINT},
+      click_count = #{clickCount,jdbcType=BIGINT},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE},
+      is_enabled = #{isEnabled,jdbcType=CHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      image_link = #{imageLink,jdbcType=VARCHAR},
+      image_point = #{imagePoint,jdbcType=VARCHAR},
+      image_target = #{imageTarget,jdbcType=VARCHAR},
+      font_detail = #{fontDetail,jdbcType=VARCHAR},
+      font_link = #{fontLink,jdbcType=VARCHAR},
+      font_color = #{fontColor,jdbcType=VARCHAR},
+      font_size = #{fontSize,jdbcType=INTEGER},
+      font_target = #{fontTarget,jdbcType=VARCHAR},
+      image_id = #{imageId,jdbcType=BIGINT}
+    where advertising_id = #{advertisingId,jdbcType=INTEGER}
+  </update>
+</mapper>

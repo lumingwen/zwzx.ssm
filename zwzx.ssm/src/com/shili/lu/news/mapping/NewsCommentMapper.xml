@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.news.dao.NewsCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.news.model.NewsComment" >
+    <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+    <result column="comment_user_id" property="commentUserId" jdbcType="INTEGER" />
+    <result column="reply_user_id" property="replyUserId" jdbcType="INTEGER" />
+    <result column="content_id" property="contentId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="ups" property="ups" jdbcType="SMALLINT" />
+    <result column="downs" property="downs" jdbcType="SMALLINT" />
+    <result column="is_recommend" property="isRecommend" jdbcType="INTEGER" />
+    <result column="is_checked" property="isChecked" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.shili.lu.news.model.NewsCommentWithBLOBs" extends="BaseResultMap" >
+    <result column="text" property="text" jdbcType="LONGVARCHAR" />
+    <result column="reply" property="reply" jdbcType="LONGVARCHAR" />
+  </resultMap>
+    <resultMap id="DtoResultMap" type="com.shili.lu.news.dto.NewsCommentDto" extends="ResultMapWithBLOBs" >
+  	<result column="name" property="userName" jdbcType="VARCHAR" />
+  	<result column="title" property="title" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    comment_id, comment_user_id, reply_user_id, content_id, create_time, reply_time, 
+    ups, downs, is_recommend, is_checked, ip,delete_flag
+  </sql>
+  <sql id="Blob_Column_List" >
+    text, reply
+  </sql>
+    <sql id="Base_Column_List1" >
+   t1.comment_id,   t1.comment_user_id,   t1.reply_user_id,   t1.content_id, 
+    t1. create_time,   t1.reply_time, 
+      t1.ups, downs,   t1.is_recommend,   t1.is_checked, t1.ip,t1.delete_flag
+  </sql>
+   <sql id="Blob_Column_List1" >
+    t1.text, t1.reply
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 评论列表 -->
+   <select id="listNewsCommentByPage" resultMap="DtoResultMap">
+    select 
+    <include refid="Base_Column_List1" />
+    ,<include refid="Blob_Column_List1" />
+    ,t2.`name` as name
+    ,t3.`title` as title
+    from news_comment t1
+    LEFT JOIN rms_user t2 ON t2.`id`=t1.`reply_user_id`
+    LEFT JOIN pub_broadcast_content t3 ON t3.`id`=t1.`content_id`
+    WHERE t1.delete_flag=0
+	<if test="contentId!=null and contentId!=''">
+		and t1.`content_id`= #{contentId}
+	</if>
+    <if test="param!=null and param!=''">
+		${param}
+	</if>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+   update news_comment
+   set delete_flag=1
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shili.lu.news.model.NewsCommentWithBLOBs" >
+    insert into news_comment (comment_id, comment_user_id, reply_user_id, 
+      content_id, create_time, reply_time, 
+      ups, downs, is_recommend, 
+      is_checked, ip, text, 
+      reply,delete_flag)
+    values (#{commentId,jdbcType=INTEGER}, #{commentUserId,jdbcType=INTEGER}, #{replyUserId,jdbcType=INTEGER}, 
+      #{contentId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{replyTime,jdbcType=TIMESTAMP}, 
+      #{ups,jdbcType=SMALLINT}, #{downs,jdbcType=SMALLINT}, #{isRecommend,jdbcType=INTEGER}, 
+      #{isChecked,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}, 
+      #{reply,jdbcType=LONGVARCHAR}, #{deleteFlag,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shili.lu.news.model.NewsCommentWithBLOBs" >
+    update news_comment
+    set comment_user_id = #{commentUserId,jdbcType=INTEGER},
+      reply_user_id = #{replyUserId,jdbcType=INTEGER},
+      content_id = #{contentId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      ups = #{ups,jdbcType=SMALLINT},
+      downs = #{downs,jdbcType=SMALLINT},
+      is_recommend = #{isRecommend,jdbcType=INTEGER},
+      is_checked = #{isChecked,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR},
+      text = #{text,jdbcType=LONGVARCHAR},
+      reply = #{reply,jdbcType=LONGVARCHAR},
+      delete_flag=#{delete_flag,jdbcType=INTEGER}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.news.model.NewsComment" >
+    update news_comment
+    set comment_user_id = #{commentUserId,jdbcType=INTEGER},
+      reply_user_id = #{replyUserId,jdbcType=INTEGER},
+      content_id = #{contentId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      ups = #{ups,jdbcType=SMALLINT},
+      downs = #{downs,jdbcType=SMALLINT},
+      is_recommend = #{isRecommend,jdbcType=INTEGER},
+      is_checked = #{isChecked,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR},
+      delete_flag=#{delete_flag,jdbcType=INTEGER}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+</mapper>

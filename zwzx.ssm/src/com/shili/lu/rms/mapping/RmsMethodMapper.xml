@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.rms.dao.RmsMethodMapper" >
+ 
+  <resultMap id="BaseResultMap" type="com.shili.lu.rms.model.RmsMethod">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="method_name" property="methodName" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ 
+   <resultMap id="dtoBaseResultMap" type="com.shili.lu.rms.dto.RmsMethodDto" extends="BaseResultMap">
+  
+  </resultMap> 
+  
+  <select id="listByPage" resultMap="dtoBaseResultMap">
+	   select 
+	    <include refid="Base_Column_List" />
+	    	from rms_method
+	    	  where delete_flag=0
+	    	  	<if test="name != null and name!=''" >
+		       		and name like concat('%',#{name},'%')
+		       </if>
+		       <if test="className != null and className!=''" >
+			   		<if test="fullMatch==true">
+			   			and class_name = #{className}
+			   		</if>
+			   		<if test="fullMatch==false">
+			   			and class_name like concat('%',#{className},'%')
+			   		</if>
+		       </if>
+		       <if test="methodName != null and methodName!=''" >
+			   		<if test="fullMatch==true">
+			   			and method_name = #{methodName}
+			   		</if>
+			   		<if test="fullMatch==false">
+			   			and method_name like concat('%',#{methodName},'%')
+			   		</if>
+		       </if>
+		       <if test="roleId != null">
+		       		and id in (
+						SELECT 
+						      method_id 
+						FROM
+						      rms_role_method 
+						WHERE delete_flag = 0 
+						      AND role_id = #{roleId} 
+		       		)
+		       </if>
+  </select>
+   
+   
+   
+ <select id="listMethodPermissionByUser" resultType="com.shili.lu.rms.model.RmsMethod">
+ 	SELECT  distinct
+      t4.id, t4.create_time, t4.update_time, t4.delete_flag, t4.class_name, t4.method_name, t4.name, t4.description
+		FROM
+		      rms_user t1 
+		      JOIN rms_role t2 
+		            ON t1.role_id = t2.id 
+		      JOIN rms_role_method t3 
+		            ON t2.id = t3.role_id 
+		      JOIN rms_method t4 
+		            ON t3.method_id = t4.id 
+		WHERE t1.delete_flag = 0 
+		      AND t2.delete_flag = 0 
+		      AND t3.delete_flag = 0 
+		      AND t4.delete_flag = 0 
+		      <if test="userId != null" >
+		      	 AND t1.id=#{userId}
+		      </if>
+		      <if test="className != null and className!=''" >
+		       		AND t4.class_name=#{className}
+		      </if>
+		      <if test="methodName != null and methodName!=''" >
+		       		AND t4.method_name=#{methodName}
+		      </if>
+ </select>
+  
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, delete_flag, class_name, method_name, name, description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rms_method
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  	 update rms_method set delete_flag=1
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert"  keyProperty="id" useGeneratedKeys="true" parameterType="com.shili.lu.rms.model.RmsMethod" >
+    insert into rms_method (id, create_time, update_time, 
+      delete_flag, class_name, method_name, 
+      name, description)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleteFlag,jdbcType=INTEGER}, #{className,jdbcType=VARCHAR}, #{methodName,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.rms.model.RmsMethod" >
+    update rms_method
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      class_name = #{className,jdbcType=VARCHAR},
+      method_name = #{methodName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

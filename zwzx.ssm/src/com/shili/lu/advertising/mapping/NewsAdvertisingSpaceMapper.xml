@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.advertising.dao.NewsAdvertisingSpaceMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.advertising.model.NewsAdvertisingSpace" >
+    <id column="adspace_id" property="adspaceId" jdbcType="INTEGER" />
+    <result column="ad_name" property="adName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="is_enabled" property="isEnabled" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="DtoResultMap" type="com.shili.lu.advertising.dto.NewsAdvertisingSpaceDto" extends="BaseResultMap" >
+  	<result column="name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    adspace_id, ad_name, description, is_enabled, user_id, create_time, update_time, 
+    delete_flag
+  </sql>
+     <sql id="Base_Column_List1" >
+    t1.adspace_id, t1.create_time, t1.update_time, 
+    t1.delete_flag, t1.user_id, t1.ad_name, t1.description, t1.is_enabled
+
+  </sql>
+  
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update news_advertising_space
+    set delete_flag=1
+    where adspace_id = #{adspaceId,jdbcType=INTEGER}
+  </delete>
+  <select   id="selecAdvertisingSpacetList" resultMap="BaseResultMap" >
+  select 
+   <include refid="Base_Column_List" />
+   from 
+  news_advertising_space
+ where delete_flag=0
+ and is_enabled=1
+  </select>
+  
+   <select   id="selecAdvertisingSpacetByAdName" resultMap="BaseResultMap"  >
+  select 
+   <include refid="Base_Column_List" />
+   from 
+  news_advertising_space
+ where delete_flag=0
+ and is_enabled=1
+ <if test="adName!=null and adName!=''">
+ and ad_name=#{adName ,jdbcType=VARCHAR}
+ </if>
+ 
+  </select>
+  
+  
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from news_advertising_space
+    where adspace_id = #{adspaceId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <!-- 广告列表 -->
+   <select id="listNewsAdvertisingSpaceByPage" resultMap="DtoResultMap" >
+    select 
+    <include refid="Base_Column_List1" />
+    ,t2.`name` as name
+    from news_advertising_space t1
+    LEFT JOIN rms_user t2 ON t2.`id`=t1.`user_id`
+    WHERE t1.delete_flag=0
+    <if test="adName!=null and  adName!=''">
+		and t1.`ad_name` like concat('%',#{adName},'%')
+	</if>
+    <if test="param!=null and param!=''">
+		${param}
+	</if>
+	<if test="userName!=null and userName!=''">
+		and t2.`name` like concat('%',#{userName},'%')
+	</if>
+	<if test="isEnabled!=null and isEnabled!=''">
+		and t1.`is_enabled` =#{isEnabled,jdbcType=INTEGER}
+	</if>
+	<if test="createTimeStart!=null and createTimeStart!=''">
+		<![CDATA[and DATE_FORMAT(t1.create_time,'%Y-%m-%d')>=#{createTimeStart}]]>
+	</if>
+	<if test="createTimeEnd!=null and createTimeEnd!=''">
+		<![CDATA[and DATE_FORMAT(t1.create_time,'%Y-%m-%d')<=#{createTimeEnd}]]>
+	</if>
+  </select>
+  
+  
+  
+  <insert id="insert" parameterType="com.shili.lu.advertising.model.NewsAdvertisingSpace" >
+    insert into news_advertising_space (adspace_id, ad_name, description, 
+      is_enabled, user_id, create_time, 
+      update_time, delete_flag)
+    values (#{adspaceId,jdbcType=INTEGER}, #{adName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{isEnabled,jdbcType=CHAR}, #{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shili.lu.advertising.model.NewsAdvertisingSpace" >
+    insert into news_advertising_space
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adspaceId != null" >
+        adspace_id,
+      </if>
+      <if test="adName != null" >
+        ad_name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adspaceId != null" >
+        #{adspaceId,jdbcType=INTEGER},
+      </if>
+      <if test="adName != null" >
+        #{adName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shili.lu.advertising.model.NewsAdvertisingSpace" >
+    update news_advertising_space
+    <set >
+      <if test="adName != null" >
+        ad_name = #{adName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where adspace_id = #{adspaceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.advertising.model.NewsAdvertisingSpace" >
+    update news_advertising_space
+    set ad_name = #{adName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=CHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER}
+    where adspace_id = #{adspaceId,jdbcType=INTEGER}
+  </update>
+</mapper>

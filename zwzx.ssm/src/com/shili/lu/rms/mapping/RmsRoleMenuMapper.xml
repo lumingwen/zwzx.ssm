@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.rms.dao.RmsRoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.rms.model.RmsRoleMenu" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="menu_id" property="menuId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, delete_flag, role_id, menu_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rms_role_menu
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+   <delete id="deleteByRoleId" parameterType="java.lang.Long" >
+  	 update rms_role_menu set delete_flag=1
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  	 update rms_role_menu set delete_flag=1
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert"  keyProperty="id" useGeneratedKeys="true" parameterType="com.shili.lu.rms.model.RmsRoleMenu" >
+    insert into rms_role_menu (id, create_time, update_time, 
+      delete_flag, role_id, menu_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleteFlag,jdbcType=INTEGER}, #{roleId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT}
+      )
+  </insert>
+ 
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.rms.model.RmsRoleMenu" >
+    update rms_role_menu
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=BIGINT},
+      menu_id = #{menuId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

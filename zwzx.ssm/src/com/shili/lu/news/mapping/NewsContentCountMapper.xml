@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.news.dao.NewsContentCountMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.news.model.NewsContentCount" >
+    <result column="content_id" property="contentId" jdbcType="INTEGER" />
+    <result column="views" property="views" jdbcType="INTEGER" />
+    <result column="views_month" property="viewsMonth" jdbcType="INTEGER" />
+    <result column="views_week" property="viewsWeek" jdbcType="INTEGER" />
+    <result column="views_day" property="viewsDay" jdbcType="INTEGER" />
+     <result column="views_year" property="viewsYear" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+     content_id, views, views_month, views_week, views_day,views_year,create_time,update_time
+  </sql>
+  <select id="selectByContentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from news_content_count
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from news_content_count
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.shili.lu.news.model.NewsContentCount" >
+    insert into news_content_count (content_id, views, 
+      views_month, views_week, views_day,views_year,create_time,update_time
+      )
+    values ( #{contentId,jdbcType=INTEGER}, #{views,jdbcType=INTEGER}, 
+      #{viewsMonth,jdbcType=INTEGER}, #{viewsWeek,jdbcType=INTEGER}, #{viewsDay,jdbcType=INTEGER},
+      #{viewsYear,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.news.model.NewsContentCount" >
+    update news_content_count
+    set  views = #{views,jdbcType=INTEGER},
+      views_month = #{viewsMonth,jdbcType=INTEGER},
+      views_week = #{viewsWeek,jdbcType=INTEGER},
+      views_day = #{viewsDay,jdbcType=INTEGER},
+      views_year= #{viewsYear,jdbcType=INTEGER},
+      create_time=  #{createTime,jdbcType=TIMESTAMP},
+      update_time= #{updateTime,jdbcType=TIMESTAMP}
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </update>
+</mapper>

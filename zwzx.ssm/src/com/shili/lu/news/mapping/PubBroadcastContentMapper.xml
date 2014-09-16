@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.news.dao.PubBroadcastContentMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.news.model.PubBroadcastContent" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="content_type_id" property="contentTypeId" jdbcType="BIGINT" />
+    <result column="view_id" property="viewId" jdbcType="BIGINT" />
+    <result column="news_type_id" property="newsTypeId" jdbcType="BIGINT" />
+    <result column="is_recommend" property="isRecommend" jdbcType="INTEGER" />
+    <result column="image_id" property="imageId" jdbcType="BIGINT" />
+    <result column="review_id" property="reviewId" jdbcType="BIGINT" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.shili.lu.news.model.PubBroadcastContent" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+    <resultMap id="DtoResultMap" type="com.shili.lu.news.dto.PubBroadcastContentDto" extends="ResultMapWithBLOBs" >
+  	<result column="name" property="userName" jdbcType="VARCHAR" />
+  	<result column="content_type_name" property="contentTypeName" jdbcType="VARCHAR" />
+  	<result column="news_type_name" property="newsTypeName" jdbcType="VARCHAR" />
+  	<result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+  	<result column="views_count" property="viewsCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, delete_flag, user_id, title, source, content_type_id, 
+    view_id, news_type_id, is_recommend, image_id,review_id,image_url,remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+     <sql id="Base_Column_List1" >
+    t1.id, t1.create_time, t1.update_time, t1.delete_flag, t1.user_id, t1.title, t1.source, t1.content,
+    t1.content_type_id,t1.view_id,t1.news_type_id,t1.is_recommend,t1.image_id,t1.review_id,t1.image_url,
+    t1.remark
+  </sql>
+   <sql id="Blob_Column_List1" >
+    content
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="DtoResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List1" />
+    ,
+    <include refid="Blob_Column_List1" />
+    ,
+    t2.comment_count as comment_count
+    from pub_broadcast_content t1
+    left join 
+    (SELECT COUNT(*) comment_count,content_id FROM news_comment GROUP BY content_id) t2
+    on t2.`content_id`=t1.`id`
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 前台最新的新闻 -->
+     <select id="findNewsContent" resultMap="DtoResultMap" >
+    select 
+    <include refid="Base_Column_List1" />
+    ,t2.`name` as name,
+    t3.`cname` as content_type_name,
+    t4.`cname` as news_type_name
+    from pub_broadcast_content t1
+    LEFT JOIN rms_user t2 ON t2.`id`=t1.`user_id`
+    left join res_dict t3 on t3.`id`=t1.`content_type_id`
+    left join res_dict t4 on t4.`id`=t1.`news_type_id`
+    WHERE t1.delete_flag=0
+   order by create_time desc
+  </select>
+  
+  <!-- 新闻列表 -->
+   <select id="listBroadcastByPage" resultMap="DtoResultMap" >
+    select 
+    <include refid="Base_Column_List1" />
+    ,t2.`name` as name,
+    t3.`cname` as content_type_name,
+    t4.`cname` as news_type_name
+    from pub_broadcast_content t1
+    LEFT JOIN rms_user t2 ON t2.`id`=t1.`user_id`
+    left join res_dict t3 on t3.`id`=t1.`content_type_id`
+    left join res_dict t4 on t4.`id`=t1.`news_type_id`
+    WHERE t1.delete_flag=0
+    <if test="title!=null and title!=''">
+		and t1.`title` like concat('%',#{title},'%')
+	</if>
+    <if test="param!=null and param!=''">
+		${param}
+	</if>
+	<if test="userName!=null and userName!=''">
+		and t2.`name` like concat('%',#{userName},'%')
+	</if>
+	<if test="contentTypeId!=null and contentTypeId!=''">
+		and t1.`content_type_id` =#{contentTypeId}
+	</if>
+		<if test="newsTypeId!=null and newsTypeId!=''">
+		and t1.`news_type_id` =#{newsTypeId}
+	</if>
+	<if test="createTimeStart!=null and createTimeStart!=''">
+		<![CDATA[and DATE_FORMAT(t1.create_time,'%Y-%m-%d')>=#{createTimeStart}]]>
+	</if>
+	<if test="createTimeEnd!=null and createTimeEnd!=''">
+		<![CDATA[and DATE_FORMAT(t1.create_time,'%Y-%m-%d')<=#{createTimeEnd}]]>
+	</if>
+  </select>
+  <!-- 根据新闻类型id查询相应的新闻内容 -->
+  <select id="selectByNewsTypeId" resultMap="DtoResultMap" parameterType="java.lang.Long" >
+     select 
+    <include refid="Base_Column_List1" />
+    ,t2.`name` as name,
+    t3.`cname` as content_type_name,
+    t4.`cname` as news_type_name
+    from pub_broadcast_content t1
+    LEFT JOIN rms_user t2 ON t2.`id`=t1.`user_id`
+    left join res_dict t3 on t3.`id`=t1.`content_type_id`
+    left join res_dict t4 on t4.`id`=t1.`news_type_id`
+    WHERE t1.delete_flag=0
+    and t1.news_type_id = #{id,jdbcType=BIGINT}
+    or t1.content_type_id=#{id,jdbcType=BIGINT}
+    ORDER BY t1.is_recommend DESC,t1.create_time DESC
+  </select>
+  
+    <!-- 根据新闻类型id查询相应的新闻列表 -->
+  <select id="selectListByNewsTypeId" resultMap="DtoResultMap" parameterType="java.lang.Long" >
+     select 
+    <include refid="Base_Column_List1" />
+    ,t2.`name` as name,
+    t3.`cname` as content_type_name,
+    t4.`cname` as news_type_name,
+    t5.comment_count as comment_count,
+     t6.`views` as views_count
+    from pub_broadcast_content t1
+    LEFT JOIN rms_user t2 ON t2.`id`=t1.`user_id`
+    left join res_dict t3 on t3.`id`=t1.`content_type_id`
+    left join res_dict t4 on t4.`id`=t1.`news_type_id` 
+     LEFT JOIN ( SELECT content_id,COUNT(*) comment_count FROM news_comment GROUP BY content_id) 
+    t5 ON t5.`content_id`=t1.`id`
+      LEFT JOIN news_content_count t6 ON t6.`content_id`=t1.`id`
+    WHERE t1.delete_flag=0
+    and t1.news_type_id = #{id,jdbcType=BIGINT}
+    or t1.content_type_id=#{id,jdbcType=BIGINT}
+    ORDER BY t1.is_recommend DESC,t1.create_time DESC
+  </select>
+  
+  <!-- -详细页面 查询评论靠前的新闻 -->
+  <select id="selectListMostComment" resultMap="DtoResultMap" >
+     select 
+    <include refid="Base_Column_List1" />,
+    t2.comment_count as comment_count
+    FROM pub_broadcast_content t1
+    LEFT JOIN (SELECT content_id,COUNT(*) AS comment_count
+     FROM news_comment t1 
+   GROUP BY content_id) t2 ON t2.`content_id`=t1.`id`
+   WHERE
+   delete_flag=0
+  ORDER BY comment_count DESC
+     limit 10
+  </select>
+  
+   <!-- -详细页面 查询点击最多的新闻 -->
+  <select id="selectListMostViews" resultMap="DtoResultMap" >
+     select 
+    <include refid="Base_Column_List1" />,
+    t2.views as views_count
+    FROM pub_broadcast_content t1
+    LEFT JOIN news_content_count t2 ON 
+     t2.`content_id`=t1.`id`
+   WHERE
+   delete_flag=0
+  ORDER BY t1.`is_recommend` DESC,
+   views_count DESC 
+   limit 10
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+   update pub_broadcast_content
+   set delete_flag=1
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.shili.lu.news.model.PubBroadcastContent" >
+    insert into pub_broadcast_content (id, create_time, update_time, 
+      delete_flag, user_id, title, 
+      source, content_type_id, view_id, 
+      news_type_id, is_recommend, review_id, 
+      content,image_id,image_url,remark)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleteFlag,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{source,jdbcType=VARCHAR}, #{contentTypeId,jdbcType=BIGINT}, #{viewId,jdbcType=BIGINT}, 
+      #{newsTypeId,jdbcType=BIGINT}, #{isRecommend,jdbcType=INTEGER}, 
+      #{reviewId,jdbcType=BIGINT}, 
+      #{content,jdbcType=LONGVARCHAR},
+      #{imageId,jdbcType=BIGINT},
+      #{imageUrl,jdbcType=VARCHAR},
+      #{remark,jdbcType=VARCHAR}
+      
+      )
+  </insert>
+
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shili.lu.news.model.PubBroadcastContent" >
+    update pub_broadcast_content
+    set 
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      content_type_id = #{contentTypeId,jdbcType=BIGINT},
+      view_id = #{viewId,jdbcType=BIGINT},
+      news_type_id = #{newsTypeId,jdbcType=BIGINT},
+      is_recommend = #{isRecommend,jdbcType=INTEGER},
+      review_id = #{reviewId,jdbcType=BIGINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      image_id=#{imageId,jdbcType=BIGINT},
+      image_url=#{imageUrl,jdbcType=VARCHAR},
+      remark=#{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.news.model.PubBroadcastContent" >
+    update pub_broadcast_content
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      content_type_id = #{contentTypeId,jdbcType=BIGINT},
+      view_id = #{viewId,jdbcType=BIGINT},
+      news_type_id = #{newsTypeId,jdbcType=BIGINT},
+      is_recommend = #{isRecommend,jdbcType=INTEGER},
+      review_id = #{reviewId,jdbcType=BIGINT},
+      image_id=#{imageId,jdbcType=BIGINT},
+      image_url=#{imageUrl,jdbcType=VARCHAR},
+      remark=#{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

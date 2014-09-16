@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.common.dao.ResDictMapper" >
+  
+  <resultMap id="BaseResultMap" type="com.shili.lu.common.model.ResDict" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+    <result column="short_py" property="shortPy" jdbcType="VARCHAR" />
+    <result column="pyszm" property="pyszm" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="order_index" property="orderIndex" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="hot_status" property="hotStatus" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="DtoBaseResultMap" type="com.shili.lu.common.dto.ResDictDto" extends="BaseResultMap">
+  	<result column="full_name" property="fullName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, type, cname, ename, short_py, pyszm, code, pid, order_index, create_time, update_time, 
+    delete_flag,status,hot_status
+  </sql>
+  
+  <update id="cascadeUpdateStauts">
+  	update res_dict set status=#{status} where id in (${param})
+  </update>
+  
+   <update id="cascadeDelete">
+  	update res_dict set delete_flag=1 where id in (${param})
+  </update>
+  
+  
+  <select id="getAllChildIds" parameterType="java.lang.Long" resultType="java.lang.String">
+  	SELECT fn_get_dict_child_ids(#{id}) as ids
+  </select>
+  
+  <select id="listDictContentByPage" resultMap="DtoBaseResultMap">
+  	select <include refid="Base_Column_List" />,fn_get_dict_full_name(id,'/') as full_name
+  		from res_dict
+  				where delete_flag=0
+  					<if test="type!=null and type!=''">
+  						and type=#{type}
+  					</if>
+  					<if test="cname!=null and cname!=''">
+  						and cname like concat('%',#{cname},'%')
+  					</if>
+  					<if test="pid!=null">
+  						and pid=#{pid}
+  					</if>
+				    <if test="status!=null">
+  					  <if test="status==0">
+  						and (status=0 or status is null)
+  					  </if>
+  					 <if test="status==1">
+  					  	and	status=1
+  					 </if>
+  					</if> 
+  					<if test="hotStatus!=null">
+  						and hot_status=#{hotStatus}
+  					</if> 
+  </select>
+  
+  <select id="listAllDict" resultMap="BaseResultMap" parameterType="com.shili.lu.common.model.ResDict">
+  		select <include refid="Base_Column_List" />
+  			from res_dict
+  				where delete_flag=0
+  					<if test="type!=null and type!=''">
+  						and type=#{type}
+  					</if>
+  					<if test="cname!=null and cname!=''">
+  						and cname=#{cname}
+  					</if>
+  					<if test="pid!=null">
+  						and pid=#{pid}
+  					</if> 
+  					<if test="status!=null">
+  					  <if test="status==0">
+  						and (status=0 or status is null)
+  					  </if>
+  					 <if test="status==1">
+  					  	and	status=1
+  					 </if>
+  					</if> 
+  					<if test="hotStatus!=null">
+  						and hot_status=#{hotStatus}
+  					</if> 
+  					order by order_index desc
+  						
+  </select>
+  
+  <select id="listAllDetailDict" resultMap="BaseResultMap" parameterType="com.shili.lu.common.model.ResDict">
+  		select <include refid="Base_Column_List" />
+  			from res_dict
+  				where delete_flag=0
+  					<if test="type!=null and type!=''">
+  						and type=#{type}
+  					</if>
+  					<if test="cname!=null and cname!=''">
+  						and cname=#{cname}
+  					</if>
+  					<if test="pid!=null">
+  						and pid=#{pid}
+  						or  id=#{pid}
+  					</if> 
+  					<if test="status!=null">
+  					  <if test="status==0">
+  						and (status=0 or status is null)
+  					  </if>
+  					 <if test="status==1">
+  					  	and	status=1
+  					 </if>
+  					</if> 
+  					<if test="hotStatus!=null">
+  						and hot_status=#{hotStatus}
+  					</if> 
+  					order by order_index desc
+  						
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from res_dict
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    update 
+    res_dict  
+    set delete_flag=1
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.shili.lu.common.model.ResDict" >
+     insert into res_dict (id, type, cname, 
+      ename, short_py, pyszm, 
+      code, pid, order_index, 
+      create_time, update_time, delete_flag,status,hot_status
+      )
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, 
+      #{ename,jdbcType=VARCHAR}, #{shortPy,jdbcType=VARCHAR}, #{pyszm,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{pid,jdbcType=BIGINT}, #{orderIndex,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{hotStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.common.model.ResDict" >
+     update res_dict
+    set type = #{type,jdbcType=VARCHAR},
+      cname = #{cname,jdbcType=VARCHAR},
+      ename = #{ename,jdbcType=VARCHAR},
+      short_py = #{shortPy,jdbcType=VARCHAR},
+      pyszm = #{pyszm,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=BIGINT},
+      order_index = #{orderIndex,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      hot_status = #{hotStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+</mapper>

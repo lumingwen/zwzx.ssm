@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.common.dao.ResAttachmentMapper">
+	<resultMap id="BaseResultMap" type="com.shili.lu.common.model.ResAttachment">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+		<result column="rel_type" property="relType" jdbcType="INTEGER" />
+		<result column="rel_id" property="relId" jdbcType="BIGINT" />
+		<result column="old_name" property="oldName" jdbcType="VARCHAR" />
+		<result column="save_path" property="savePath" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_time, update_time, delete_flag, rel_type,
+		rel_id, old_name,
+		save_path
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from res_attachment
+		where id = #{id,jdbcType=BIGINT} and delete_flag=0
+	</select>
+	<select id="selectByRel" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from res_attachment
+		where rel_type = #{relType} and rel_id=#{relId} and
+		delete_flag=0
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		update
+		res_attachment set delete_flag=1
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByRel" parameterType="com.shili.lu.common.model.ResAttachment">
+		update res_attachment set
+		delete_flag=1
+		where rel_type = #{relType,jdbcType=INTEGER} and
+		rel_id=#{relId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true"
+		parameterType="com.shili.lu.common.model.ResAttachment">
+		insert into res_attachment (create_time, update_time,
+		delete_flag, rel_type, rel_id,
+		old_name, save_path)
+		values
+		(#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{deleteFlag,jdbcType=INTEGER}, #{relType,jdbcType=INTEGER},
+		#{relId,jdbcType=BIGINT},
+		#{oldName,jdbcType=VARCHAR},
+		#{savePath,jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateByPrimaryKey" parameterType="com.shili.lu.common.model.ResAttachment">
+		update
+		res_attachment
+		set create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		delete_flag =
+		#{deleteFlag,jdbcType=INTEGER},
+		rel_type = #{relType,jdbcType=INTEGER},
+		rel_id = #{relId,jdbcType=BIGINT},
+		old_name =
+		#{oldName,jdbcType=VARCHAR},
+		save_path = #{savePath,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

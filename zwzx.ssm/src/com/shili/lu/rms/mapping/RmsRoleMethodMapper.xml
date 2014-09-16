@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.rms.dao.RmsRoleMethodMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.rms.model.RmsRoleMethod" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="method_id" property="methodId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, update_time, delete_flag, role_id, method_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rms_role_method
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByMethodId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rms_role_method
+    where method_id = #{id,jdbcType=BIGINT} and delete_flag=0
+  </select>
+  
+   <delete id="deleteByRoleId" parameterType="java.lang.Long" >
+  	 update rms_role_method set delete_flag=1
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  	 update rms_role_method set delete_flag=1
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert"  keyProperty="id" useGeneratedKeys="true" parameterType="com.shili.lu.rms.model.RmsRoleMethod" >
+    insert into rms_role_method (id, create_time, update_time, 
+      delete_flag, role_id, method_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleteFlag,jdbcType=INTEGER}, #{roleId,jdbcType=BIGINT}, #{methodId,jdbcType=BIGINT}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.rms.model.RmsRoleMethod" >
+    update rms_role_method
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=BIGINT},
+      method_id = #{methodId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

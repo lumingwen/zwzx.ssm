@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.rms.dao.RmsUserMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.rms.model.RmsUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="workno" property="workno" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="password_key" property="passwordKey" jdbcType="VARCHAR" />
+    <result column="carno" property="carno" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="qqno" property="qqno" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="gradeId" property="gradeid" jdbcType="VARCHAR" />
+    <result column="eduName" property="eduname" jdbcType="VARCHAR" />
+    <result column="fireName" property="firename" jdbcType="VARCHAR" />
+    <result column="firePhone" property="firephone" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+     <result column="user_type" property="userType" jdbcType="INTEGER" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+      <result column="status" property="status" jdbcType="INTEGER" />
+      <result column="role_id" property="roleId" jdbcType="BIGINT" />
+       <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, workno, account, password, password_key, carno, age, sex, phone, mobile, email, qqno, 
+    address, gradeId, eduName, fireName, firePhone, description, state,user_type,create_time,
+    update_time,status,role_id,delete_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rms_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+   <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rms_user
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 分页查询用户 -->
+	<select id="listRmsUserByPage" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from rms_user 
+		where delete_flag=0 
+		<if test="name != null and name!=''">
+				and name = #{name}
+		</if>
+		<if test="userType != null">
+			and user_type=#{userType}
+		</if>
+	</select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rms_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shili.lu.rms.model.RmsUser" >
+    insert into rms_user (id, name, workno, 
+      account, password, password_key, carno, 
+      age, sex, phone, mobile, 
+      email, qqno, address, 
+      gradeId, eduName, fireName, 
+      firePhone, description, state,
+      user_type,create_time,
+     update_time,status,role_id,delete_flag
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{workno,jdbcType=VARCHAR}, 
+      #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{passwordKey,jdbcType=VARCHAR},
+      #{carno,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{qqno,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{gradeid,jdbcType=VARCHAR}, #{eduname,jdbcType=VARCHAR}, #{firename,jdbcType=VARCHAR}, 
+      #{firephone,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR},
+      #{userType,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER},#{roleId,jdbcType=BIGINT},#{deleteFlag,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.rms.model.RmsUser" >
+    update rms_user
+    set name = #{name,jdbcType=VARCHAR},
+      workno = #{workno,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      password_key = #{passwordKey,jdbcType=VARCHAR},
+      carno = #{carno,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      qqno = #{qqno,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      gradeId = #{gradeid,jdbcType=VARCHAR},
+      eduName = #{eduname,jdbcType=VARCHAR},
+      fireName = #{firename,jdbcType=VARCHAR},
+      firePhone = #{firephone,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      user_type= #{userType,jdbcType=INTEGER},
+      create_time=#{createTime,jdbcType=TIMESTAMP}, 
+      update_time=#{updateTime,jdbcType=TIMESTAMP}, 
+      status= #{status,jdbcType=INTEGER},
+      role_id=#{roleId,jdbcType=BIGINT},
+      delete_flag =#{deleteFlag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

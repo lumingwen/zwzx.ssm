@@ -1,0 +1,137 @@
+body,ul,li,p,h3{
+    margin: 0;
+    padding: 0;
+    font-family: "microsoft yahei";
+}
+@font-face {font-family: 'iconfont';
+    src: url('../iconfont/iconfont.eot'); /* IE9*/
+    src: url('../iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../iconfont/iconfont.woff') format('woff'), /* chrome¡¢firefox */
+    url('../iconfont/iconfont.ttf') format('truetype'), /* chrome¡¢firefox¡¢opera¡¢Safari, Android, iOS 4.2+*/
+    url('../iconfont/iconfont.svg#uxiconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+body,html{
+    height: 100%;
+}
+form{
+    height: 100%;
+}
+/*Ìí¼Ó*/
+.content-right-add{
+    position: relative;
+    height: 100%;
+}
+.content-right-add>h3{
+    line-height: 35px;
+    padding: 0 20px;
+    color: white;
+    background-color: #3499da;
+}
+.content-right-addinfo{
+    position: relative;
+    min-height: 89%;
+    padding: 1% 0;
+}
+
+.content-right-addinfo>p{
+    position: relative;
+    padding: 0 20px;
+    line-height: 35px;
+    font-size: 14px;
+    background-color: #e9ecec;
+}
+.content-right-addinfo>p:after{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: 10px solid;
+    border-color:#e9ecec transparent transparent transparent;
+}
+.content-right-addinfo>ul{
+    padding: 20px 0;
+    overflow: hidden;
+}
+.content-right-addinfo>ul>li{
+    padding: 0 30px;
+    line-height: 35px;
+    font-size: 14px;
+}
+.content-right-addinfo ul>li>span{
+    display: inline-block;
+    width: 100px;
+    text-align:left;
+}
+.content-right-addinfo ul>li>.error{
+    display:none;
+    width: 200px;
+    color: red;
+}
+.content-right-addinfo>ul>li>input[type="text"]{
+    width: 200px;
+    height: 20px;
+    padding: 2px 5px;
+    border: 1px solid #d4d4d4;
+    outline: none;
+}
+
+#biaoti{
+    width: 300px;
+    height: 20px;
+    padding: 2px 5px;
+    border: 1px solid #d4d4d4;
+    outline: none;	
+}
+.content-right-addinfo>ul>li>input[type="password"]{
+    width: 200px;
+    height: 20px;
+    padding: 2px 5px;
+    border: 1px solid #d4d4d4;
+    outline: none;
+}
+.content-right-addinfo>ul>li>select{
+    width: 212px;
+    height: 24px;
+    border:1px solid #d4d4d4 ;
+    outline: none;
+}
+.content-right-brief{
+    padding: 10px;
+}
+
+.content-right-addinfo-sure{
+    position: absolute;
+    bottom: 0;
+}
+.content-right-addinfo-sure>button{
+    width: 200px;
+    height: 30px;
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+}
+.content-right-addinfo-sure>.button1{
+    background-color: #3499da;
+    border: 1px solid #2f84bb;
+}
+.content-right-addinfo-sure>.button2{
+    background-color: #b1b1b1;
+    border: 1px solid #ababab;
+}

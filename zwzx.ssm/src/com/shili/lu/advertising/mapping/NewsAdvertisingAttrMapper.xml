@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.advertising.dao.NewsAdvertisingAttrMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.advertising.model.NewsAdvertisingAttr" >
+    <result column="advertising_id" property="advertisingId" jdbcType="INTEGER" />
+    <result column="attr_name" property="attrName" jdbcType="VARCHAR" />
+    <result column="attr_value" property="attrValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.shili.lu.advertising.model.NewsAdvertisingAttr" >
+    insert into news_advertising_attr (advertising_id, attr_name, attr_value
+      )
+    values (#{advertisingId,jdbcType=INTEGER}, #{attrName,jdbcType=VARCHAR}, #{attrValue,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shili.lu.advertising.model.NewsAdvertisingAttr" >
+    insert into news_advertising_attr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="advertisingId != null" >
+        advertising_id,
+      </if>
+      <if test="attrName != null" >
+        attr_name,
+      </if>
+      <if test="attrValue != null" >
+        attr_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="advertisingId != null" >
+        #{advertisingId,jdbcType=INTEGER},
+      </if>
+      <if test="attrName != null" >
+        #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="attrValue != null" >
+        #{attrValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.friendlink.dao.NewsFriendlinkMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.friendlink.model.NewsFriendlink" >
+    <id column="friendlink_id" property="friendlinkId" jdbcType="INTEGER" />
+    <result column="friendlinkctg_id" property="friendlinkctgId" jdbcType="INTEGER" />
+    <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="image_id" property="imageId" jdbcType="BIGINT" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="views" property="views" jdbcType="INTEGER" />
+    <result column="is_enabled" property="isEnabled" jdbcType="CHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    friendlink_id, friendlinkctg_id, site_name, domain, image_id, email, description, views, 
+    is_enabled, priority, user_id, create_time, update_time, start_time, end_time,delete_flag
+  </sql>
+    <sql id="Base_Column_List1" >
+   t1.friendlink_id, t1.friendlinkctg_id, t1.site_name, t1.domain, t1.image_id, t1.email, t1.description, t1.views, 
+   t1. is_enabled, t1.priority, t1.user_id, t1.create_time, t1.update_time, t1.start_time, t1.end_time,t1.delete_flag
+  </sql>
+    <resultMap id="DtoResultMap" type="com.shili.lu.friendlink.dto.NewsFriendlinkDto" extends="BaseResultMap" >
+  	<result column="name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from news_friendlink
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </select>
+  <!-- 前台 根据链接类型查看链接 -->
+ <select id="findFriendlinkByCtg" resultMap="DtoResultMap"   parameterType="java.lang.String" >
+select
+ <include refid="Base_Column_List1" />
+from news_friendlink t1
+LEFT JOIN news_friendlink_ctg t2 ON t2.`friendlinkctg_id`=t1.`friendlinkctg_id` 
+WHERE t1.delete_flag=0
+<if test="friendlinkctgName!=null and friendlinkctgName!=''">
+		and t2.`friendlinkctg_name`=#{friendlinkctgName,jdbcType=VARCHAR}
+</if>
+  </select>
+  <!-- 广告列表 -->
+   <select id="listFriendlinkByPage" resultMap="DtoResultMap" >
+    select 
+    <include refid="Base_Column_List1" />
+    ,t2.`name` as name
+    from news_friendlink t1
+    LEFT JOIN rms_user t2 ON t2.`id`=t1.`user_id`
+    WHERE t1.delete_flag=0
+    <if test="siteName!=null and  siteName!=''">
+		and t1.`site_name` like concat('%',#{siteName},'%')
+	</if>
+    <if test="param!=null and param!=''">
+		${param}
+	</if>
+	<if test="userName!=null and userName!=''">
+		and t2.`name` like concat('%',#{userName},'%')
+	</if>
+	<if test="isEnabled!=null and isEnabled!=''">
+		and t1.`is_enabled` =#{isEnabled,jdbcType=INTEGER}
+	</if>
+	<if test="priority!=null and priority!=''">
+		and t1.`priority` =#{priority,jdbcType=INTEGER}
+	</if>
+	<if test="createTimeStart!=null and createTimeStart!=''">
+		<![CDATA[and DATE_FORMAT(t1.create_time,'%Y-%m-%d')>=#{createTimeStart}]]>
+	</if>
+	<if test="createTimeEnd!=null and createTimeEnd!=''">
+		<![CDATA[and DATE_FORMAT(t1.create_time,'%Y-%m-%d')<=#{createTimeEnd}]]>
+	</if>
+  </select>
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update  news_friendlink
+    set delete_flag=1
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shili.lu.friendlink.model.NewsFriendlink" >
+    insert into news_friendlink (friendlink_id, friendlinkctg_id, site_name, 
+      domain, image_id, email, 
+      description, views, is_enabled, 
+      priority, user_id,create_time,update_time,start_time,end_time,delete_flag)
+    values (#{friendlinkId,jdbcType=INTEGER}, #{friendlinkctgId,jdbcType=INTEGER}, #{siteName,jdbcType=VARCHAR}, 
+      #{domain,jdbcType=VARCHAR}, #{imageId,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{views,jdbcType=INTEGER}, #{isEnabled,jdbcType=CHAR}, 
+      #{priority,jdbcType=INTEGER},#{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, 
+      #{startTime,jdbcType=DATE}, 
+      #{endTime,jdbcType=DATE},      
+      #{deleteFlag,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.friendlink.model.NewsFriendlink" >
+    update news_friendlink
+    set friendlinkctg_id = #{friendlinkctgId,jdbcType=INTEGER},
+      site_name = #{siteName,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
+      image_id = #{imageId,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      views = #{views,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=CHAR},
+      priority = #{priority,jdbcType=INTEGER},
+       user_id = #{userId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+       end_time = #{endTime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER}
+    where friendlink_id = #{friendlinkId,jdbcType=INTEGER}
+  </update>
+</mapper>
