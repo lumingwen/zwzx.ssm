@@ -13,6 +13,72 @@ String path = request.getContextPath();
 		<script src="../js/front/jquery-1.8.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/front/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/front/datugundong.js" type="text/javascript" charset="utf-8"></script>
+		
+		<link type="text/css" href="../css/style.css" rel="stylesheet"/>
+
+		<script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.event.drag-1.5.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.touchSlider.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			
+				$(".main_visual").hover(function(){
+					$("#btn_prev,#btn_next").fadeIn()
+				},function(){
+					$("#btn_prev,#btn_next").fadeOut()
+				});
+				
+				$dragBln = false;
+				
+				$(".main_image").touchSlider({
+					flexible : true,
+					speed : 200,
+					btn_prev : $("#btn_prev"),
+					btn_next : $("#btn_next"),
+					paging : $(".flicking_con a"),
+					counter : function (e){
+						$(".flicking_con a").removeClass("on").eq(e.current-1).addClass("on");
+					}
+				});
+				
+				$(".main_image").bind("mousedown", function() {
+					$dragBln = false;
+				});
+				
+				$(".main_image").bind("dragstart", function() {
+					$dragBln = true;
+				});
+				
+				$(".main_image a").click(function(){
+					if($dragBln) {
+						return false;
+					}
+				});
+				
+				timer = setInterval(function(){
+					$("#btn_next").click();
+				}, 5000);
+				
+				$(".main_visual").hover(function(){
+					clearInterval(timer);
+				},function(){
+					timer = setInterval(function(){
+						$("#btn_next").click();
+					},5000);
+				});
+				
+				$(".main_image").bind("touchstart",function(){
+					clearInterval(timer);
+				}).bind("touchend", function(){
+					timer = setInterval(function(){
+						$("#btn_next").click();
+					}, 5000);
+				});
+				
+			});
+		</script>
+		
+		
 		<script type="text/javascript">
 		function toNewsDetail(id)
 		{
@@ -115,374 +181,28 @@ String path = request.getContextPath();
 					</c:forEach>
 					
 					<div id="fwl_cov4" class="h_part2_left">
-						<div id="bigpic">
-							<div id="focus_pic" class="focusPic">
-								<div id="l_btn01" class="l_btn"></div>
-								<div id="r_btn01" class="r_btn"></div>
-								<div class="bigpic_box">
-									<div class="fpic" style="display: none;">
-										<a target="_blank" href="#">
-											<img width="522" height="270" border="0" alt="习近平参观阿根廷共和国庄园" src="http://www.xinhuanet.com/titlepic/1111703484_title0h.jpg">
-										</a>
-										<h3>
-										<a target="_blank" href="#">
-											习近平参观阿根廷共和国庄园
-										</a></h3>
-										<span class="f_bg"></span>
-										<div id="bigPicDetail" class="item_detail_info">
-											<div class="close">
-												<a href="javascript:void(0)"></a>
-											</div>
-											<div class="detail_info_left">
-												<p class="pic">
-													<a target="_blank" href="#">
-														<img border="0" alt="揭秘赌王4老婆11千金" src="http://www.xinhuanet.com/titlepic/115068384_title0h.jpg">
-													</a>
-												</p>
-												<p class="name2">
-													<a target="_blank" href="#">
-														揭秘赌王4老婆11千金
-													</a>
-												</p>
-											</div>
-											<div class="detail_info_right">
-												<ul>
-													<li>
-														<a target="_blank" href="#">
-															利率正攻坚 汇率待放宽
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															健美锦标赛 女选手前凸后翘秀好身材
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															超萌动物GIF 组图
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															女富二代接班 中国女掌门人比例或将高于美国
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															气温攀升 年轻女孩上演“清凉style”
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<a style="display:none" href="javascript:void(0)" class="btn_zk">
-											展开
-										</a>
-									</div>
-									<div class="fpic" style="display: none;">
-										<a target="_blank" href="#">
-											<img width="522" height="270" border="0" alt="习近平参观阿根廷共和国庄园" src="http://www.xinhuanet.com/titlepic/1111703484_title0h.jpg">
-										</a>
-										<h3>
-										<a target="_blank" href="#">
-											习近平参观阿根廷共和国庄园
-										</a></h3>
-										<span class="f_bg"></span>
-										<div id="bigPicDetail" class="item_detail_info">
-											<div class="close">
-												<a href="javascript:void(0)"></a>
-											</div>
-											<div class="detail_info_left">
-												<p class="pic">
-													<a target="_blank" href="#">
-														<img border="0" alt="揭秘赌王4老婆11千金" src="http://www.xinhuanet.com/titlepic/115068384_title0h.jpg">
-													</a>
-												</p>
-												<p class="name2">
-													<a target="_blank" href="#">
-														揭秘赌王4老婆11千金
-													</a>
-												</p>
-											</div>
-											<div class="detail_info_right">
-												<ul>
-													<li>
-														<a target="_blank" href="#">
-															利率正攻坚 汇率待放宽
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															健美锦标赛 女选手前凸后翘秀好身材
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															超萌动物GIF 组图
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															女富二代接班 中国女掌门人比例或将高于美国
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															气温攀升 年轻女孩上演“清凉style”
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<a style="display:none" href="javascript:void(0)" class="btn_zk">
-											展开
-										</a>
-									</div>
-									<div class="fpic" style="display: none;">
-										<a target="_blank" href="#">
-											<img width="522" height="270" border="0" alt="习近平参观阿根廷共和国庄园" src="http://www.xinhuanet.com/titlepic/1111703484_title0h.jpg">
-										</a>
-										<h3>
-										<a target="_blank" href="#">
-											习近平参观阿根廷共和国庄园
-										</a></h3>
-										<span class="f_bg"></span>
-										<div id="bigPicDetail" class="item_detail_info">
-											<div class="close">
-												<a href="javascript:void(0)"></a>
-											</div>
-											<div class="detail_info_left">
-												<p class="pic">
-													<a target="_blank" href="#">
-														<img border="0" alt="揭秘赌王4老婆11千金" src="http://www.xinhuanet.com/titlepic/115068384_title0h.jpg">
-													</a>
-												</p>
-												<p class="name2">
-													<a target="_blank" href="#">
-														揭秘赌王4老婆11千金
-													</a>
-												</p>
-											</div>
-											<div class="detail_info_right">
-												<ul>
-													<li>
-														<a target="_blank" href="#">
-															利率正攻坚 汇率待放宽
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															健美锦标赛 女选手前凸后翘秀好身材
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															超萌动物GIF 组图
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															女富二代接班 中国女掌门人比例或将高于美国
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															气温攀升 年轻女孩上演“清凉style”
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<a style="display:none" href="javascript:void(0)" class="btn_zk">
-											展开
-										</a>
-									</div>
-									<div class="fpic" style="display: none;">
-										<a target="_blank" href="#">
-											<img width="522" height="270" border="0" alt="习近平参观阿根廷共和国庄园" src="http://www.xinhuanet.com/titlepic/1111703484_title0h.jpg">
-										</a>
-										<h3>
-										<a target="_blank" href="#">
-											习近平参观阿根廷共和国庄园
-										</a></h3>
-										<span class="f_bg"></span>
-										<div id="bigPicDetail" class="item_detail_info">
-											<div class="close">
-												<a href="javascript:void(0)"></a>
-											</div>
-											<div class="detail_info_left">
-												<p class="pic">
-													<a target="_blank" href="#">
-														<img border="0" alt="揭秘赌王4老婆11千金" src="http://www.xinhuanet.com/titlepic/115068384_title0h.jpg">
-													</a>
-												</p>
-												<p class="name2">
-													<a target="_blank" href="#">
-														揭秘赌王4老婆11千金
-													</a>
-												</p>
-											</div>
-											<div class="detail_info_right">
-												<ul>
-													<li>
-														<a target="_blank" href="#">
-															利率正攻坚 汇率待放宽
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															健美锦标赛 女选手前凸后翘秀好身材
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															超萌动物GIF 组图
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															女富二代接班 中国女掌门人比例或将高于美国
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															气温攀升 年轻女孩上演“清凉style”
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<a style="display:none" href="javascript:void(0)" class="btn_zk">
-											展开
-										</a>
-									</div>
-									<div class="fpic" style="display: none;">
-										<a target="_blank" href="#">
-											<img width="522" height="270" border="0" alt="习近平参观阿根廷共和国庄园" src="http://www.xinhuanet.com/titlepic/1111703484_title0h.jpg">
-										</a>
-										<h3>
-										<a target="_blank" href="#">
-											习近平参观阿根廷共和国庄园
-										</a></h3>
-										<span class="f_bg"></span>
-										<div id="bigPicDetail" class="item_detail_info">
-											<div class="close">
-												<a href="javascript:void(0)"></a>
-											</div>
-											<div class="detail_info_left">
-												<p class="pic">
-													<a target="_blank" href="#">
-														<img border="0" alt="揭秘赌王4老婆11千金" src="http://www.xinhuanet.com/titlepic/115068384_title0h.jpg">
-													</a>
-												</p>
-												<p class="name2">
-													<a target="_blank" href="#">
-														揭秘赌王4老婆11千金
-													</a>
-												</p>
-											</div>
-											<div class="detail_info_right">
-												<ul>
-													<li>
-														<a target="_blank" href="#">
-															利率正攻坚 汇率待放宽
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															健美锦标赛 女选手前凸后翘秀好身材
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															超萌动物GIF 组图
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															女富二代接班 中国女掌门人比例或将高于美国
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															气温攀升 年轻女孩上演“清凉style”
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<a style="display:none" href="javascript:void(0)" class="btn_zk">
-											展开
-										</a>
-									</div>
-									<div class="fpic" style="display: none;">
-										<a target="_blank" href="#">
-											<img width="522" height="270" border="0" alt="习近平参观阿根廷共和国庄园" src="http://www.xinhuanet.com/titlepic/1111703484_title0h.jpg">
-										</a>
-										<h3>
-										<a target="_blank" href="#">
-											习近平参观阿根廷共和国庄园
-										</a></h3>
-										<span class="f_bg"></span>
-										<div id="bigPicDetail" class="item_detail_info">
-											<div class="close">
-												<a href="javascript:void(0)"></a>
-											</div>
-											<div class="detail_info_left">
-												<p class="pic">
-													<a target="_blank" href="#">
-														<img border="0" alt="揭秘赌王4老婆11千金" src="http://www.xinhuanet.com/titlepic/115068384_title0h.jpg">
-													</a>
-												</p>
-												<p class="name2">
-													<a target="_blank" href="#">
-														揭秘赌王4老婆11千金
-													</a>
-												</p>
-											</div>
-											<div class="detail_info_right">
-												<ul>
-													<li>
-														<a target="_blank" href="#">
-															利率正攻坚 汇率待放宽
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															健美锦标赛 女选手前凸后翘秀好身材
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															超萌动物GIF 组图
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															女富二代接班 中国女掌门人比例或将高于美国
-														</a>
-													</li>
-													<li>
-														<a target="_blank" href="#">
-															气温攀升 年轻女孩上演“清凉style”
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<a style="display:none" href="javascript:void(0)" class="btn_zk">
-											展开
-										</a>
-									</div>
-								</div>
-								
-								<ul style="width:120px" class="btPhoto">
-									
-								</ul>
-							</div>
+						<div class="flicking_con">
+							<a href="#">1</a>
+							<a href="#">2</a>
+							<a href="#">3</a>
+							<a href="#">4</a>
+							<a href="#">5</a>
+						</div>
+					<div class="main_image">
+						<ul>
+			
+							
+							
+							<a href="http://www.baidu.com"><li><span class="img_3"></span></li></a>
+							<li><span class="img_4"></span></li>
+							<li><span class="img_1"></span></li>
+							<li><span class="img_2"></span></li>
+							<li><span class="img_5"></span></li>
+						</ul>
+							<a href="javascript:;" id="btn_prev"></a>
+							<a href="javascript:;" id="btn_next"></a>
 						</div>
 					</div>
-					
 					<div id="fwl_cov5" class="h_part2_right">
 						<!--重要新闻-->
 						<ul class="list fontblue">
