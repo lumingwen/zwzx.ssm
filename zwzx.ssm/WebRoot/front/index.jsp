@@ -9,16 +9,16 @@ String path = request.getContextPath();
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="../css/main.css"/>
-		<script src="../js/front/jquery-1.8.2.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/front/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/front/datugundong.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
+		<script src="${pageContext.request.contextPath}/js/front/jquery-1.8.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${pageContext.request.contextPath}/js/front/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${pageContext.request.contextPath}/js/front/datugundong.js" type="text/javascript" charset="utf-8"></script>
 		
-		<link type="text/css" href="../css/style.css" rel="stylesheet"/>
+		<link type="text/css" href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet"/>
 
-		<script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>
-		<script type="text/javascript" src="../js/jquery.event.drag-1.5.min.js"></script>
-		<script type="text/javascript" src="../js/jquery.touchSlider.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.event.drag-1.5.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.touchSlider.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 			
@@ -82,7 +82,7 @@ String path = request.getContextPath();
 		<script type="text/javascript">
 		function toNewsDetail(id)
 		{
-		  var url="editNewsContentCount.do?newsId="+id;		
+		  var url="front/editNewsContentCount.do?newsId="+id;		
 		  location=url;
 		}
 		</script>

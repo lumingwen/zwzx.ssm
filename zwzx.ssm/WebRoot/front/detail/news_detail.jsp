@@ -128,7 +128,7 @@ function jsonDataToString(dateStr) {
 				</div>
 				<div class="search">
 					<div class="right_top">
-						<a href="/font/index.do">
+						<a href="${pageContext.request.contextPath}/front/index.do">
 							首页
 						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
