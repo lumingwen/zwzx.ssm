@@ -82,7 +82,7 @@ String path = request.getContextPath();
 		<script type="text/javascript">
 		function toNewsDetail(id)
 		{
-		  var url="front/editNewsContentCount.do?newsId="+id;		
+		  var url="${pageContext.request.contextPath}/front/editNewsContentCount.do?newsId="+id;		
 		  location=url;
 		}
 		</script>
