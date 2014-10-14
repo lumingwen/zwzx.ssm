@@ -34,7 +34,7 @@ import com.shili.lu.rms.service.RmsUserServiceI;
  * 
  * 主页
  * 
- * @author zhangxujun
+ * @author lumw
  * 
  * 
  */

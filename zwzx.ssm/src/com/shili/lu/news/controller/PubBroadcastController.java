@@ -25,7 +25,7 @@ import com.shili.lu.news.service.PubBroadcastServiceI;
 import com.shili.lu.rms.dto.SessionUserDto;
 
 /**
- * 广告controller
+ * 新闻controller
  * 
  * @author
  */
@@ -33,7 +33,7 @@ import com.shili.lu.rms.dto.SessionUserDto;
 @RequestMapping("/pubBroadcast")
 public class PubBroadcastController {
 	/**
-	 * 广告service
+	 * 新闻service
 	 */
 	@Autowired
 	private PubBroadcastServiceI pubBroadcastService;
@@ -45,7 +45,7 @@ public class PubBroadcastController {
 	private ResDictServiceI resDictService;
 
 	/**
-	 * 分页查询广告内容
+	 * 分页查询新闻内容
 	 * 
 	 * @param req
 	 * @param queryParam
@@ -63,7 +63,7 @@ public class PubBroadcastController {
 
 		pageBounds.setContainsTotalCount(true);
 		pageBounds.getOrders()
-				.add(new Order("create_time", Direction.DESC, ""));
+				.add(new Order("update_time", Direction.DESC, ""));
 		PageList<PubBroadcastContentDto> resBroadcastList = pubBroadcastService
 				.listPubBroadcastContentByPage(queryParam, pageBounds);
 
@@ -153,7 +153,7 @@ public class PubBroadcastController {
 	}
 
 	/**
-	 * 根据特定id查询相应的旅游播报
+	 * 根据特定id查询相应的新闻
 	 * 
 	 */
 	@RequestMapping("/editBroadcast")

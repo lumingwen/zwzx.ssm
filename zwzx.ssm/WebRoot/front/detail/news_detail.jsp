@@ -122,13 +122,13 @@ function jsonDataToString(dateStr) {
 				<div class="logo">
 				<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
 					<c:if test="${newsAdvertisingList.adWeight eq 1 }">
-					     <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" />
+					     <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" width="215" height="115"/>
 					</c:if>
 				</c:forEach>
 				</div>
 				<div class="search">
 					<div class="right_top">
-						<a href="${pageContext.request.contextPath}/front/index.do">
+						<a href="/font/index.do">
 							首页
 						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
@@ -318,7 +318,7 @@ function jsonDataToString(dateStr) {
 					<c:forEach items="${contentlist.contentList}" var="newscontentlist">		  
 			          <c:if test="${newscontentlist.imageId ne null or newscontentlist.imageUrl ne '' }">	
 						<li>
-					   <c:if test="${newscontentlist.imageUrl ne '' }">
+					   <c:if test="${newscontentlist.imageUrl ne '' and not empty newscontentlist.imageUrl }">
 							<p class="img">
 							 <a href="editNewsContentCount.do?newsId=${newscontentlist.id}" >
 								<img width="135" height="100" border="0"  alt="${newscontentlist.imageUrl}" src="${newscontentlist.imageUrl}">
@@ -340,10 +340,10 @@ function jsonDataToString(dateStr) {
 							</p>
 						</li>
 						</c:if>
-						</c:forEach>
+				</c:forEach>
 			</c:forEach>
-</ul>
-									<div class="clear"></div>
+     </ul>
+			<div class="clear"></div>
 								</div>
 								<ul id="pdtj2" class="list">
 				<c:forEach items="${newscontentList}" var="contentlist" varStatus="status">
@@ -375,7 +375,7 @@ function jsonDataToString(dateStr) {
 					<c:forEach items="${newscontentMostCommentList}" var="mostCommentList">		  
 			          <c:if test="${mostCommentList.imageId ne null or mostCommentList.imageUrl ne '' }">	
 						<li>
-					   <c:if test="${mostCommentList.imageUrl ne '' }">
+					   <c:if test="${mostCommentList.imageUrl ne '' and not empty newscontentlist.imageUrl}">
 							<p class="img">
 							<a href="editNewsContentCount.do?newsId=${mostCommentList.id}" >
 								<img width="135" height="100" border="0"  alt="${mostCommentList.imageUrl}" src="${mostCommentList.imageUrl}">
@@ -423,7 +423,7 @@ function jsonDataToString(dateStr) {
 					<c:forEach items="${newscontentMostViewList}" var="mostViewList">		  
 			          <c:if test="${mostViewList.imageId ne null or mostViewList.imageUrl ne '' }">	
 						<li>
-					   <c:if test="${mostViewList.imageUrl ne '' }">
+					   <c:if test="${mostViewList.imageUrl ne '' and not empty newscontentlist.imageUrl}">
 							<p class="img">
 							 <a href="editNewsContentCount.do?newsId=${mostViewList.id}" >
 								<img width="135" height="100" border="0"  alt="${mostViewList.imageUrl}" src="${mostViewList.imageUrl}">

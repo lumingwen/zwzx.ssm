@@ -48,8 +48,10 @@ public class PubBroadcastServiceImpl implements PubBroadcastServiceI {
 		// TODO Auto-generated method stub
 		if (dto.getId() == null || "".equals(dto.getId())) {
 			dto.setCreateTime(new Date());
+			dto.setUpdateTime(new Date());
 			pubBroadcastContentMapper.insert(dto);// 新增
 		} else {
+			dto.setUpdateTime(new Date());
 			pubBroadcastContentMapper.updateByPrimaryKeyWithBLOBs(dto);// 更新
 		}
 

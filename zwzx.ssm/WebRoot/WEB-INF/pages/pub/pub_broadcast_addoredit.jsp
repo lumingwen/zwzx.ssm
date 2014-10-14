@@ -118,7 +118,6 @@ input{ vertical-align:middle; margin:0; padding:0}
 				           		}else{
 				           			$('#attchmentImage').attr('src','../resAttachmentController/viewImage.do?attachmentId='+data.id);
 				           			$('input[name="imageId"]').val(data.id);
-				           			 $('#addressEdit1').remove();
 				           			alert('上传成功!');
 				           		}
 				            }, 
@@ -135,7 +134,7 @@ input{ vertical-align:middle; margin:0; padding:0}
 </head>
 <body onload="init()">
 	
-			<c:if test="${type=='edit'}">
+	<c:if test="${type=='edit'}">
 			   <div id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
@@ -201,7 +200,7 @@ input{ vertical-align:middle; margin:0; padding:0}
 					</li>
 	
 	<div id="attr_image"  style="padding: 0 30px;">
-	<p class="attr">图片上传:
+	<p class="attr"><h3>图片上传:</h3>
 	<span id="ufc1" style="position:relative">
 	  <input type='text'  id='textfield' class='txt' />  
       <input type='button' class='btn' value='浏览...' />
@@ -209,12 +208,16 @@ input{ vertical-align:middle; margin:0; padding:0}
       <input type="button"  class='btn' value="上传" onclick="uploadFile()"/>
 	</span>	
 	</p>
-	<p class="attr">图片预览： 
+	<p class="attr"><h3>图片预览：</h3> 
 	<img id="attchmentImage" src="../resAttachmentController/viewImage.do?attachmentId=${dto.imageId}" />
     </p>
-<p class="attr" id="addressEdit1">图片来源：<span id="ufc1" style="position:relative"><input type="text" id="imageUrl" name="imageUrl"
+    
+    <p class="attr" id="addressEdit1"><h3>图片来源：</h3><span id="ufc1" style="position:relative"><input type="text" id="imageUrl" name="imageUrl"
 						value="${dto.imageUrl}" /> </span></p>
-    <input type="hidden" name="imageId" value="${dto.imageId}"/>
+
+
+
+<input type="hidden" name="imageId" value="${dto.imageId}"/>
 </div>
 					<li><span><h3>来源：</h3></span><input type="text" id="source" name="source"
 						value="${dto.source}" /> <span class="error"></span>
@@ -277,7 +280,7 @@ input{ vertical-align:middle; margin:0; padding:0}
 					</li>
 	
 	<div id="attr_image"  style="padding: 0 30px;">
-	<p class="attr">图片上传:
+	<p class="attr"><h3>图片上传:</h3>
 	<span id="ufc1" style="position:relative">
 	  <input type='text'  id='textfield' class='txt' />  
       <input type='button' class='btn' value='浏览...' />
@@ -285,10 +288,10 @@ input{ vertical-align:middle; margin:0; padding:0}
       <input type="button"  class='btn' value="上传" onclick="uploadFile()"/>
 	</span>	
 	</p>
-	<p class="attr">图片预览： 
+	<p class="attr"><h3>图片预览： </h3>
 	<img id="attchmentImage" src="../resAttachmentController/viewImage.do?attachmentId=${dto.imageId}" />
     </p>
-    <p class="attr" id="addressEdit1">图片来源：<span id="ufc1" style="position:relative">
+    <p class="attr" id="addressEdit1"><h3>图片来源：</h3></h3><span id="ufc1" style="position:relative">
     <input type="text" id="imageUrl" name="imageUrl"
 						value="${dto.imageUrl}" /> </span></p>
     <input type="hidden" name="imageId" value="${dto.imageId}"/>

@@ -8,14 +8,12 @@ String path = request.getContextPath();
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title></title>
+		<title>中文在线系统</title>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
 		<script src="${pageContext.request.contextPath}/js/front/jquery-1.8.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${pageContext.request.contextPath}/js/front/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
-		<script src="${pageContext.request.contextPath}/js/front/datugundong.js" type="text/javascript" charset="utf-8"></script>
-		
+		<script src="${pageContext.request.contextPath}/js/front/datugundong.js" type="text/javascript" charset="utf-8"></script>		
 		<link type="text/css" href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet"/>
-
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.event.drag-1.5.min.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.touchSlider.js"></script>
@@ -96,7 +94,7 @@ String path = request.getContextPath();
 				<div class="logo">
 					<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
 					<c:if test="${newsAdvertisingList.adWeight eq 1 }">
-					     <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" />
+					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" width="215" height="115"/>
 					</c:if>
 					</c:forEach>
 				</div>
@@ -107,15 +105,13 @@ String path = request.getContextPath();
 						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="#">
-							成都天气：2014-14-14&nbsp;&nbsp;&nbsp;农历5月20&nbsp;&nbsp;&nbsp;
+							<iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=11" width="500" height="15" frameborder="0"></iframe>
 						</a>
-
-						欢迎您来到互帮天下… 今天是2014年07月20日 星期天
 					</div>
 					<div>
 					<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
 					<c:if test="${newsAdvertisingList.adWeight eq 2 }">
-					     <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}"  width="790"  height="95"/>
+					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}"  width="790"  height="95"/>
 					</c:if>
 					</c:forEach>
 					</div>
@@ -127,7 +123,7 @@ String path = request.getContextPath();
 			首页
 			</a>
 			<c:forEach items="${menulist}" var="menulist">
-			  	<a href="findBroadcastListByNewsTypeId.do?contentTypeId=${menulist.id}&newsTypeId=${menulist.pid}" >
+			  	<a href="${pageContext.request.contextPath}/front/findBroadcastListByNewsTypeId.do?contentTypeId=${menulist.id}&newsTypeId=${menulist.pid}" >
 					${menulist.cname }
 				</a>
 			</c:forEach>
@@ -137,7 +133,7 @@ String path = request.getContextPath();
 				<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
 					<c:if test="${newsAdvertisingList.adWeight eq 3 }">
 					     <a href="${ newsAdvertisingList.imageLink}" target="${ newsAdvertisingList.imageTarget}">
-					     <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}"  width="1000" height="99"/>
+					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}"  width="1000" height="99"/>
 					    </a>
 					</c:if>
 				</c:forEach>
@@ -182,22 +178,26 @@ String path = request.getContextPath();
 					
 					<div id="fwl_cov4" class="h_part2_left">
 						<div class="flicking_con">
-							<a href="#">1</a>
-							<a href="#">2</a>
-							<a href="#">3</a>
-							<a href="#">4</a>
-							<a href="#">5</a>
+							<c:forEach items="${latestNewsContent}" var="latestNews"  varStatus="status">	
+							   <c:if test="${status.index lt 6}">
+							    <c:if test="${latestNews.isRecommend eq 1 }">
+							  <c:if test="${latestNews.imageId ne null}">
+							    <a href="#">${status.index}</a>
+							 </c:if></c:if>
+							</c:if>
+                            </c:forEach>
 						</div>
 					<div class="main_image">
-						<ul>
-			
-							
-							
-							<a href="http://www.baidu.com"><li><span class="img_3"></span></li></a>
-							<li><span class="img_4"></span></li>
-							<li><span class="img_1"></span></li>
-							<li><span class="img_2"></span></li>
-							<li><span class="img_5"></span></li>
+						<ul>							
+							<c:forEach items="${latestNewsContent}" var="latestNews"  varStatus="status">	
+	                         <c:if test="${status.index lt 6}">
+							 <c:if test="${latestNews.isRecommend eq 1 }">
+							 <c:if test="${latestNews.imageId ne null}">
+							 <a href="http://www.baidu.com">
+							 <li><img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${latestNews.imageId}"></img></li></a>
+                            </c:if></c:if>
+                            </c:if>
+							</c:forEach>
 						</ul>
 							<a href="javascript:;" id="btn_prev"></a>
 							<a href="javascript:;" id="btn_next"></a>
@@ -274,7 +274,7 @@ String path = request.getContextPath();
 				   	<c:when test="${ status.index eq 0}">
 				   	<div class="h_title" style="float: none;">		
 				   	<span class="fl"><b class="c0486aa">${contentlist.newsTypeName}&nbsp;</b></span><span class="fr">
-						<a href="findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }" >
+						<a href="${pageContext.request.contextPath}/front/findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }" >
 							更多&gt;&gt;
 						</a></span>
 				</div>
@@ -282,7 +282,7 @@ String path = request.getContextPath();
 			  <c:forEach items="${contentlist.contentList}" var="newscontentlist" varStatus="status1">
 			  	<c:choose>
 			  	<c:when test="${status1.index eq 0}">		  
-			   <c:if test="${newscontentlist.imageId ne null or newscontentlist.imageUrl ne '' or newscontentlist.imageUrl ne null }">
+			     <c:if test="${newscontentlist.imageId ne null or newscontentlist.imageUrl ne '' or newscontentlist.imageUrl ne null }">
 				<div class="tab_box_content" style="display: block;">
 					<div style="width:290px;" class="qzlx_pictit">
 						<p class="img">
@@ -361,13 +361,13 @@ String path = request.getContextPath();
 				<div class="h_title" style="float: none;">
 				 <!-- 体育,健康，时尚 -->
 					<span class="fl"><b class="c0486aa">${contentlist.newsTypeName}&nbsp;</b></span><span class="fr">
-							<a href="findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"   >
+							<a href="${pageContext.request.contextPath}/front/findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"   >
 							更多&gt;&gt;
 						</a></span>
 				</div>
 				<div id="part_pd2_12" class="list_pic left_pic left_pic2">
 					<ul>
-					<c:forEach items="${contentlist.contentList}" var="newscontentlist"  varStatus="status3">		
+				<c:forEach items="${contentlist.contentList}" var="newscontentlist"  varStatus="status3">		
 					 <c:if test="${status3.index eq 0 or status3.index eq 1 }">	  
 			       <c:if test="${newscontentlist.imageId ne null or newscontentlist.imageUrl ne '' }" >	
 			      
@@ -443,13 +443,14 @@ String path = request.getContextPath();
 	          <!-- 娱乐 -->
 				<div class="h_title" style="float: none;">
 					<span class="fl"><b class="c0486aa">${contentlist.newsTypeName}&nbsp;</b></span><span class="fr">
-						<a href="findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"  >
+						<a href="${pageContext.request.contextPath}/front/findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"  >
 							更多&gt;&gt;
 						</a></span>
 				</div>
 				<div class="list_pic fontblue2">				
 					<ul>
-						<c:forEach items="${contentlist.contentList}" var="newscontentlist">
+						<c:forEach items="${contentlist.contentList}" var="newscontentlist" varStatus="status12">
+						<c:if test="${status12.index lt 6 }">
 						<li>
 						<p class="img">
 						<a href="javascript:toNewsDetail(${newscontentlist.id })">
@@ -469,6 +470,7 @@ String path = request.getContextPath();
 								</a>
 							</p>
 						</li>
+						</c:if>
 						</c:forEach>
 						
 					</ul>
@@ -486,7 +488,7 @@ String path = request.getContextPath();
 				<div class="inlist_02">
 					<div class="h_title">
 						<span class="fl"><b class="c0486aa">${contentlist.newsTypeName}&nbsp;</b></span><span class="fr">
-							<a href="findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"   >
+							<a href="${pageContext.request.contextPath}/front/findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"   >
 								更多&gt;&gt;
 							</a></span>
 					</div>
@@ -636,7 +638,7 @@ String path = request.getContextPath();
 				<div class="inlist_02">
 					<div class="h_title">
 						<span class="fl"><b class="c0486aa">${contentlist.newsTypeName}&nbsp;</b></span><span class="fr">
-							<a href="findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"  >
+							<a href="${pageContext.request.contextPath}/front/findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"  >
 								更多&gt;&gt;
 							</a></span>
 					</div>
@@ -750,7 +752,7 @@ String path = request.getContextPath();
 				<div class="inlist_02">
 					<div class="h_title">
 						<span class="fl"><b class="c0486aa">${contentlist.newsTypeName}&nbsp;</b></span><span class="fr">
-							<a href="findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"   >
+							<a href="${pageContext.request.contextPath}/front/findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }"   >
 								更多&gt;&gt;
 							</a></span>
 					</div>
@@ -903,7 +905,7 @@ String path = request.getContextPath();
 					<c:if test="${newsAdvertisingList.adWeight gt 1 }">
 					    <li class="clone" style="float: left; width: 145px;">
 					    <a href="${ newsAdvertisingList.imageLink}" target="_blank">
-					     <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}"  />
+					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}"  />
 					     </a>
 					     </li>
 					</c:if>

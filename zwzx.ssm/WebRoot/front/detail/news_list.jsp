@@ -48,13 +48,13 @@ function getMore(){
 	//添加最新消息到页面(direction:1添加到顶部,2添加到底部)
 function appendMessage(datas,direction){
 		if (datas!=null && datas.length>0){
-			var html = '';
-            
+			var html = '';         
 			for (var i=0;i<datas.length;i++){
 				var data = datas[i];
+				alert(data.id);
 			    html += '<div class="Q-tpList"><div class="Q-tpWrap" id="Q-tpWrap">	';					   
 				html += '<em bosszone="news2" class="f14 l24"><span><span>';
-				html += '<a href="editNewsContentCount.do?newsId="'+data.id+'  class="linkto">';
+				html += '<a href="editNewsContentCount.do?newsId="'+data.id+' class="linkto">';
 				html +=  data.title;
 				html += '</a></span></span></em>';
 				if(data.remark.length>110)
@@ -66,7 +66,7 @@ function appendMessage(datas,direction){
                  html += data.remark;
                 }
 				html += '<div class="btns">';
-				html += '<a href="editNewsContentCount.do?newsId="'+data.id+'  class="discuzBtn">';
+				html += "<a href='editNewsContentCount.do?newsId='"+data.id+" class='discuzBtn'>";
 				html +=  data.commentCount;
 				html += '</a></div></div><div class="clear"></div></div>';
 			}
@@ -87,13 +87,13 @@ function appendMessage(datas,direction){
 				<div class="logo">
 				<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
 					<c:if test="${newsAdvertisingList.adWeight eq 1 }">
-					     <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" />
+					     <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" width="215" height="115"/>
 					</c:if>
 				</c:forEach>
 				</div>
 				<div class="search">
 					<div class="right_top">
-						<a href="${pageContext.request.contextPath}/front/index.do">
+						<a href="index.do">
 							首页
 						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
@@ -189,7 +189,7 @@ function appendMessage(datas,direction){
 					<c:if test="${status.index lt 6}">		  
 			          <c:if test="${mostNewstList.imageId ne null or mostNewstList.imageUrl ne '' }">	
 						<li>
-					   <c:if test="${mostNewstList.imageUrl ne '' }">
+					   <c:if test="${mostNewstList.imageUrl ne '' and not empty mostNewstList.imageUrl}">
 							<p class="img">
 							<a href="editNewsContentCount.do?newsId=${ mostNewstList.id}" >
 								<img width="135" height="100" border="0"  alt="${mostNewstList.imageUrl}" src="${mostNewstList.imageUrl}">
@@ -238,7 +238,7 @@ function appendMessage(datas,direction){
 					<c:if test="${status.index lt 6}">		  
 			          <c:if test="${mostCommentList.imageId ne null or mostCommentList.imageUrl ne '' }">	
 						<li>
-					   <c:if test="${mostCommentList.imageUrl ne '' }">
+					   <c:if test="${mostCommentList.imageUrl ne '' and not empty mostCommentList.imageUrl}">
 							<p class="img">
 						 <a href="editNewsContentCount.do?newsId=${ mostCommentList.id}" >
 								<img width="135" height="100" border="0"  alt="${mostCommentList.imageUrl}" src="${mostCommentList.imageUrl}">
@@ -289,7 +289,7 @@ function appendMessage(datas,direction){
 					<c:if test="${status.index lt 6}">			  
 			          <c:if test="${mostViewList.imageId ne null or mostViewList.imageUrl ne '' }">	
 						<li>
-					   <c:if test="${mostViewList.imageUrl ne '' }">
+					   <c:if test="${mostViewList.imageUrl ne '' and not empty mostViewList.imageUrl}">
 							<p class="img">
 							<a href="editNewsContentCount.do?newsId=${mostViewList.id}" >
 								<img width="135" height="100" border="0"  alt="${mostViewList.imageUrl}" src="${mostViewList.imageUrl}">
