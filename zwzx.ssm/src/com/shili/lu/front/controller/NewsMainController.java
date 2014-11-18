@@ -96,6 +96,11 @@ public class NewsMainController extends BaseController {
 		// 右边热点微博list
 		List<NewsFriendlink> friendlinklist = frontNewsFriendlinkService
 				.findFriendlinkByCtg("热点微博");
+		
+		
+		//下边友情链接ist
+		List<NewsFriendlink> friendlinklistEnd = frontNewsFriendlinkService
+				.findFriendlinkByCtg("友情链接");	
 		// 新闻类型
 		// 顶部菜单的生成
 		List<ResDict> menulist = resDictService.getAllMenu("NEWROOT", 1);
@@ -124,6 +129,7 @@ public class NewsMainController extends BaseController {
 		// 返回新闻内容
 		m.getModel().put("newscontentList", newscontentList);
 		m.getModel().put("friendlinklist", friendlinklist);
+		m.getModel().put("friendlinklist1", friendlinklistEnd);
 		m.setViewName("forward:/front/index.jsp");
 		return m;
 	}
