@@ -8,7 +8,7 @@ String path = request.getContextPath();
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>中文在线系统</title>
+		<title>中文传播-传播中文</title>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
 		<script src="${pageContext.request.contextPath}/js/front/jquery-1.8.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${pageContext.request.contextPath}/js/front/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
@@ -193,7 +193,7 @@ String path = request.getContextPath();
 							 <c:if test="${latestNews.isRecommend eq 1 }">
 							 <c:if test="${latestNews.imageId ne null}">
 							 <a href="http://www.baidu.com">
-							 <li><img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${latestNews.imageId}"></img></li></a>
+							 <li><img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${latestNews.imageId}"  width="790"  height="300"></img></li></a>
                             </c:if></c:if>
                             </c:if>
 							</c:forEach>

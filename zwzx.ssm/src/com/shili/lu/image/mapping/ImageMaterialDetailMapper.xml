@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shili.lu.image.dao.ImageMaterialDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.shili.lu.image.model.ImageMaterialDetail" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="image_material_id" property="imageMaterialId" jdbcType="BIGINT" />
+    <result column="sort_number" property="sortNumber" jdbcType="INTEGER" />
+    <result column="image_id" property="imageId" jdbcType="BIGINT" />
+    <result column="image_detail" property="imageDetail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, image_material_id, sort_number, image_id, image_detail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from image_material_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from image_material_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.shili.lu.image.model.ImageMaterialDetail" >
+    insert into image_material_detail (id, image_material_id, sort_number, 
+      image_id, image_detail)
+    values (#{id,jdbcType=BIGINT}, #{imageMaterialId,jdbcType=BIGINT}, #{sortNumber,jdbcType=INTEGER}, 
+      #{imageId,jdbcType=BIGINT}, #{imageDetail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shili.lu.image.model.ImageMaterialDetail" >
+    insert into image_material_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="imageMaterialId != null" >
+        image_material_id,
+      </if>
+      <if test="sortNumber != null" >
+        sort_number,
+      </if>
+      <if test="imageId != null" >
+        image_id,
+      </if>
+      <if test="imageDetail != null" >
+        image_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="imageMaterialId != null" >
+        #{imageMaterialId,jdbcType=BIGINT},
+      </if>
+      <if test="sortNumber != null" >
+        #{sortNumber,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null" >
+        #{imageId,jdbcType=BIGINT},
+      </if>
+      <if test="imageDetail != null" >
+        #{imageDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shili.lu.image.model.ImageMaterialDetail" >
+    update image_material_detail
+    <set >
+      <if test="imageMaterialId != null" >
+        image_material_id = #{imageMaterialId,jdbcType=BIGINT},
+      </if>
+      <if test="sortNumber != null" >
+        sort_number = #{sortNumber,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null" >
+        image_id = #{imageId,jdbcType=BIGINT},
+      </if>
+      <if test="imageDetail != null" >
+        image_detail = #{imageDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shili.lu.image.model.ImageMaterialDetail" >
+    update image_material_detail
+    set image_material_id = #{imageMaterialId,jdbcType=BIGINT},
+      sort_number = #{sortNumber,jdbcType=INTEGER},
+      image_id = #{imageId,jdbcType=BIGINT},
+      image_detail = #{imageDetail,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

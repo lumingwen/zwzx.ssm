@@ -135,3 +135,4 @@ form{
     background-color: #b1b1b1;
     border: 1px solid #ababab;
 }
+.upload-box .upload-btn{ display:inline-block; height:30px; border:1px solid #009b99;width:130px; color:#fff; background:#15b5b1; vertical-align:middle; *display:inline; }

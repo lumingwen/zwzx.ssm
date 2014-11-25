@@ -29,7 +29,7 @@ a {
 label.red{color:#C52716;}
 #msgprint.pcent {
 	padding: 5px 10px 5px 24px;
-	font-family: "微软雅黑", "宋体", Arial, sans-serif;
+	font-family: "寰蒋闆呴粦", "瀹嬩綋", Arial, sans-serif;
 	top: 30px;
 	right: 45%;
 	position: absolute;
@@ -76,10 +76,10 @@ label.red{color:#C52716;}
 	font-size: 12px;
 	font-family: Verdana, Geneva, sans-serif;
 }
-/*调试样式*/
+/*璋冭瘯鏍峰紡*/
 
-/*list列表css样式*/
-/*增加 全选 删除*/
+/*list鍒楄〃css鏍峰紡*/
+/*澧炲姞 鍏ㄩ� 鍒犻櫎*/
 
 .tools_bar {
 	background: linear-gradient(to bottom, #f8f8f8 0px, #ececec 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -238,7 +238,7 @@ label.red{color:#C52716;}
 .table-hover tbody tr:hover > td, .table-hover tbody tr:hover > th {
 	background-color: #f5f5f5;
 }
-/*编辑样式*/
+/*缂栬緫鏍峰紡*/
 .from_table {
 	width: 100%;
 	border: 1px solid #edecff;
@@ -269,7 +269,7 @@ label.red{color:#C52716;}
 .txtInput {
 	background: #fafafa;
 	border: 1px solid #d7d7d7;
-	font-family: '微软雅黑';
+	font-family: '寰蒋闆呴粦';
 	font-size: 12px;
 	height: 22px;
 	line-height: 22px;
@@ -302,7 +302,7 @@ input.small6 {
 	width: 400px;
 }
 .from_table label {
-	font-family: "宋体";
+	font-family: "瀹嬩綋";
 	margin-left: 10px;
 	padding: 7px 0 0;
 }
@@ -314,7 +314,7 @@ input.small6 {
 .from_table textarea {
 	border: 1px solid #d2d2d2;
 	color: #000;
-	font-family: "微软雅黑";
+	font-family: "寰蒋闆呴粦";
 	font-size: 12px;
 	padding: 3px;
 	vertical-align: middle;
@@ -349,7 +349,7 @@ a.files input {
 	padding: 15px 20px;
 	text-align: center;
 }
-/*导航*/
+/*瀵艰埅*/
 .navigation {
 	background: #008FC9;
     color: #fff;
@@ -407,7 +407,7 @@ a.files input {
     padding: 0 4px;
 }
 .divider {color:#ccc;}
-/*分页css样式*/
+/*鍒嗛〉css鏍峰紡*/
 
 .content-right-page{
     height: 32px;
@@ -453,7 +453,7 @@ a.files input {
     font-family: "microsoft yahei";
 }
 
-/*分页*/
+/*鍒嗛〉*/
 #bottomPager .pager {
 	float: right;
 	font: 12px tahoma;
@@ -527,5 +527,5 @@ a.files input {
 .pagesm{ height: 14px;vertical-align: middle;}
 .pg_bt{ height: 22px; vertical-align: middle; line-height: 12px;}
 .content-right-page #go{float: right;}
-
+.upload-box .upload-btn{ display:inline-block; height:30px; border:1px solid #009b99;width:130px; color:#fff; background:#15b5b1; vertical-align:middle; *display:inline; }
     

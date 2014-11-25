@@ -1,0 +1,20 @@
+/*上传样式*/
+.upload_img{display:inline-block;}
+.upload-box{ position:relative; display:inline-block; height:32px; vertical-align:middle; *display:inline;}
+.upload-box .upload-btn{ display:inline-block; height:30px; border:1px solid #009b99;width:130px; color:#fff; background:#15b5b1; vertical-align:middle; *display:inline; }
+.upload-box label{color:#ff0000;display:inline-block;margin-bottom:0px;}
+.upload-box .upload-progress{ position:absolute; top:0; left:0; padding:2px 5px; width:115px; height:30px; border:1px solid #d7d7d7; background:#fff; overflow:hidden; }
+.upload-box .upload-progress .txt{ display:block; padding-right:10px; font-weight:normal; font-style:normal; font-size:11px; line-height:18px; height:18px; text-overflow:ellipsis; overflow:hidden; }
+.upload-box .upload-progress .bar{ position:relative; display:block; width:112px; height:4px; border:1px solid #1da76b; }
+.upload-box .upload-progress .bar b{ display:block; width:0%; height:4px; font-weight:normal; text-indent:-99em; background:#28B779; overflow:hidden; }
+.upload-box .upload-progress .close{ position:absolute; display:block; top:1px; right:1px; width:14px; height:14px; text-indent:-99em; background:url(skin_icons.png) -112px -168px no-repeat; cursor:pointer; overflow:hidden; }
+/*图片相册样式*/
+.photo-list{ margin:0; padding:10px 0 0 0; }
+.photo-list ul{ margin:0; list-style:none; *display:inline-block; }
+.photo-list ul:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.photo-list ul li{ float:left; margin-right:10px; text-align:center; *width:139px;}
+.photo-list ul li .img-box{ margin:5px 5px 5px auto; position:relative; width:128px; height:128px; overflow:hidden; border:3px #efefed solid; cursor:pointer; }
+.photo-list ul li .img-box.selected{ border:3px #f60 solid }
+.photo-list ul li .img-box img{ width:128px; height:128px; opacity:1; }
+.photo-list ul li .img-box .remark{ bottom:0px; margin:0;position:absolute; display:block;width:20px;height:19px;right:0px;background:url(../images/bg/delete.png) no-repeat; cursor:pointer;}
+.photo-list ul li a{color:#333;}/*#ff0000*/

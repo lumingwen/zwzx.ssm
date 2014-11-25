@@ -1,5 +1,7 @@
 ﻿@charset "utf-8";
 *{margin:0;padding:0;list-style:none;border:0;}
+/*body{width:100%;margin:0 auto;overflow:hidden}*/
+
 body{width:100%;margin:0 auto;overflow:hidden}
 
 /* main_image */
