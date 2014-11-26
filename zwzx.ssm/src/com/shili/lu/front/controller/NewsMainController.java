@@ -31,6 +31,8 @@ import com.shili.lu.common.service.ResDictServiceI;
 import com.shili.lu.common.util.PageUtils;
 import com.shili.lu.friendlink.model.NewsFriendlink;
 import com.shili.lu.friendlink.service.FrontNewsFriendlinkServiceI;
+import com.shili.lu.image.model.ImageMaterial;
+import com.shili.lu.image.service.ImageMaterialServiceI;
 import com.shili.lu.news.dto.NewsCommentDto;
 import com.shili.lu.news.dto.NewsContentDto;
 import com.shili.lu.news.dto.PubBroadcastContentDto;
@@ -74,6 +76,10 @@ public class NewsMainController extends BaseController {
 	 */
 	@Autowired
 	private PubBroadcastServiceI pubBroadcastService;
+	
+	@Autowired
+	
+	ImageMaterialServiceI imageMaterialService;
 
 	/**
 	 * 到主页
@@ -101,6 +107,9 @@ public class NewsMainController extends BaseController {
 		//下边友情链接ist
 		List<NewsFriendlink> friendlinklistEnd = frontNewsFriendlinkService
 				.findFriendlinkByCtg("友情链接");	
+		
+		//下边图片List
+		List<ImageMaterial> findImageMaterial=imageMaterialService.findImageMaterial();
 		// 新闻类型
 		// 顶部菜单的生成
 		List<ResDict> menulist = resDictService.getAllMenu("NEWROOT", 1);
@@ -130,6 +139,7 @@ public class NewsMainController extends BaseController {
 		m.getModel().put("newscontentList", newscontentList);
 		m.getModel().put("friendlinklist", friendlinklist);
 		m.getModel().put("friendlinklist1", friendlinklistEnd);
+		m.getModel().put("findImageMaterial", findImageMaterial);
 		m.setViewName("forward:/front/index.jsp");
 		return m;
 	}

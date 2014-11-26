@@ -69,4 +69,14 @@
 		save_path = #{savePath,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+		<update id="updateById" parameterType="com.shili.lu.common.model.ResAttachment">
+		update
+		res_attachment
+		set 
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		rel_id = #{relId,jdbcType=BIGINT},
+		delete_flag =
+		#{deleteFlag,jdbcType=INTEGER}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
 </mapper>

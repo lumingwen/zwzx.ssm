@@ -3,14 +3,15 @@
  */
 package com.shili.lu.image.service;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
-import com.shili.lu.news.dto.MaterialDto;
-import com.shili.lu.news.dto.ResWxMaterialImageTxtDto;
-import com.shili.lu.news.model.ResWxMaterialImage;
+import java.util.List;
+
+import com.shili.lu.image.dto.ImageNewsDto;
+import com.shili.lu.image.model.ImageMaterial;
+
+
 
 /**
- * 微信service
+ * 图片新闻service
  * 
  * @author lumw
  * 
@@ -18,5 +19,7 @@ import com.shili.lu.news.model.ResWxMaterialImage;
  */
 public interface ImageMaterialServiceI {
 
+	public int saveImageNews(ImageNewsDto dto);
 	
+	public List<ImageMaterial> findImageMaterial();
 }

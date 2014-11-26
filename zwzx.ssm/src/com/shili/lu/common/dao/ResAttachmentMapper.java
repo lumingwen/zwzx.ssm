@@ -16,4 +16,6 @@ public interface ResAttachmentMapper {
 	List<ResAttachment> selectByRel(ResAttachment record);
 
 	int updateByPrimaryKey(ResAttachment record);
+	
+	int updateById(ResAttachment record);
 }

@@ -19,11 +19,19 @@
     from image_material
     where id = #{id,jdbcType=BIGINT}
   </select>
+  
+    <select id="findImageMaterial" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from image_material
+    where delete_flag = 0
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from image_material
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.shili.lu.image.model.ImageMaterial" >
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.shili.lu.image.model.ImageMaterial" >
     insert into image_material (id, title, source, 
       create_time, update_time, image_id, 
       delete_flag)
@@ -31,79 +39,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{imageId,jdbcType=BIGINT}, 
       #{deleteFlag,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.shili.lu.image.model.ImageMaterial" >
-    insert into image_material
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="source != null" >
-        source,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="imageId != null" >
-        image_id,
-      </if>
-      <if test="deleteFlag != null" >
-        delete_flag,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="source != null" >
-        #{source,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="imageId != null" >
-        #{imageId,jdbcType=BIGINT},
-      </if>
-      <if test="deleteFlag != null" >
-        #{deleteFlag,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shili.lu.image.model.ImageMaterial" >
-    update image_material
-    <set >
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="source != null" >
-        source = #{source,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="imageId != null" >
-        image_id = #{imageId,jdbcType=BIGINT},
-      </if>
-      <if test="deleteFlag != null" >
-        delete_flag = #{deleteFlag,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.shili.lu.image.model.ImageMaterial" >
     update image_material
     set title = #{title,jdbcType=VARCHAR},

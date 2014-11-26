@@ -51,6 +51,7 @@ input{ vertical-align:middle; margin:0; padding:0}
 <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="../js/checkInput.js"></script>
 <script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+<script src="${pageContext.request.contextPath}/js/from_min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/js/swfupload/swfupload.handlers.js" type="text/javascript" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/js/swfupload/swfupload.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -68,12 +69,11 @@ input{ vertical-align:middle; margin:0; padding:0}
 						</li>
 					</ul>
 				</div>
-	<form action="saveBroadcast.do"  id="form1"  method="post">
+	<form action="saveImageNews.do"  id="myForm"  method="post">
 		<!--添加新员工开始-->
 		<div class="content-right-add">
 			<h3>修改信息</h3>
 			<div class="content-right-addinfo">
-				<input type="hidden" name="id" value="${dto.id}" />		
 				<ul>			  
 					<li><span><h3>标题：</h3></span> <input type="text" id="biaoti" name="title" value="${dto.title}"  maxlength ="20"
 						 /> <span class="error">请输入正确标题</span>最多输入20字符标题
@@ -88,22 +88,22 @@ input{ vertical-align:middle; margin:0; padding:0}
 							<div class="photo-list">
 								<input type="hidden" name="imageId" value="${dto.imageId}" />
 								<ul id="imageUl">
-									<c:forEach items="${dto.photos}" var="it" varStatus="st">
+									<c:forEach items="${dto.imageMaterialDetail}" var="it" varStatus="st">
 										<li>
-										    <input type="hidden" name="theImageId" value="${it.id}" />
-											<c:if test="${dto.imageId ne it.id }">
+										    <input type="hidden" name="theImageId" value="${it.imageId}" />
+											<c:if test="${dto.imageId ne it.imageId }">
 											<div class="img-box">
-												<img src="${pageContext.request.contextPath}/resAttachmentController/viewImage.do?attachmentId=${it.id}"><span  onclick="delImg(this)" class="remark"></span>
+												<img src="${pageContext.request.contextPath}/resAttachmentController/viewImage.do?attachmentId=${it.imageId}"><span  onclick="delImg(this)" class="remark"></span>
 											</div>
 											</c:if>
-											<c:if test="${dto.imageId eq it.id }">
+											<c:if test="${dto.imageId eq it.imageId }">
 											 <div class="img-box selected">
-											  <img src="${pageContext.request.contextPath}/resAttachmentController/viewImage.do?attachmentId=${it.id}"/> <span  onclick="delImg(this)" class="remark"></span>               
+											  <img src="${pageContext.request.contextPath}/resAttachmentController/viewImage.do?attachmentId=${it.imageId}"/> <span  onclick="delImg(this)" class="remark"></span>               
             		  		                 </div>
 											</c:if>
 											<input type="text" name="sortNumber" value='+data.sortNumber+' style="width:20px;"/><br>
 											<textarea rows="5" cols="50" name="imageDetail" >${it.imageDetail}</textarea></br>
-											<a onclick="setMyFocusImg(this,${it.id});" href="javascript:void(0);">设为主图</a>
+											<a onclick="setMyFocusImg(this,${it.imageId});" href="javascript:void(0);">设为主图</a>
 										</li>
 									</c:forEach>
 								</ul>
@@ -111,14 +111,16 @@ input{ vertical-align:middle; margin:0; padding:0}
 						</div>
 						</li>
 						<li>
-			         <button onclick="myFrom">保存</button>
+			         <button onclick="myFrom();">保存</button>
 				</ul>
 				</form>
 				
 		<script type="text/javascript"> 
 				function myFrom(){
+				alert(99);
 		           $("#myForm").Validform({beforeSubmit:function()
 		           {
+		            alert(999);
 			        //设置图片
 			    	var images = $('input[name="theImageId"]');
 			    	if(images.length<1)
@@ -130,13 +132,13 @@ input{ vertical-align:middle; margin:0; padding:0}
 			    	//图片序号
 			    	var sort= $('input[name="sortNumber"]');
 			    	   sort.each(function(idx,et){
-		    				$(et).attr('name','sortNumber['+idx+'].id');
+		    				$(et).attr('name','imageMaterialDetail['+idx+'].sortNumber');
 			    		});
 			    	var imageDetail= $('textarea[name="imageDetail"]');
 			    	   imageDetail.each(function(idx,et){
-		    				$(et).attr('name','imageDetail['+idx+'].id');
+		    				$(et).attr('name','imageMaterialDetail['+idx+'].imageDetail');
 			    		});
-			    	
+			    		
 			    	//图片描叙
 			    	
 			    	
@@ -173,7 +175,7 @@ input{ vertical-align:middle; margin:0; padding:0}
 							htmlstr += '<div class="img-box">';
 							htmlstr += '<img src="${pageContext.request.contextPath}/resAttachmentController/viewImage.do?attachmentId='+data.id+'"><span onclick="delImg(this)"  class="remark"></span>';
 							
-							htmlstr += '</div>	<input type="text" name="sortNumber" value='+data.sortNumber+' style="width:20px;"/><br><textarea rows="5" cols="50" name="imageDetail" >${data.imageDetail}</textarea></br><a onclick="setMyFocusImg(this,'+data.id+')" href="javascript:void(0);">设为主图</a>';
+							htmlstr += '</div>	<input type="text" name="sortNumber"  style="width:20px;"/><br><textarea rows="5" cols="50" name="imageDetail" ></textarea></br><a onclick="setMyFocusImg(this,'+data.id+')" href="javascript:void(0);">设为主图</a>';
 							htmlstr += '</li>';
 							$('#imageUl').append(htmlstr);
 							var focusPhotoObj = $('#imageUl').find(".selected");

@@ -7,12 +7,10 @@ public interface ImageMaterialDetailMapper {
 
 	int insert(ImageMaterialDetail record);
 
-	int insertSelective(ImageMaterialDetail record);
-
 	ImageMaterialDetail selectByPrimaryKey(Long id);
 
-	int updateByPrimaryKeySelective(ImageMaterialDetail record);
-
 	int updateByPrimaryKey(ImageMaterialDetail record);
+	
+	int deleteByImageId(Long imageId);
 
 }
