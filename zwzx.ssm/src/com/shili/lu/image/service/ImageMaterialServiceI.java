@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.shili.lu.image.dto.ImageNewsDto;
 import com.shili.lu.image.model.ImageMaterial;
+import com.shili.lu.image.model.ImageMaterialDetail;
 
 
 
@@ -22,4 +23,10 @@ public interface ImageMaterialServiceI {
 	public int saveImageNews(ImageNewsDto dto);
 	
 	public List<ImageMaterial> findImageMaterial();
+	
+	public List<ImageMaterialDetail> findImageMaterialDetailByIMId(Long imageMaterialId);
+	
+	public int imageNewsCount(Long imageMaterialId);
+	
+	public ImageMaterial findImageMaterialById(Long id);
 }

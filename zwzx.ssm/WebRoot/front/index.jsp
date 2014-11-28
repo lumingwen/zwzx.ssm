@@ -873,7 +873,7 @@ String path = request.getContextPath();
 						<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
 					       <c:if test="${newsAdvertisingList.adWeight eq 15 }">
 					     <a href="${ newsAdvertisingList.imageLink}"  target="${ newsAdvertisingList.imageTarget}">
-					     <img width="330" height="300" style="vertical-align: middle;" src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" />
+					     <img width="330" height="300" style="vertical-align: middle;" src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" />
 					        	<i class="title">${ newsAdvertisingList.adName}</i>
 					      </a>
 					      </c:if>					    
@@ -884,8 +884,8 @@ String path = request.getContextPath();
 					<c:forEach items="${findImageMaterial}" var="findImageMaterial" varStatus="item">
 					<c:if test="${item.index lt 7 and item.index gt 0}">
 					    <li class="photo_bor">
-					    <a href=" ${findImageMaterial.imageId }" target="_blank">
-					     <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${findImageMaterial.imageId}"  width="189" height="117" />
+					    <a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${findImageMaterial.id}" target="_blank">
+					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${findImageMaterial.imageId}"  width="189" height="117" />
 					     <i class="title">${findImageMaterial.title}</i>
 					     </a>
 					     </li>

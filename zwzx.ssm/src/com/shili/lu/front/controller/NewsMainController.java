@@ -32,6 +32,7 @@ import com.shili.lu.common.util.PageUtils;
 import com.shili.lu.friendlink.model.NewsFriendlink;
 import com.shili.lu.friendlink.service.FrontNewsFriendlinkServiceI;
 import com.shili.lu.image.model.ImageMaterial;
+import com.shili.lu.image.model.ImageMaterialDetail;
 import com.shili.lu.image.service.ImageMaterialServiceI;
 import com.shili.lu.news.dto.NewsCommentDto;
 import com.shili.lu.news.dto.NewsContentDto;
@@ -452,4 +453,54 @@ public class NewsMainController extends BaseController {
 		return str;
 
 	}
+	
+	/******
+	 * 根据id查询图片新闻
+	 * 
+	 */
+	@RequestMapping("/findImageNewsByImageId")
+	@NoSecurity
+	public ModelAndView findImageNewsByImageId(String imageMaterialId, HttpServletRequest request) {
+		ModelAndView m = new ModelAndView();
+		List<ImageMaterialDetail> imageMaterialDetailList=imageMaterialService.findImageMaterialDetailByIMId(Long.parseLong(imageMaterialId));
+		int imageNewsCount=imageMaterialService.imageNewsCount(Long.parseLong(imageMaterialId));
+		ImageMaterial imageMaterial=imageMaterialService.findImageMaterialById(Long.parseLong(imageMaterialId));
+		List<ImageMaterial> imageMaterialList=imageMaterialService.findImageMaterial();
+		ImageMaterial imageMaterialPreval=new ImageMaterial();
+		ImageMaterial imageMaterialNext=new ImageMaterial();
+		int preval = 0,next = 0;
+
+        for(int i=0;i<imageMaterialList.size();i++)
+        {
+        	if(imageMaterialList.get(i).getId().toString().equals(imageMaterialId)){
+        		 if(i==0)
+        		 {
+        			 next=i+1;
+        			 preval=imageMaterialList.size()-1;
+        		 }
+        		 else if(i==imageMaterialList.size()-1){
+        			 preval=imageMaterialList.size()-1;
+        			 next=0;
+        		 }else
+        		 {
+        			 preval=i-1;
+        			 next=i+1;
+        		 }
+        		 
+        		 imageMaterialPreval=imageMaterialList.get(preval);
+        		 imageMaterialNext=imageMaterialList.get(next);
+        		 break;
+        	}
+        }
+		//上一个图片详情
+    	m.getModel().put("imageMaterialPreval", imageMaterialPreval);
+		//下一个图片详情
+    	m.getModel().put("imageMaterialNext", imageMaterialNext);
+		m.getModel().put("imageNewsCount", imageNewsCount);
+		m.getModel().put("imageMaterialDetailList", imageMaterialDetailList);
+		m.getModel().put("imageMaterial", imageMaterial);
+		m.setViewName("forward:/front/detail/image_news_detail.jsp");
+		return m;	
+	}
+	
 }

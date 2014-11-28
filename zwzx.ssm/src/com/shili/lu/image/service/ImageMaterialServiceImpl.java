@@ -97,5 +97,24 @@ public class ImageMaterialServiceImpl implements ImageMaterialServiceI {
 		return imageMaterialMapper.findImageMaterial();
 	}
 
+
+	@Override
+	public List<ImageMaterialDetail> findImageMaterialDetailByIMId(
+			Long imageMaterialId) {
+		return imageMaterialDetailMapper.findImageMaterialDetailByIMId(imageMaterialId);
+	}
+
+
+	@Override
+	public int imageNewsCount(Long imageMaterialId) {
+		// TODO Auto-generated method stub
+		return imageMaterialDetailMapper.imageNewsCount(imageMaterialId);
+	}
+
+
+	@Override
+	public ImageMaterial findImageMaterialById(Long id) {
+		return imageMaterialMapper.selectByPrimaryKey(id);
+	}
 	
 }

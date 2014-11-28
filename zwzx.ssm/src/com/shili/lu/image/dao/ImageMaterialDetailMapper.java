@@ -1,5 +1,7 @@
 package com.shili.lu.image.dao;
 
+import java.util.List;
+
 import com.shili.lu.image.model.ImageMaterialDetail;
 
 public interface ImageMaterialDetailMapper {
@@ -12,5 +14,9 @@ public interface ImageMaterialDetailMapper {
 	int updateByPrimaryKey(ImageMaterialDetail record);
 	
 	int deleteByImageId(Long imageId);
+	
+	List<ImageMaterialDetail> findImageMaterialDetailByIMId(Long imageMaterialId);
+	
+	int imageNewsCount(Long imageMaterialId);
 
 }
