@@ -117,10 +117,8 @@ input{ vertical-align:middle; margin:0; padding:0}
 				
 		<script type="text/javascript"> 
 				function myFrom(){
-				alert(99);
 		           $("#myForm").Validform({beforeSubmit:function()
 		           {
-		            alert(999);
 			        //设置图片
 			    	var images = $('input[name="theImageId"]');
 			    	if(images.length<1)
@@ -158,11 +156,11 @@ input{ vertical-align:middle; margin:0; padding:0}
 					$(this).InitSWFUpload({
 						post_params:{'swfuploadUser':'<%=swfuploadUser%>','swfuploadPass':'<%=swfuploadPass%>'},
 						use_query_string : true,
-						btntext: "添加图片(最多4张)",
+						btntext: "添加图片(最多12张)",
 						btnwidth: 130,
 						single: false,
 						water: true,
-						file_upload_limit:4,
+						file_upload_limit:12,
 						thumbnail: true,
 						filesize: "2048",
 						sendurl: "../resAttachmentController/ajaxUpload.do",

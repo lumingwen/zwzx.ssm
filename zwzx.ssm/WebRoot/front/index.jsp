@@ -861,7 +861,7 @@ String path = request.getContextPath();
 							精彩图片
 						</a></span>
 					<span class="mark-sub">
-						<a target="_blank" href="#">
+						<a target="_blank" href="${pageContext.request.contextPath}/front/findImageNews.do">
 							图片精选更多&gt;&gt;
 						</a>
 				 </span>

@@ -503,4 +503,20 @@ public class NewsMainController extends BaseController {
 		return m;	
 	}
 	
+	
+	
+	/******
+	 * 查询图片新闻
+	 * 
+	 */
+	@RequestMapping("/findImageNews")
+	@NoSecurity
+	public ModelAndView findImageNews(HttpServletRequest request) {
+		ModelAndView m = new ModelAndView();
+		List<ImageMaterial> imageMaterialList=imageMaterialService.findImageMaterial();
+		m.getModel().put("imageMaterialList", imageMaterialList);
+		m.setViewName("forward:/front/image_news_index.jsp");
+		return m;	
+	}
+	
 }
