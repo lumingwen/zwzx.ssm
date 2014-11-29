@@ -32,15 +32,12 @@ String path = request.getContextPath();
 		<a name="woo-anchor"></a>
 		<ul id="switchholder">
 		<li class="woo-swa woo-cur"><a href="javascript:;">my pics</a></li>
-		<li class="woo-swa"><a href="javascript:;">my fav</a></li>
-		<li class="woo-swa"><a href="javascript:;">my albums</a></li>
-		<li class="woo-swa"><a href="javascript:;">my collects</a></li>
 		</ul>
 
 		<div class="woo-swb">
 			<!-- data-totalunits is set here, then pager nums would be fixed -->
 			<!-- It would have been Hasnext Mode if you didn't do it -->
-			<div class="woo-pcont woo-masned my-pic" data-totalunits="440">
+			<div class="woo-pcont woo-masned my-pic" data-totalunits="440" data-wootemp="2" data-subpagenum="6">
 				<!-- .woo-pcont 节点内可预先放好若干个单元(个数没有限制) -->
 				<!-- 预先放置的会被当做第一子页数据，后面会直接从第二子页开始 -->
 				<!-- 可以选择不放置 -->
@@ -49,7 +46,8 @@ String path = request.getContextPath();
 				<div class="mbpho" style="height:266px;">
 				<a target="_blank" class="a" href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialList.id}">
 				<img data-rootid="97219875" data-iid="7007475" srcd="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${imageMaterialList.imageId}" height="266"/>
-				</a><div class="collbtn" data-favorite='{"id":97219875,"owner":1629580}'>
+				</a>
+				<div class="collbtn" data-favorite='{"id":97219875,"owner":1629580}'>
 				<a class="y" href="#">52</a><a class="z" href="#">0</a>
 				<a class="x" href="#">0</a></div></div><div class="d">
 				<span class="d1">52</span><span class="d2">0</span>
@@ -61,20 +59,6 @@ String path = request.getContextPath();
 				</c:forEach>
 				
 			</div>
-			<div class="woo-pager"></div>
-		</div>
-		<div class="woo-swb">
-			<!-- "data-wootemp=1" indicates the ANALYZERESPONSE[1] in masnunit.js will be used  -->
-			<!-- Different numbers reprent different types of waterfall -->
-			<div class="woo-pcont woo-masned my-album" data-domwidth="1000" data-wootemp="1" data-subpagenum="6"></div>
-			<div class="woo-pager"></div>
-		</div>
-		<div class="woo-swb">
-			<div class="woo-pcont woo-masned my-album" data-wootemp="1" data-subpagenum="6"></div>
-			<div class="woo-pager"></div>
-		</div>
-		<div class="woo-swb">
-			<div class="woo-pcont woo-masned my-pic"></div>
 			<div class="woo-pager"></div>
 		</div>
 
@@ -90,19 +74,7 @@ String path = request.getContextPath();
 #win-holder{overflow:hidden;height:0px;}
 </style>
 <div id="win-holder">
-	<form id="woo-form-collect" action="/message/list/">
-	</form>
-	<form id="woo-form-original" action="/people/list/?page=">
-	<input type="hidden" name="filter" value="original"/>
-	</form>
-	<form id="woo-form-album" action="/album/list/?page=">
-	<input type="hidden" name="user_id" value="48"/>
-	<input type="hidden" name="pic" value="1"/>
-	</form>
-	<form id="woo-form-favalbum" action="/blog/list/?page=">
-	<input type="hidden" name="user_id" value="48"/>
-	<input type="hidden" name="pic" value="1"/>
-	<input type="hidden" name="like" value="1"/>
+	<form id="woo-form-album" action="${pageContext.request.contextPath}/front/getMoreImageAjax.do?page=">
 	</form>
 </div>
 <script>
@@ -128,7 +100,7 @@ $(function (){
 		// Finally, we put '/tail/' into arrsplit.
 		// Or, we could choose no hidden input and '/tail/?type=hot' into arrsplit.
 		// Nevertheless, we put them together and get the entire url.
-		"arrsplit" : ['/?type=hot','','',''],
+		//"arrsplit" : ['/?type=hot','','',''],
 
 		// The extend width of each common column including margin between two cols.
 		"arrmasnw" : [245,250,250,245],

@@ -9,6 +9,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.shili.lu.common.dao.ResAttachmentMapper;
 import com.shili.lu.common.model.ResAttachment;
 import com.shili.lu.common.util.Constants;
@@ -91,6 +93,12 @@ public class ImageMaterialServiceImpl implements ImageMaterialServiceI {
 	}
 
 
+	@Override
+	public PageList<ImageMaterial> findImageMaterial(PageBounds pageBounds) {
+
+		return imageMaterialMapper.findImageMaterial(pageBounds);
+	}
+	
 	@Override
 	public List<ImageMaterial> findImageMaterial() {
 

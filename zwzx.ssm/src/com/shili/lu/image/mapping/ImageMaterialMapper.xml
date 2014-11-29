@@ -9,9 +9,10 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="image_id" property="imageId" jdbcType="BIGINT" />
     <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+    <result column="height" property="height" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, source, create_time, update_time, image_id, delete_flag
+    id, title, source, create_time, update_time, image_id, delete_flag,height
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 

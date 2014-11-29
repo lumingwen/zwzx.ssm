@@ -24,6 +24,7 @@ import com.github.miemiedev.mybatis.paginator.domain.Order;
 import com.github.miemiedev.mybatis.paginator.domain.Order.Direction;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.google.gson.Gson;
 import com.shili.lu.advertising.dto.NewsAdvertisingDto;
 import com.shili.lu.common.annotation.NoSecurity;
 import com.shili.lu.common.model.ResDict;
@@ -31,6 +32,7 @@ import com.shili.lu.common.service.ResDictServiceI;
 import com.shili.lu.common.util.PageUtils;
 import com.shili.lu.friendlink.model.NewsFriendlink;
 import com.shili.lu.friendlink.service.FrontNewsFriendlinkServiceI;
+import com.shili.lu.image.dto.ImageNewsDetailDto;
 import com.shili.lu.image.model.ImageMaterial;
 import com.shili.lu.image.model.ImageMaterialDetail;
 import com.shili.lu.image.service.ImageMaterialServiceI;
@@ -475,7 +477,7 @@ public class NewsMainController extends BaseController {
         	if(imageMaterialList.get(i).getId().toString().equals(imageMaterialId)){
         		 if(i==0)
         		 {
-        			 next=i+1;
+        			 next=i;
         			 preval=imageMaterialList.size()-1;
         		 }
         		 else if(i==imageMaterialList.size()-1){
@@ -511,12 +513,57 @@ public class NewsMainController extends BaseController {
 	 */
 	@RequestMapping("/findImageNews")
 	@NoSecurity
-	public ModelAndView findImageNews(HttpServletRequest request) {
+	public ModelAndView findImageNews(HttpServletRequest request,PageBounds pageBounds) {
 		ModelAndView m = new ModelAndView();
-		List<ImageMaterial> imageMaterialList=imageMaterialService.findImageMaterial();
+		pageBounds.setContainsTotalCount(true);
+		pageBounds.getOrders()
+				.add(new Order("create_time", Direction.DESC, ""));
+		pageBounds.setLimit(12);
+		PageList<ImageMaterial> imageMaterialList=imageMaterialService.findImageMaterial(pageBounds);
 		m.getModel().put("imageMaterialList", imageMaterialList);
 		m.setViewName("forward:/front/image_news_index.jsp");
 		return m;	
 	}
 	
+	/**
+	 * 查看更多
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/getMoreImageAjax", produces = "application/json;charset=UTF-8")
+	@NoSecurity
+	@ResponseBody
+	public String getMoreImageAjax(HttpServletRequest req, ImageNewsDetailDto info) {
+
+		// 参数
+		//ImageNewsDetailDto queryParam = new ImageNewsDetailDto();
+		PageBounds pageBounds = new PageBounds();
+		if (info.getPage() == null) {
+			pageBounds.setPage(1);
+		} else {
+			pageBounds.setPage(info.getPage());
+		}
+		pageBounds.setLimit(12);
+		pageBounds.setContainsTotalCount(true);
+		pageBounds.getOrders()
+				.add(new Order("create_time", Direction.DESC, ""));
+
+		// 查询
+		PageList<ImageMaterial> imageMaterialList = imageMaterialService
+				.findImageMaterial(pageBounds);
+		
+		
+		// 返回
+		JSONArray json = JSONArray.fromObject(imageMaterialList);
+		
+		String str="{\"data\":{\"blogs\":"+json+",\"has_next\":true},\"success\":true}";
+		
+		return str;
+		//Gson gson=new Gson();	
+		//String reseutJson=gson.toJson(str);
+		//return reseutJson;
+
+	}
+
 }

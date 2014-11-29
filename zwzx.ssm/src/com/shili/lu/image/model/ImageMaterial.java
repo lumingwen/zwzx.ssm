@@ -16,6 +16,8 @@ public class ImageMaterial {
 	private Long imageId;
 
 	private Integer deleteFlag;
+	
+	private Integer height;
 
 	public Long getId() {
 		return id;
@@ -72,4 +74,13 @@ public class ImageMaterial {
 	public void setDeleteFlag(Integer deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+	
 }
