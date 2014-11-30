@@ -220,6 +220,12 @@ public class NewsMainController extends BaseController {
 
 		// 顶部菜单的生成
 		List<ResDict> menulist = resDictService.getAllMenu("NEWROOT", 1);
+		
+		
+		
+		//下边友情链接ist
+		List<NewsFriendlink> friendlinklistEnd = frontNewsFriendlinkService
+				.findFriendlinkByCtg("友情链接");	
 
 		// 最新新闻
 		List<PubBroadcastContentDto> contentlist = frontNewsContetService
@@ -246,6 +252,7 @@ public class NewsMainController extends BaseController {
 		// 返回频道推荐新闻内容
 		m.getModel().put("newscontentList", contentlist3);
 		m.getModel().put("contentTypeId", contentTypeId);
+		m.getModel().put("friendlinklistEnd", friendlinklistEnd);
 		m.getModel().put("menulist", menulist);
 		m.setViewName("forward:/front/detail/news_list.jsp");
 		return m;
@@ -399,6 +406,13 @@ public class NewsMainController extends BaseController {
 		// String newsTypeName = list.get(i).getCname();
 		List<PubBroadcastContentDto> contentlist1 = frontNewsContetService
 				.selectListMostComment();
+		
+		//下边友情链接ist
+		List<NewsFriendlink> friendlinklistEnd = frontNewsFriendlinkService
+				.findFriendlinkByCtg("友情链接");	
+		
+		m.getModel().put("friendlinklistEnd", friendlinklistEnd);
+		
 		m.getModel().put("newscontentMostCommentList", contentlist1);
 
 		// 返回最多点击

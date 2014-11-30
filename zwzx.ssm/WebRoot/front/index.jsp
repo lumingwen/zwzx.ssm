@@ -8,7 +8,7 @@ String path = request.getContextPath();
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>中文传播-传播中文</title>
+		<title>中闻传播-传播中闻</title>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
 		<script src="${pageContext.request.contextPath}/js/front/jquery-1.8.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${pageContext.request.contextPath}/js/front/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
@@ -934,11 +934,11 @@ String path = request.getContextPath();
 		<div id="footer" class="footer">
 			<div class="content p10">
 				<p>
-					Copyright &copy; 2014-2018 <a href="http://www.zwzxnews.com" target="_blank">zwzxnews.com</a> All Rights Reserved.本站所刊登的各种新闻﹑信息和各种专题专栏资料，均为中文在线权所有，未经协议授权禁止下载使用。
+					Copyright &copy; 2014-2018 <a href="http://www.zwzxnews.com" target="_blank">zwzxnews.com</a> All Rights Reserved.本站所刊登的各种新闻﹑信息和各种专题专栏资料，均为中闻在线权所有，未经协议授权禁止下载使用。
 				</p>
 				<p style=" width:980px; margin:0 auto">
 					<span style=" width:1000px;">
-			 <c:forEach items="${friendlinklist}" var="linklist" varStatus="status">
+			 <c:forEach items="${friendlinklist1}" var="linklist" varStatus="status">
 					<a href="${linklist.domain }"  target="_blank">			
 				      ${linklist.siteName }
 					</a>|	

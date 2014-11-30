@@ -5,7 +5,7 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>内容查看</title>
+<title>${pubBroadcastContent.title}</title>
 <link rel="stylesheet" type="text/css" href="../css/valuedate.css"/>
 <link rel="stylesheet" type="text/css" href="../css/staff-add.css" />
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css"/>
@@ -475,49 +475,17 @@ function jsonDataToString(dateStr) {
 		<div id="footer" class="footer">
 			<div class="content p10">
 				<p>
-					Copyright &copy; 2000-2014 XINHUANET.com All Rights Reserved.本站所刊登的各种新闻﹑信息和各种专题专栏资料，均为####权所有，未经协议授权禁止下载使用。
+					Copyright &copy; 2014-2018 <a href="http://www.zwzxnews.com" target="_blank">zwzxnews.com</a> All Rights Reserved.本站所刊登的各种新闻﹑信息和各种专题专栏资料，均为中闻在线权所有，未经协议授权禁止下载使用。
 				</p>
 				<p style=" width:980px; margin:0 auto">
 					<span style=" width:1000px;">
-						<a target="_blank" href="#">
-							简介
-						</a> |
-						<a target="_blank" href="#">
-							关于我们
-						</a> |
-						<a target="_blank" href="#">
-							联系我们
-						</a> |
-						<a target="_blank" href="#">
-							我要链接
-						</a> |
-						<a target="_blank" href="#">
-							版权声明
-						</a> |
-						<a target="_blank" href="#">
-							法律顾问
-						</a> |
-						<a target="_blank" href="#">
-							广告服务
-						</a> |
-						<a target="_blank" href="#">
-							技术服务中心
-						</a>
-						<a target="_blank" href="#">
-							京ICP证010042号
-						</a> | 京公网安备：110000000015号 |
-						<a href="#">
-							网上传播视听节目许可证(0103020)
-						</a> |
-						<a href="#">
-							中国互联网视听节目服务自律公约
-						</a> |
-						<a href="#">
-							可信网站认证
-						</a> |
-						<a href="#">
-							百度原创星火计划
-						</a></span>
+						
+				<c:forEach items="${friendlinklistEnd}" var="linklist" varStatus="status">
+					<a href="${linklist.domain }"  target="_blank">			
+				      ${linklist.siteName }
+					</a>|	
+				</c:forEach>	
+					</span>
 				</p>
 			</div>
 
