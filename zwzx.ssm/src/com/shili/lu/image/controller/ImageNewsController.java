@@ -8,9 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.miemiedev.mybatis.paginator.domain.Order;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.github.miemiedev.mybatis.paginator.domain.Order.Direction;
 import com.shili.lu.common.annotation.NoSecurity;
 import com.shili.lu.common.util.Constants;
+import com.shili.lu.common.util.PageUtils;
 import com.shili.lu.image.dto.ImageNewsDto;
+import com.shili.lu.image.model.ImageMaterial;
 import com.shili.lu.image.service.ImageMaterialServiceI;
 
 /**
@@ -52,7 +58,40 @@ public class ImageNewsController {
 		dto.setDeleteFlag(Constants.DEL_FLAG_NO);
 		imageMaterialService.saveImageNews(dto);
 		ModelAndView m = new ModelAndView();
-		m.setViewName("redirect:listFriendlinkInfo.do?page=1&limit=10");
+		m.setViewName("redirect:listImageInfo.do?page=1&limit=10");
 		return m;
+	}
+	
+	/**
+	 * 分页查询图片
+	 * 
+	 * @param req
+	 * @param queryParam
+	 * @param pageBounds
+	 * @return
+	 */
+	@RequestMapping("/listImageInfo")
+	@NoSecurity
+	public ModelAndView list(HttpServletRequest req,
+			ImageNewsDto queryParam, PageBounds pageBounds) {
+
+		if (queryParam == null) {
+			queryParam = new ImageNewsDto();
+		}
+
+		pageBounds.setContainsTotalCount(true);
+		pageBounds.getOrders()
+				.add(new Order("update_time", Direction.DESC, ""));
+		PageList<ImageMaterial> imageList = imageMaterialService
+				.findPageImageMaterial(queryParam, pageBounds);
+
+		ModelAndView m = new ModelAndView();
+		m.getModel().put("queryParam", queryParam);
+		m.getModel().put("imageList", imageList);
+		m.getModel().put("pagestr",
+				PageUtils.buildPageStr(imageList.getPaginator()));
+		m.setViewName("forward:/WEB-INF/pages/pub/image_info_list.jsp");
+		return m;
+
 	}
 }

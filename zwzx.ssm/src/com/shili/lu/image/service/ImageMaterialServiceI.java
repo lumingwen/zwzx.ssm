@@ -28,6 +28,8 @@ public interface ImageMaterialServiceI {
 	
 	public List<ImageMaterial> findImageMaterial();
 	
+	public PageList<ImageMaterial> findPageImageMaterial(ImageNewsDto queryParam, PageBounds pageBounds);
+	
 	public List<ImageMaterialDetail> findImageMaterialDetailByIMId(Long imageMaterialId);
 	
 	public int imageNewsCount(Long imageMaterialId);

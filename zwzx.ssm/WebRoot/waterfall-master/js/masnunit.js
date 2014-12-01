@@ -101,7 +101,7 @@ if(!String.prototype.cut){
 	<div class="mbpho" style="height:<%=u.height > 800 ? 800 : u.iht%>px;"><a target="_blank" class="a" href="/findImageNewsByImageId.do?imageMaterialId=/<%=u.id%>"><img <%=srcd ? "srcd" : "src"%>="../resClientAttachmentController/clientViewImage.do?attachmentId=<%=u.imageId%>" height="<%=u.height%>" /><%= u.height > 800 ? "<u style=\'margin-top:-"+(u.height-720)+"px\'></u>" : ""%></a> \
 	</div> \
 	<div class="d"><span class="d1 d1-done" onclick="love();"><%=u.favc%></span><span class="d2 d2-done"><%=u.zanc%></span><span class="d3"><%=u.repc%></span></div> \
-	<div class="g"><%=u.msg%><% if(olnk){ %>&nbsp;<%=$price(u,olnk)%><% } %></div> \
+	<div class="g"><%=u.title%><% if(olnk){ %>&nbsp;<%=$price(u,olnk)%><% } %></div> \
 	<ul> \
 	<li class="f"><a target="_blank" href="http://www.duitang.com/topics/"><img width="24" height="24" src="<%=u.ava%>"></a><p><a class="p" target="_blank" href="http://www.duitang.com/topics/"><%=$cut(u.unm,16)%></a>&nbsp;收集到&nbsp;<% if(u.albid){ %><a target="_blank" href="http://www.duitang.com/topics/"><%=$cut(u.albnm,12)%></a>&nbsp;专辑中<% }else{ %><a target="_blank" href="http://www.duitang.com/topics/">默认专辑</a><% } %></p></li> \
 <% for(var j=0,l=hasrp?u.cmts.length:0; j<l; j++){ %> \

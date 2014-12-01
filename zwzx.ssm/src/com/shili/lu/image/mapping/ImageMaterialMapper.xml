@@ -39,6 +39,28 @@
     where delete_flag = 0
   </select>
   
+  
+   <select id="findPageImageMaterial" resultMap="BaseResultMap" parameterType="com.shili.lu.image.dto.ImageNewsDto" >
+    select 
+    <include refid="Base_Column_List" />
+    from image_material
+    where delete_flag = 0
+    
+    <if test="title!=null and title!=''">
+		and title like concat('%',#{title},'%')
+	</if>
+	<if test="createTimeStart!=null and createTimeStart!=''">
+		<![CDATA[and DATE_FORMAT(create_time,'%Y-%m-%d')>=#{createTimeStart}]]>
+	</if>
+	<if test="createTimeEnd!=null and createTimeEnd!=''">
+		<![CDATA[and DATE_FORMAT(create_time,'%Y-%m-%d')<=#{createTimeEnd}]]>
+	</if>
+	<if test="param!=null and param!=''">
+		${param}
+	</if>
+	
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from image_material
     where id = #{id,jdbcType=BIGINT}

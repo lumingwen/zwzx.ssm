@@ -124,5 +124,12 @@ public class ImageMaterialServiceImpl implements ImageMaterialServiceI {
 	public ImageMaterial findImageMaterialById(Long id) {
 		return imageMaterialMapper.selectByPrimaryKey(id);
 	}
+
+
+	@Override
+	public PageList<ImageMaterial> findPageImageMaterial(ImageNewsDto queryParam,
+			PageBounds pageBounds) {
+		return imageMaterialMapper.findPageImageMaterial(queryParam, pageBounds);
+	}
 	
 }

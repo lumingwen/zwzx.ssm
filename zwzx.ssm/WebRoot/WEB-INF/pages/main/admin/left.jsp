@@ -184,7 +184,7 @@ H1 a {
           <li><a href="dict/contentList.do?type=${dto.key}&limit=10" target="main">查看类型</a></li>
           <li><a href="pubBroadcast/addBroadcast.do" target="main">添加新闻</a></li>
           <li><a href="pubBroadcast/listBroadcastInfo.do?page=1&limit=10" target="main">新闻列表</a></li>
-          <li><a href="imageNews/addImageNews.do" target="main">图片新闻</a></li>
+          <li><a href="imageNews/listImageInfo.do?page=1&limit=10" target="main">图片新闻</a></li>
         </ul>
       </div>
       <h1 class="type"><a href="javascript:void(0)">广告内容管理</a></h1>

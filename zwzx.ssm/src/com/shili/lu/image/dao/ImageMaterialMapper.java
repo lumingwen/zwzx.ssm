@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.shili.lu.image.dto.ImageNewsDto;
 import com.shili.lu.image.model.ImageMaterial;
 
 public interface ImageMaterialMapper {
@@ -18,4 +19,9 @@ public interface ImageMaterialMapper {
 	PageList<ImageMaterial> findImageMaterial(PageBounds pageBounds);
 	
 	List<ImageMaterial> findImageMaterial();
+	
+	PageList<ImageMaterial> findPageImageMaterial(ImageNewsDto queryParam,
+			PageBounds pageBounds);
+	
+	
 }
