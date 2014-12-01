@@ -37,7 +37,7 @@ String path = request.getContextPath();
 		<div class="woo-swb">
 			<!-- data-totalunits is set here, then pager nums would be fixed -->
 			<!-- It would have been Hasnext Mode if you didn't do it -->
-			<div class="woo-pcont woo-masned my-pic" data-totalunits="541" data-wootemp="0" data-subpagenum="4">
+			<div class="woo-pcont woo-masned my-pic" data-totalunits="185" data-wootemp="0" data-subpagenum="4">
 				<!-- .woo-pcont 节点内可预先放好若干个单元(个数没有限制) -->
 				<!-- 预先放置的会被当做第一子页数据，后面会直接从第二子页开始 -->
 				<!-- 可以选择不放置 -->

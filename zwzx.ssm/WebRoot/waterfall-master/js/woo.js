@@ -273,6 +273,12 @@
         }else{
           Woo.$gopre.css("display","none")
         }
+        
+        if( num <4 ){
+            Woo.$gonext.css("display","block")
+          }else{
+            Woo.$gonext.css("display","none")
+          }
 
       });
 

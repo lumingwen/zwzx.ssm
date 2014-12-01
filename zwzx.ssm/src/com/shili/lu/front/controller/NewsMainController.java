@@ -573,11 +573,15 @@ public class NewsMainController extends BaseController {
 		PageList<ImageMaterial> imageMaterialList = imageMaterialService
 				.findImageMaterial(pageBounds);
 		
-		
+		boolean hasNext=true;
+		if(imageMaterialList.size()<12)
+		{
+			hasNext=false;
+		}
 		// 返回
 		JSONArray json = JSONArray.fromObject(imageMaterialList);
 		
-		String str="{\"data\":{\"blogs\":"+json+",\"has_next\":true},\"success\":true}";
+		String str="{\"data\":{\"blogs\":"+json+",\"has_next\":"+hasNext+"},\"success\":true}";
 		
 		return str;
 		//Gson gson=new Gson();	
