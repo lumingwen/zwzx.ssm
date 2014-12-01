@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 /**
  * 
  * 配置此注解表示不需要要进行安全过滤
- * @author zhangxujun
+ * @author lumw
  * 
  *
  */

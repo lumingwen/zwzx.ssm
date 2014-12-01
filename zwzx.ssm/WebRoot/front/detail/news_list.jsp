@@ -5,7 +5,7 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>详细列表</title>
+<title>中闻传播-传播中闻</title>
 <link rel="stylesheet" type="text/css" href="../css/valuedate.css"/>
 <link rel="stylesheet" type="text/css" href="../css/staff-add.css" />
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css"/>
@@ -349,7 +349,7 @@ function appendMessage(datas,direction){
 				      ${linklist.siteName }
 					</a>|	
 				</c:forEach>
-						</span>
+				</span>
 				</p>
 			</div>
 

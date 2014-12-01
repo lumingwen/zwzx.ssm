@@ -10,9 +10,20 @@
     <result column="image_id" property="imageId" jdbcType="BIGINT" />
     <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
     <result column="height" property="height" jdbcType="INTEGER" />
+    
+    <result column="favc" property="favc" jdbcType="INTEGER" />
+    <result column="zanc" property="zanc" jdbcType="INTEGER" />
+    <result column="repc" property="repc" jdbcType="INTEGER" />
+    <result column="ava" property="ava" jdbcType="VARCHAR" />
+    <result column="unm" property="unm" jdbcType="VARCHAR" />
+    <result column="albid" property="albid" jdbcType="VARCHAR" />
+    <result column="albnm" property="albnm" jdbcType="VARCHAR" />
+    
+    
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, source, create_time, update_time, image_id, delete_flag,height
+    id, title, source, create_time, update_time, image_id, delete_flag,height,
+   favc, zanc,repc,ava,unm,albid,albnm
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 

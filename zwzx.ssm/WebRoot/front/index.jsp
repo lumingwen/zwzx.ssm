@@ -939,9 +939,11 @@ String path = request.getContextPath();
 				<p style=" width:980px; margin:0 auto">
 					<span style=" width:1000px;">
 			 <c:forEach items="${friendlinklist1}" var="linklist" varStatus="status">
+			       <c:if test="${linklist.isEnabled eq 'true'}">
 					<a href="${linklist.domain }"  target="_blank">			
 				      ${linklist.siteName }
 					</a>|	
+					</c:if>
 				</c:forEach>			
 			  </span>
 				</p>

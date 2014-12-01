@@ -52,7 +52,8 @@ public class MainController extends BaseController {
 	 * 登录
 	 * 
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	//@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping("/login")
 	@NoSecurity
 	public ModelAndView login(HttpServletRequest req, HttpSession session,
 			RmsUser user) {

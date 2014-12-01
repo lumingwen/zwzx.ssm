@@ -18,6 +18,20 @@ public class ImageMaterial {
 	private Integer deleteFlag;
 	
 	private Integer height;
+	
+	private String ava;
+	
+	private String unm;
+	
+	private String albid;
+	
+	private String albnm;
+	
+	private Integer favc;
+	
+	private Integer zanc;
+	private Integer repc;
+	
 
 	public Long getId() {
 		return id;
@@ -81,6 +95,62 @@ public class ImageMaterial {
 
 	public void setHeight(Integer height) {
 		this.height = height;
+	}
+
+	public String getAva() {
+		return ava;
+	}
+
+	public void setAva(String ava) {
+		this.ava = ava;
+	}
+
+	public String getUnm() {
+		return unm;
+	}
+
+	public void setUnm(String unm) {
+		this.unm = unm;
+	}
+
+	public String getAlbid() {
+		return albid;
+	}
+
+	public void setAlbid(String albid) {
+		this.albid = albid;
+	}
+
+	public String getAlbnm() {
+		return albnm;
+	}
+
+	public void setAlbnm(String albnm) {
+		this.albnm = albnm;
+	}
+
+	public Integer getFavc() {
+		return favc;
+	}
+
+	public void setFavc(Integer favc) {
+		this.favc = favc;
+	}
+
+	public Integer getZanc() {
+		return zanc;
+	}
+
+	public void setZanc(Integer zanc) {
+		this.zanc = zanc;
+	}
+
+	public Integer getRepc() {
+		return repc;
+	}
+
+	public void setRepc(Integer repc) {
+		this.repc = repc;
 	}
 	
 }

@@ -37,7 +37,7 @@ String path = request.getContextPath();
 		<div class="woo-swb">
 			<!-- data-totalunits is set here, then pager nums would be fixed -->
 			<!-- It would have been Hasnext Mode if you didn't do it -->
-			<div class="woo-pcont woo-masned my-pic" data-totalunits="440" data-wootemp="2" data-subpagenum="6">
+			<div class="woo-pcont woo-masned my-pic" data-totalunits="541" data-wootemp="0" data-subpagenum="6">
 				<!-- .woo-pcont 节点内可预先放好若干个单元(个数没有限制) -->
 				<!-- 预先放置的会被当做第一子页数据，后面会直接从第二子页开始 -->
 				<!-- 可以选择不放置 -->
@@ -78,6 +78,12 @@ String path = request.getContextPath();
 	</form>
 </div>
 <script>
+function love(){
+alert("mylove you");
+}
+
+
+
 $(function (){
 	// Append buttons gonext, gopre, gotop to the body as you like.
 	$('<div id="mycontrols"><a id="gonext" href="javascript:;" title="下一页"></a><a href="javascript:;" id="gotop"></a><a id="gopre" href="javascript:;"  title="上一页"></a></div>').appendTo('body');

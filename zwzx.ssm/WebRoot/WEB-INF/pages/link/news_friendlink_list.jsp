@@ -92,7 +92,11 @@
 		<c:forEach items="${list}" var="requirement">
                         <tr>
 							<td>${requirement.friendlinkId}</td>
-							<td><img id="attchmentImage"  height="100" width="100" src="../resAttachmentController/viewImage.do?attachmentId=${requirement.imageId}" /> </td>
+							<td>
+							<c:if test="${not empty requirement.imageId}">
+							<img id="attchmentImage"  height="100" width="100" src="../resAttachmentController/viewImage.do?attachmentId=${requirement.imageId}" /> 
+							</c:if>
+							</td>
 							<td>${requirement.siteName}</td>
 							<td>${requirement.userName}</td>
 							<td>${requirement.description}</td>

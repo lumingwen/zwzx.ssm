@@ -75,7 +75,7 @@
       "sinkright" : false,
 
       // * 每页的单元数
-      "unitsnum" : 24,
+      "unitsnum" : 12,
 
       // * 每一大页子页数量
       "subpagenum" : 4,

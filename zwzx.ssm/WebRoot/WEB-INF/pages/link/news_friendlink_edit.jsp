@@ -22,16 +22,10 @@ input{ vertical-align:middle; margin:0; padding:0}
 <script src="../res/common/js/jeecms.js" type="text/javascript"></script>
 <script src="../res/jeecms/js/admin.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="../js/function.js"></script>
+
 <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="../js/ajaxfileupload.js"></script>
-<script type="text/javascript">
-$(function() {
-	attrChange("image");
-	$("#textColor").colorPicker();
-	$("#jvForm").validate();
-});
-</script>
+
 </head>
 <body>
 <script type="text/javascript">
@@ -74,8 +68,8 @@ function uploadFile(){
 	<div class="clear"></div>
 </div>
 <div class="body-box">
-<form method="post" action="saveFriendlink.do" id="jvForm">
-<c:if test="${ type ne 'insert'}">
+<form method="post" action="saveFriendlink.do" >
+<c:if test="${type ne 'insert'}">
 <input type="hidden" maxlength="100" name="friendlinkId" class="required" maxlength="100"  value="${dto.friendlinkId}" / >
 <table width="100%" class="pn-ftable" cellpadding="2" cellspacing="1" border="0">
 <tr>
@@ -90,7 +84,14 @@ function uploadFile(){
 <td colspan="1" width="35%" class="pn-fcontent">
 <select name="friendlinkctgId" class="required">
 <c:forEach items="${friendlinkctglist}" var="linkctglist">
-<option value="${linkctglist.friendlinkctgId }">${linkctglist.friendlinkctgName }</option>
+			<c:choose>
+                <c:when test="${linkctglist.friendlinkctgId eq dto.friendlinkctgId}">
+                   <option value="${linkctglist.friendlinkctgId}"  selected = "selected">${linkctglist.friendlinkctgName }</option>   
+                 </c:when>
+                  <c:otherwise>
+                  <option value="${linkctglist.friendlinkctgId}" >${linkctglist.friendlinkctgName }</option>
+                </c:otherwise>
+             </c:choose>
 </c:forEach>
 </select>
 </td>
@@ -114,13 +115,16 @@ function uploadFile(){
 <td colspan="3" width="85%" class="pn-fcontent">
 <textarea cols="50" rows="3" name="description"   value="${dto.description}"  maxlength="255">${dto.description}</textarea>
 </td></tr>
-<tr><td width="15%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>排列顺序:</td><td colspan="1" width="35%" class="pn-fcontent">
-<input type="text" maxlength="11" value="10" name="priority"  value="${dto.priority}"  class="required" style="width:100px" maxlength="11"/></td>
+<tr><td width="15%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>
+排列顺序:</td><td colspan="1" width="35%" class="pn-fcontent">
+<input type="text" maxlength="11"  name="priority"  value="${dto.priority}"  />
+</td>
 <td width="15%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>点击次数:</td><td colspan="1" width="35%" class="pn-fcontent">
-<input type="text" maxlength="11" value="0" name="views"  value="${dto.views}"  class="required" style="width:100px" maxlength="11"/></td></tr>
+<input type="text" maxlength="11"  name="views"  value="${dto.views}"  class="required" style="width:100px" maxlength="11"/></td></tr>
+
 <tr><td width="15%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>显示:</td><td colspan="3" width="85%" class="pn-fcontent"><label>
-<input type="radio" value="true"  name="isEnabled"    <c:if test="${'true'==dto.isEnabled} ">  checked="checked" </c:if>  class="required"/>是</label> <label>
-<input type="radio" value="false" name="isEnabled"  <c:if test="${'false'==dto.isEnabled} ">  checked="checked" </c:if>  class="required"/>否</label></td>
+<input type="radio" value="true"  name="isEnabled"  <c:if test="${dto.isEnabled }"> checked="checked" </c:if>  class="required"/>是</label> <label>
+<input type="radio" value="false" name="isEnabled"  <c:if test="${not dto.isEnabled}" > checked="checked" </c:if>  class="required"/>否</label></td>
 </tr>
 <c:if test="${ type ne 'detail'}">
 <tr><td colspan="4" class="pn-fbutton">
@@ -130,7 +134,7 @@ function uploadFile(){
 </table>
 </c:if>
 
-<c:if test="${ type eq 'insert'}">
+<c:if test="${type eq 'insert'}">
 <table width="100%" class="pn-ftable" cellpadding="2" cellspacing="1" border="0">
 <tr>
 <td width="15%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>网站名称:</td><td colspan="1" width="35%" class="pn-fcontent">
@@ -163,7 +167,9 @@ function uploadFile(){
 <td colspan="3" width="85%" class="pn-fcontent">
 <textarea cols="50" rows="3" name="description" maxlength="255"></textarea>
 </td></tr>
-<tr><td width="15%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>排列顺序:</td><td colspan="1" width="35%" class="pn-fcontent"><input type="text" maxlength="11" value="10" name="priority" class="required" style="width:100px" maxlength="11"/></td>
+<tr><td width="15%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>
+排列顺序:</td><td colspan="1" width="35%" class="pn-fcontent">
+<input type="text" maxlength="11" value="10" name="priority" class="required" style="width:100px" maxlength="11"/></td>
 <td width="15%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>点击次数:</td><td colspan="1" width="35%" class="pn-fcontent"><input type="text" maxlength="11" value="0" name="views" class="required" style="width:100px" maxlength="11"/></td></tr>
 <tr><td width="15%" class="pn-flabel pn-flabel-h"><span class="pn-frequired">*</span>显示:</td><td colspan="3" width="85%" class="pn-fcontent"><label>
 <input type="radio" value="true" checked="checked" name="isEnabled" class="required"/>是</label> <label><input type="radio" value="false" name="isEnabled" class="required"/>否</label></td>

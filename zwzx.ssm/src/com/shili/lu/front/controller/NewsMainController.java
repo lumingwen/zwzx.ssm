@@ -173,6 +173,11 @@ public class NewsMainController extends BaseController {
 		List<PubBroadcastContentDto> contentlist = frontNewsContetService
 				.findNewsContent();
 		m.getModel().put("newscontentNewstNewsList", contentlist);
+		
+		//下边友情链接ist
+		List<NewsFriendlink> friendlinklistEnd = frontNewsFriendlinkService
+				.findFriendlinkByCtg("友情链接");	
+
 
 		// 返回最多评论的新闻
 		// String newsTypeName = list.get(i).getCname();
@@ -194,6 +199,7 @@ public class NewsMainController extends BaseController {
 		// 返回频道推荐新闻内容
 		m.getModel().put("newscontentList", contentlist3);
 		m.getModel().put("contentTypeId", contentTypeId);
+		m.getModel().put("friendlinklistEnd", friendlinklistEnd);
 		m.getModel().put("menulist", menulist);
 		m.setViewName("forward:/front/detail/news_list.jsp");
 		return m;

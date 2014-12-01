@@ -46,6 +46,7 @@ WHERE t1.delete_flag=0
 <if test="friendlinkctgName!=null and friendlinkctgName!=''">
 		and t2.`friendlinkctg_name`=#{friendlinkctgName,jdbcType=VARCHAR}
 </if>
+order by t1.`priority` ASC
   </select>
   <!-- 广告列表 -->
    <select id="listFriendlinkByPage" resultMap="DtoResultMap" >
