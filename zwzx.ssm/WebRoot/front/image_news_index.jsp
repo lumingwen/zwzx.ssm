@@ -8,7 +8,7 @@ String path = request.getContextPath();
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>瀑布流</title>
+		<title>中闻传播-传播中文</title>
 		<meta name="keywords" content="瀑布流,jQuery,waterfall,woo" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/waterfall-master/css/reset.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/waterfall-master/css/main.css" />
@@ -25,13 +25,22 @@ String path = request.getContextPath();
 		<script src="${pageContext.request.contextPath}/waterfall-master/js/masnunit.js"></script>
 	</head>
 	<body>
+
+
+<div id="header">
+<div class="lattern">
+<a href="index.do" class="redlk">	首页</a>
+</div>
+<h1><a href="http://www.zwzxnews.com" title="www.zwzxnews.com"></a></h1>
+</div>
+	
 	
 <div id="content">
 	<div id="woo-holder">
 		<!-- When gotop button is clicked, scrollbar will be positioned where the anchor is. -->
 		<a name="woo-anchor"></a>
 		<ul id="switchholder">
-		<li class="woo-swa woo-cur"><a href="javascript:;">my pics</a></li>
+		<li class="woo-swa woo-cur"><a href="javascript:;">图集</a></li>
 		</ul>
 
 		<div class="woo-swb">
@@ -51,11 +60,11 @@ String path = request.getContextPath();
 				<a class="y" href="#">52</a><a class="z" href="#">0</a>
 				<a class="x" href="#">0</a></div></div><div class="d">
 				<span class="d1">52</span><span class="d2">0</span>
-				<span class="d3">0</span></div><div class="g">古风</div>
+				<span class="d3">0</span></div><div class="g"><fmt:formatDate type="both" dateStyle="medium"  timeStyle="medium" value="${imageMaterialList.createTime}"/></div>
 				<ul><li class="f"><a target="_blank" href="http://www.duitang.com/people/1629580/"> 
-				<img width="24" height="24" srcd="http://cdn.duitang.com/uploads/people/201307/29/20130729212849_MiajP.thumb.24_24_c.jpeg" /> </a><p>
-				<a class="p" target="_blank" href="http://www.duitang.com/people/1629580/">香水座</a>&nbsp;收集到&nbsp;
-				<a target="_blank" href="http://www.duitang.com/album/4319045/">手绘</a>&nbsp;专辑中</p></li></ul></div></div>
+				<p>
+				${imageMaterialList.title}
+				</p></li></ul></div></div>
 				</c:forEach>
 				
 			</div>
@@ -66,8 +75,23 @@ String path = request.getContextPath();
 	<!-- Woo holder over -->
 
 </div>
-<div id="footer">
-&copy;Copyright by 堆糖 2010-2013 duitang.com, all rights reserved
+<div id="footer" class="footer">
+			<div class="content p10">
+				<p>
+					Copyright &copy; 2014-2018 <a href="http://www.zwzxnews.com" target="_blank">zwzxnews.com</a> All Rights Reserved.本站所刊登的各种新闻﹑信息和各种专题专栏资料，均为中闻在线权所有，未经协议授权禁止下载使用。
+				</p>
+				<p style=" width:980px; margin:0 auto">
+					<span style=" width:1000px;">
+			 <c:forEach items="${friendlinklist1}" var="linklist" varStatus="status">
+			       <c:if test="${linklist.isEnabled eq 'true'}">
+					<a href="${linklist.domain }"  target="_blank">			
+				      ${linklist.siteName }
+					</a>|	
+					</c:if>
+				</c:forEach>			
+			  </span>
+				</p>
+			</div>
 </div>
 <style>
 /* invisible holder for the page */

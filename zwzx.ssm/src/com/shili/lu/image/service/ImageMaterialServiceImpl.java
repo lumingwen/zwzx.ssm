@@ -78,10 +78,9 @@ public class ImageMaterialServiceImpl implements ImageMaterialServiceI {
 		if (dto.getImageMaterialDetail() != null) {
 			for (ImageMaterialDetail dt : dto
 					.getImageMaterialDetail()) {
-//				dt.setCreateTime(dto.getCreateTime());
-//				dt.setUpdateTime(dto.getUpdateTime());
-//				dt.setDeleteFlag(dto.getDeleteFlag());
-				
+				dt.setCreateTime(new Date());
+				dt.setUpdateTime(new Date());
+				dt.setDeleteFlag(Constants.DEL_FLAG_NO);	
 				dt.setImageMaterialId(dto.getId());
 				dt.setImageId(dto.getPhotos().get(i).getId());
 				dt.setImageDetail(dto.getImageMaterialDetail().get(i).getImageDetail());

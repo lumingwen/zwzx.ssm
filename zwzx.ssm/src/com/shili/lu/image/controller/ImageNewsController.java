@@ -53,9 +53,6 @@ public class ImageNewsController {
 	@RequestMapping("/saveImageNews")
 	public ModelAndView saveImageNews(HttpServletRequest req,
 			ImageNewsDto dto) {
-		dto.setCreateTime(new Date());
-		dto.setUpdateTime(new Date());
-		dto.setDeleteFlag(Constants.DEL_FLAG_NO);
 		imageMaterialService.saveImageNews(dto);
 		ModelAndView m = new ModelAndView();
 		m.setViewName("redirect:listImageInfo.do?page=1&limit=10");

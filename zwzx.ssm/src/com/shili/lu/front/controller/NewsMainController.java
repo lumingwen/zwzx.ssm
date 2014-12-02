@@ -541,6 +541,10 @@ public class NewsMainController extends BaseController {
 		pageBounds.setLimit(12);
 		PageList<ImageMaterial> imageMaterialList=imageMaterialService.findImageMaterial(pageBounds);
 		m.getModel().put("imageMaterialList", imageMaterialList);
+		//下边友情链接ist
+		List<NewsFriendlink> friendlinklistEnd = frontNewsFriendlinkService
+				.findFriendlinkByCtg("友情链接");	
+		m.getModel().put("friendlinklistEnd", friendlinklistEnd);
 		m.setViewName("forward:/front/image_news_index.jsp");
 		return m;	
 	}

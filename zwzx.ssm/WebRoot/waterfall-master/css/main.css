@@ -102,7 +102,7 @@ div div.my-album{visibility:visible}
 html,body{background-color:#fff;}
 
 /* 堆糖 logo */
-h1 a{display:block;width:140px;height:96px;text-indent:-9999px;background:url(http://img4.duitang.com/uploads/files/201309/25/20130925232523_YSTKT.gif) center 12px no-repeat;}
+h1 a{display:block;width:280px;height:96px;text-indent:-9999px;background:url(../../images/logo.png) center 12px no-repeat;}
 #footer{display:none;height:40px;padding:16px 0 0 16px;margin:0 0 0;border-top:1px solid #f7f7f7}
 
 /* 链接引导 */

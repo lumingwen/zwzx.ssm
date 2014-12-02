@@ -7,6 +7,7 @@
 <head>
 <title>详细列表</title>
 <link href="../css/piccontext.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/waterfall-master/css/main.css" />
 <script src="../js/jquery-1.8.3.min.js" type="text/javascript"></script>
 <script src="../js/piccontent.min.js" type="text/javascript"></script>
 </head>
@@ -147,6 +148,8 @@
   </div>
  
 </div>
+</div
+
 </div>
 </body>
 </html>

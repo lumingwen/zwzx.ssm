@@ -882,14 +882,12 @@ String path = request.getContextPath();
 							</a>
 						</li>					
 					<c:forEach items="${findImageMaterial}" var="findImageMaterial" varStatus="item">
-					<c:if test="${item.index lt 7}">
 					    <li class="photo_bor">
 					    <a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${findImageMaterial.id}" target="_blank">
 					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${findImageMaterial.imageId}"  width="189" height="117" />
 					     <i class="title">${findImageMaterial.title}</i>
 					     </a>
 					     </li>
-					</c:if>
 					</c:forEach>
 					</ul>
 				</div>

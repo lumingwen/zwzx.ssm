@@ -7,9 +7,12 @@
     <result column="sort_number" property="sortNumber" jdbcType="INTEGER" />
     <result column="image_id" property="imageId" jdbcType="BIGINT" />
     <result column="image_detail" property="imageDetail" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, image_material_id, sort_number, image_id, image_detail
+    id, image_material_id, sort_number, image_id, image_detail,create_time,update_time,delete_flag
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -44,9 +47,10 @@
   </delete>
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.shili.lu.image.model.ImageMaterialDetail" >
     insert into image_material_detail (id, image_material_id, sort_number, 
-      image_id, image_detail)
+      image_id, image_detail,create_time,update_time,delete_flag)
     values (#{id,jdbcType=BIGINT}, #{imageMaterialId,jdbcType=BIGINT}, #{sortNumber,jdbcType=INTEGER}, 
-      #{imageId,jdbcType=BIGINT}, #{imageDetail,jdbcType=VARCHAR})
+      #{imageId,jdbcType=BIGINT}, #{imageDetail,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=INTEGER})
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="com.shili.lu.image.model.ImageMaterialDetail" >
