@@ -21,7 +21,7 @@ public class NewsAdvertising {
 
 	private Date endTime;
 
-	private String isEnabled;
+	private Integer isEnabled;
 
 	private Long userId;
 
@@ -127,12 +127,12 @@ public class NewsAdvertising {
 		this.endTime = endTime;
 	}
 
-	public String getIsEnabled() {
+	public Integer getIsEnabled() {
 		return isEnabled;
 	}
 
-	public void setIsEnabled(String isEnabled) {
-		this.isEnabled = isEnabled == null ? null : isEnabled.trim();
+	public void setIsEnabled(Integer isEnabled) {
+		this.isEnabled = isEnabled;
 	}
 
 	public Long getUserId() {

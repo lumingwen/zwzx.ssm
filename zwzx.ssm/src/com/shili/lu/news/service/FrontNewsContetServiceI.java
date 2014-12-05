@@ -66,6 +66,11 @@ public interface FrontNewsContetServiceI {
 	 * 查询广告
 	 */
 	public List<NewsAdvertisingDto> listNewsAdvertising();
+	
+	/**
+	 * 底部广告
+	 */
+	public List<NewsAdvertisingDto> findNewsAdvertising(String adName);
 
 	/**
 	 * 查询最多评论的新闻
@@ -80,4 +85,7 @@ public interface FrontNewsContetServiceI {
 	 */
 
 	public List<PubBroadcastContentDto> selectListMostViews();
+	
+	
+	public List<PubBroadcastContentDto> findImportentContent(String typeName);
 }

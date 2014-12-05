@@ -2,6 +2,8 @@ package com.shili.lu.news.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.shili.lu.news.dto.PubBroadcastContentDto;
@@ -62,5 +64,7 @@ public interface PubBroadcastContentMapper {
 	 */
 
 	public List<PubBroadcastContentDto> selectListMostViews();
+	
+	List<PubBroadcastContentDto> findImportentContent(@Param(value="typeName") String typeName);
 
 }

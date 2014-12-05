@@ -32,4 +32,10 @@ public interface NewsAdvertisingMapper {
 	 * 查询广告(前台用)
 	 */
 	public List<NewsAdvertisingDto> listNewsAdvertising();
+	
+	
+	/**
+	 * 查询广告(前台用)
+	 */
+	List<NewsAdvertisingDto> findNewsAdvertising(NewsAdvertising record);
 }

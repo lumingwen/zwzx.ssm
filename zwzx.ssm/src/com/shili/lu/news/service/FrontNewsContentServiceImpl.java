@@ -9,6 +9,7 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.shili.lu.advertising.dao.NewsAdvertisingMapper;
 import com.shili.lu.advertising.dto.NewsAdvertisingDto;
+import com.shili.lu.advertising.model.NewsAdvertising;
 import com.shili.lu.news.dao.NewsCommentMapper;
 import com.shili.lu.news.dao.PubBroadcastContentMapper;
 import com.shili.lu.news.dto.NewsCommentDto;
@@ -83,6 +84,19 @@ public class FrontNewsContentServiceImpl implements FrontNewsContetServiceI {
 			PubBroadcastContentDto queryParam, PageBounds pageBounds) {
 		return pubBroadcastContentMapper.listBroadcastByPage(queryParam,
 				pageBounds);
+	}
+
+	@Override
+	public List<NewsAdvertisingDto> findNewsAdvertising(String adName) {
+		NewsAdvertising record=new NewsAdvertising();
+		record.setAdName(adName);
+		record.setCategory("image");
+		return newsAdvertisingMapper.findNewsAdvertising(record);
+	}
+
+	@Override
+	public List<PubBroadcastContentDto> findImportentContent(String typeName) {
+		return pubBroadcastContentMapper.findImportentContent(typeName);
 	}
 
 }

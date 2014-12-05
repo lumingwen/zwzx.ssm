@@ -97,6 +97,13 @@ public class NewsMainController extends BaseController {
 		// 最热新闻
 		List<PubBroadcastContentDto> latestNewsContent = frontNewsContetService
 				.findNewsContent();
+		//重要新闻
+		List<PubBroadcastContentDto> importentNews = frontNewsContetService
+				.findImportentContent("重要新闻");
+		//重要新闻
+		List<PubBroadcastContentDto> recommendNews = frontNewsContetService
+				.findImportentContent("推荐新闻");
+		
 		m.getModel().put("latestNewsContent", latestNewsContent);
 		// 广告list
 		List<NewsAdvertisingDto> newsAdvertisingList = frontNewsContetService
@@ -106,10 +113,14 @@ public class NewsMainController extends BaseController {
 		List<NewsFriendlink> friendlinklist = frontNewsFriendlinkService
 				.findFriendlinkByCtg("热点微博");
 		
+		//底部滚动广告list
+		List<NewsAdvertisingDto> newsEndAdvertisingList = frontNewsContetService
+				.findNewsAdvertising("底部滚动广告");
 		
 		//下边友情链接ist
 		List<NewsFriendlink> friendlinklistEnd = frontNewsFriendlinkService
 				.findFriendlinkByCtg("友情链接");	
+
 		
 		//下边图片List
 		List<ImageMaterial> findImageMaterial=imageMaterialService.findImageMaterial();
@@ -139,10 +150,13 @@ public class NewsMainController extends BaseController {
 		}
 
 		// 返回新闻内容
+		m.getModel().put("importentNews", importentNews);
+		m.getModel().put("recommendNews", recommendNews);
 		m.getModel().put("newscontentList", newscontentList);
 		m.getModel().put("friendlinklist", friendlinklist);
 		m.getModel().put("friendlinklist1", friendlinklistEnd);
 		m.getModel().put("findImageMaterial", findImageMaterial);
+		m.getModel().put("newsEndAdvertisingList", newsEndAdvertisingList);
 		m.setViewName("forward:/front/index.jsp");
 		return m;
 	}

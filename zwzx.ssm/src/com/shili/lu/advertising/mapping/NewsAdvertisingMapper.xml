@@ -11,7 +11,7 @@
     <result column="click_count" property="clickCount" jdbcType="BIGINT" />
     <result column="start_time" property="startTime" jdbcType="DATE" />
     <result column="end_time" property="endTime" jdbcType="DATE" />
-    <result column="is_enabled" property="isEnabled" jdbcType="CHAR" />
+    <result column="is_enabled" property="isEnabled" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -105,6 +105,23 @@
    order by 
    t1.`ad_weight`
    </select>
+   
+   
+  <!-- 底部滚动广告列表 -->
+   <select id="findNewsAdvertising" resultMap="BaseResultMap" parameterType="com.shili.lu.advertising.model.NewsAdvertising">
+    select 
+    <include refid="Base_Column_List1" />
+    from news_advertising t1
+    LEFT JOIN news_advertising_space t2 ON t2.`adspace_id`=t1.`adspace_id`
+    WHERE t1.delete_flag=0
+    and t1.`is_enabled`=1
+    <if test="adName!=null and  adName!=''">
+		and t2.`ad_name` like concat('%',#{adName},'%')
+	</if>
+	<if test="category!=null and category!=''">
+		and t1.`category` =#{category,jdbcType=INTEGER}
+	</if>
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     update  news_advertising
@@ -124,7 +141,7 @@
     values (#{advertisingId,jdbcType=INTEGER}, #{adspaceId,jdbcType=INTEGER}, #{adName,jdbcType=VARCHAR}, 
       #{category,jdbcType=VARCHAR}, #{adWeight,jdbcType=INTEGER}, #{displayCount,jdbcType=BIGINT}, 
       #{clickCount,jdbcType=BIGINT}, #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}, 
-      #{isEnabled,jdbcType=CHAR}, #{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{isEnabled,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
       #{imageUrl,jdbcType=VARCHAR}, #{imageLink,jdbcType=VARCHAR}, #{imagePoint,jdbcType=VARCHAR}, 
       #{imageTarget,jdbcType=VARCHAR}, #{fontDetail,jdbcType=VARCHAR}, #{fontLink,jdbcType=VARCHAR}, 
@@ -141,7 +158,7 @@
       click_count = #{clickCount,jdbcType=BIGINT},
       start_time = #{startTime,jdbcType=DATE},
       end_time = #{endTime,jdbcType=DATE},
-      is_enabled = #{isEnabled,jdbcType=CHAR},
+      is_enabled = #{isEnabled,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},

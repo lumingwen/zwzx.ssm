@@ -74,6 +74,20 @@
    order by create_time desc
   </select>
   
+    <!-- 前台重要的新闻 -->
+   <select id="findImportentContent" resultMap="DtoResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List1" />,
+    t4.`cname` as news_type_name
+    from pub_broadcast_content t1
+    left join res_dict t4 on t4.`id`=t1.`content_type_id`
+    WHERE t1.delete_flag=0
+    and 
+    t4.`cname`=#{typeName,jdbcType=VARCHAR}
+    order by create_time desc
+  </select> 
+     
+  
   <!-- 新闻列表 -->
    <select id="listBroadcastByPage" resultMap="DtoResultMap" >
     select 

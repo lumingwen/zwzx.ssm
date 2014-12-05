@@ -80,7 +80,7 @@ String path = request.getContextPath();
 		function toNewsDetail(id)
 		{
 		  var url="${pageContext.request.contextPath}/front/editNewsContentCount.do?newsId="+id;		
-		  location=url;
+		  window.open(url ,"_blank") ;
 		}
 		</script>
 	</head>
@@ -93,7 +93,7 @@ String path = request.getContextPath();
 				<div class="logo">
 					<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
 					<c:if test="${newsAdvertisingList.adWeight eq 1 }">
-					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" width="215" height="115"/>
+					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" width="211" height="115"/>
 					</c:if>
 					</c:forEach>
 				</div>
@@ -110,7 +110,7 @@ String path = request.getContextPath();
 					<div>
 					<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
 					<c:if test="${newsAdvertisingList.adWeight eq 2 }">
-					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}"  width="790"  height="95"/>
+					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}"  width="790"  height="97"/>
 					</c:if>
 					</c:forEach>
 					</div>
@@ -140,31 +140,31 @@ String path = request.getContextPath();
 			<!---->	
 			<div class="content">
 				<div class="h_part2">
-					<c:forEach items="${latestNewsContent}" var="latestNews"  varStatus="status">
+					<c:forEach items="${importentNews}" var="importentNews"  varStatus="status">
 					 <c:if test="${status.index eq 0}">
 					<div id="fw_cov2" class="h_part2_top">
 						<div id="hot_tt" class="img">
-						<a href="javascript:toNewsDetail(${latestNews.id })">
+						<a href="javascript:toNewsDetail(${importentNews.id })" >
 							<c:choose>
-							 <c:when test="${fn:length(latestNews.title) > 15}">
-									${fn:substring(latestNews.title,0,15)}...
+							 <c:when test="${fn:length(importentNews.title) > 20}">
+									${fn:substring(importentNews.title,0,20)}
 							 </c:when>
 							 <c:otherwise>
-							 ${latestNews.title}
+							 ${importentNews.title}
 							 </c:otherwise>
 							 </c:choose>
 							</a>
 
 						</div>
 						<div id="hot_zy" class="textlink">
-							<a href="javascript:toNewsDetail(${latestNews.id })">
+							<a href="javascript:toNewsDetail(${importentNews.id })" >
 							
                 	<c:choose>
-				        <c:when test="${fn:length(latestNews.remark) > 40}">
-					           ${fn:substring(latestNews.remark,0,40)}....[详细]<span></span>
+				        <c:when test="${fn:length(importentNews.remark) > 60}">
+					           ${fn:substring(importentNews.remark,0,60)}[详细]<span></span>
 	                     </c:when>
 				    <c:otherwise>
-					${latestNews.remark }
+					${importentNews.remark }
 									[详细]
 								<span></span>
 				     </c:otherwise>
@@ -177,10 +177,10 @@ String path = request.getContextPath();
 					
 					<div id="fwl_cov4" class="h_part2_left">
 						<div class="flicking_con">
-							<c:forEach items="${latestNewsContent}" var="latestNews"  varStatus="status">	
+							<c:forEach items="${recommendNews}" var="recommendNews"  varStatus="status">	
 							   <c:if test="${status.index lt 6}">
-							    <c:if test="${latestNews.isRecommend eq 1 }">
-							  <c:if test="${latestNews.imageId ne null}">
+							    <c:if test="${recommendNews.isRecommend eq 1 }">
+							  <c:if test="${recommendNews.imageId ne null}">
 							    <a href="#">${status.index}</a>
 							 </c:if></c:if>
 							</c:if>
@@ -188,12 +188,13 @@ String path = request.getContextPath();
 						</div>
 					<div class="main_image">
 						<ul>							
-							<c:forEach items="${latestNewsContent}" var="latestNews"  varStatus="status">	
+							<c:forEach items="${recommendNews}" var="recommendNews"  varStatus="status">	
 	                         <c:if test="${status.index lt 6}">
-							 <c:if test="${latestNews.isRecommend eq 1 }">
-							 <c:if test="${latestNews.imageId ne null}">
-							 <a href="http://www.baidu.com">
-							 <li><img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${latestNews.imageId}"  width="790"  height="300"></img></li></a>
+							 <c:if test="${recommendNews.isRecommend eq 1 }">
+							 <c:if test="${recommendNews.imageId ne null}">
+							<a href="javascript:toNewsDetail(${recommendNews.id })" >
+							 <li> <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${recommendNews.imageId}"  width="545"  height="300"></img></li>
+                            </a>
                             </c:if></c:if>
                             </c:if>
 							</c:forEach>
@@ -205,39 +206,33 @@ String path = request.getContextPath();
 					<div id="fwl_cov5" class="h_part2_right">
 						<!--重要新闻-->
 						<ul class="list fontblue">
-						<c:forEach items="${latestNewsContent}" var="latestNews"  varStatus="status">
+						<c:forEach items="${importentNews}" var="importentNews"  varStatus="status">
 				        <c:if test="${status.index lt 12 and status.index gt 0}">
-							<c:if test="${latestNews.isRecommend eq 1 }">
+							<c:if test="${importentNews.isRecommend eq 1 }">
 							<li>
 								<span class="fontb  font_title2">
-								<a href="javascript:toNewsDetail(${latestNews.id })">						     
-										[${latestNews.contentTypeName }
-										<c:if test="${latestNews.newsTypeName ne '' and !empty  latestNews.newsTypeName }">										
-										-${latestNews.newsTypeName }</c:if>  ]
+								<a href="javascript:toNewsDetail(${importentNews.id })" >					
 							<c:choose>
-							 <c:when test="${fn:length(latestNews.title) > 15}">
-									${fn:substring(latestNews.title,0,15)}...
+							 <c:when test="${fn:length(importentNews.title) > 20}">
+									${fn:substring(importentNews.title,0,20)}
 							 </c:when>
 							 <c:otherwise>
-							 ${latestNews.title}
+							 ${importentNews.title}
 							 </c:otherwise>
 							 </c:choose>
 									</a>
 			                  </span>
 							</li>
 							</c:if>
-								<c:if test="${latestNews.isRecommend eq 0 }">
+								<c:if test="${importentNews.isRecommend eq 0 }">
 							<li class="fontblue2">
-								<a href="javascript:toNewsDetail(${latestNews.id })">
-										[${latestNews.contentTypeName }	
-										<c:if test="${latestNews.newsTypeName ne '' and !empty  latestNews.newsTypeName  }">										
-										-${latestNews.newsTypeName }</c:if>]
+								<a href="javascript:toNewsDetail(${importentNews.id })" >
 										<c:choose>
-							 <c:when test="${fn:length(latestNews.title) > 15}">
-									${fn:substring(latestNews.title,0,15)}...
+							 <c:when test="${fn:length(importentNews.title) > 20}">
+									${fn:substring(importentNews.title,0,20)}
 							 </c:when>
 							 <c:otherwise>
-							 ${latestNews.title}
+							 ${importentNews.title}
 							 </c:otherwise>
 							 </c:choose>
 								</a>
@@ -258,7 +253,7 @@ String path = request.getContextPath();
 					<c:forEach items="${friendlinklist}" var="linklist" varStatus="status">
 					<c:if test="${status.index lt 8}">
 						<li>
-						<a href="${linklist.domain }"  target="_blank">			
+						<a href="${linklist.domain }"  >			
 				        <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ linklist.imageId}"  width="70" height="70"/>
 							</a>
 						</li>
@@ -272,7 +267,7 @@ String path = request.getContextPath();
 				<!--左边   -->			 
 				 <c:forEach items="${newscontentList}"  var="contentlist" varStatus="status">		
 				 <c:choose>
-				   	<c:when test="${ status.index eq 0}">
+				   	<c:when test="${status.index eq 0}">
 				   	<div class="h_title" style="float: none;">		
 				   	<span class="fl"><b class="c0486aa">${contentlist.newsTypeName}&nbsp;</b></span><span class="fr">
 						<a href="${pageContext.request.contextPath}/front/findBroadcastListByContentTypeId.do?contentTypeId=${contentlist.contentTypeId }" >
@@ -288,12 +283,12 @@ String path = request.getContextPath();
 					<div style="width:290px;" class="qzlx_pictit">
 						<p class="img">
 						<c:if test="${newscontentlist.imageUrl ne '' and newscontentlist.imageUrl ne null }">
-						    <a href="javascript:toNewsDetail(${newscontentlist.id })">
+						    <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 								<img width="290" height="134" border="0" alt="" src="${newscontentlist.imageUrl}">
 							</a>
 							</c:if>
 						<c:if test="${newscontentlist.imageId ne null }">
-						   <a href="javascript:toNewsDetail(${newscontentlist.id })">
+						   <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 						    <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${newscontentlist.imageId}"  width="290" height="134" border="0" />
 						</a>
 						</c:if>
@@ -301,10 +296,10 @@ String path = request.getContextPath();
                         
 						<p class="bg"></p>
 						<p class="name">
-						  <a href="javascript:toNewsDetail(${newscontentlist.id })">
+						  <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 							<c:choose>
 							 <c:when test="${fn:length(newscontentlist.title) > 18}">
-									${fn:substring(newscontentlist.title,0,18)}...
+									${fn:substring(newscontentlist.title,0,18)}
 							 </c:when>
 							 <c:otherwise>
 							 ${newscontentlist.title}
@@ -327,11 +322,11 @@ String path = request.getContextPath();
 			
 			     	<li>
 			     <c:if test="${newscontentlist.newsTypeName ne null}">
-				<a href="javascript:toNewsDetail(${newscontentlist.id })">
+				<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				    [ ${newscontentlist.newsTypeName}  ]
 				<c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 18}">
-				${fn:substring(newscontentlist.title,0,18)}...
+				${fn:substring(newscontentlist.title,0,18)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -340,10 +335,10 @@ String path = request.getContextPath();
 				  </a>
 				  </c:if>
 				  <c:if test="${newscontentlist.newsTypeName eq null}">
-				 <a href="javascript:toNewsDetail(${newscontentlist.id })">
+				 <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				 <c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 18}">
-				${fn:substring(newscontentlist.title,0,18)}...
+				${fn:substring(newscontentlist.title,0,18)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -374,21 +369,21 @@ String path = request.getContextPath();
 			      
 						<li>
 					   <c:if test="${newscontentlist.imageUrl ne '' }">
-							<a href="javascript:toNewsDetail(${newscontentlist.id })">
+							<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 								<img width="139" height="95"  alt="${newscontentlist.imageUrl}" src="${newscontentlist.imageUrl}">
 							</a>
 							</c:if>
 						<c:if test="${newscontentlist.imageId ne null }">
-						<a href="javascript:toNewsDetail(${newscontentlist.id })">
+						<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 						    <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${newscontentlist.imageId}"  width="139" height="95" border="0" />
 						</a>
 						</c:if>
 							<p class="bg"></p>
 							<p class="name">
-								<a href="javascript:toNewsDetail(${newscontentlist.id })">
+					<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				<c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 10}">
-				${fn:substring(newscontentlist.title,0,10)}...
+				${fn:substring(newscontentlist.title,0,10)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -410,11 +405,11 @@ String path = request.getContextPath();
 				<c:if test="${status4.index lt 8 and status4.index gt 1}">	 
 			     	<li>
 			     <c:if test="${newscontentlist.newsTypeName ne null}">
-				  <a href="javascript:toNewsDetail(${newscontentlist.id })">
+				  <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				    [ ${newscontentlist.newsTypeName}  ]
 				   				 <c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 18}">
-				${fn:substring(newscontentlist.title,0,18)}...
+				${fn:substring(newscontentlist.title,0,18)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -423,10 +418,10 @@ String path = request.getContextPath();
 				  </a>
 				  </c:if>
 				  <c:if test="${newscontentlist.newsTypeName eq null}">
-				  	<a href="javascript:toNewsDetail(${newscontentlist.id })">
+				  	<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				  				 <c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 18}">
-				${fn:substring(newscontentlist.title,0,18)}...
+				${fn:substring(newscontentlist.title,0,18)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -454,15 +449,15 @@ String path = request.getContextPath();
 						<c:if test="${status12.index lt 8 }">
 						<li>
 						<p class="img">
-						<a href="javascript:toNewsDetail(${newscontentlist.id })">
+						<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 						    <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ newscontentlist.imageId}"  width="139" height="95" border="0" />
 						</a>
 						</p>
 						<p class="name">
-								<a href="javascript:toNewsDetail(${newscontentlist.id })">
+								<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 			<c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 10}">
-				${fn:substring(newscontentlist.title,0,10)}...
+				${fn:substring(newscontentlist.title,0,10)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -501,12 +496,12 @@ String path = request.getContextPath();
 						<dt class="fl">
 							<div>
 							   <c:if test="${newscontentlist.imageUrl ne null and newscontentlist.imageUrl ne ''}">
-							    <a href="javascript:toNewsDetail(${newscontentlist.id })">
+							    <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 								<img width="95" height="70" border="0" alt="" src="http://www.xinhuanet.com/titlepic/119970757_title0h.jpg">
 							   </a>
 							  </c:if>
 						      <c:if test="${newscontentlist.imageId ne null }">
-						     <a href="javascript:toNewsDetail(${newscontentlist.id })">
+						     <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 						    <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${newscontentlist.imageId}"  width="95" height="70" border="0" />
 						   </a>
 						    </c:if>
@@ -514,10 +509,10 @@ String path = request.getContextPath();
 						</dt>
 						<dd class="fr">
 							<h4>
-				<a href="javascript:toNewsDetail(${newscontentlist.id })">
+				<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				<c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 15}">
-				${fn:substring(newscontentlist.title,0,15)}...
+				${fn:substring(newscontentlist.title,0,15)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -527,10 +522,10 @@ String path = request.getContextPath();
 							<p class="c969696">
 							<c:choose>
 				              <c:when test="${fn:length(newscontentlist.remark) > 30}">
-					           ${fn:substring(newscontentlist.remark,0,30)}...<span></span>
+					           ${fn:substring(newscontentlist.remark,0,30)}<span></span>
 	                         </c:when>
 				                <c:otherwise>
-					            ${newscontentlist.remark}…<span></span>
+					            ${newscontentlist.remark}<span></span>
 				                </c:otherwise>
 			                 </c:choose>
 								<a class="c2f5397" href="#">
@@ -549,11 +544,11 @@ String path = request.getContextPath();
 				<c:if test="${status6.index lt 7 and status6.index gt 0}">
 			     	<li>
 			     <c:if test="${newscontentlist.newsTypeName ne null}">
-				  <a href="javascript:toNewsDetail(${newscontentlist.id })">
+				  <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				    [ ${newscontentlist.newsTypeName}  ]
 				<c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 18}">
-				${fn:substring(newscontentlist.title,0,18)}...
+				${fn:substring(newscontentlist.title,0,18)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -561,16 +556,19 @@ String path = request.getContextPath();
 			  </c:choose>
 				  </a>
 				  </c:if>
-				  <c:if test="${newscontentlist.newsTypeName eq null}">
+				 <c:if test="${newscontentlist.newsTypeName eq null}">
+				  <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				 <c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 18}">
-				${fn:substring(newscontentlist.title,0,18)}...
+				${fn:substring(newscontentlist.title,0,18)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
 			  </c:otherwise>
 			  </c:choose>
+			    </a>
 				  </c:if>
+				
 		          </li>	
 		          </c:if>	
 		</c:if>
@@ -580,11 +578,11 @@ String path = request.getContextPath();
 				 <c:if test="${newscontentlist.imageId eq null and newscontentlist.imageUrl eq '' }">
 			     	<li>
 			     <c:if test="${newscontentlist.newsTypeName ne null}">
-				  <a href="javascript:toNewsDetail(${newscontentlist.id })">
+				  <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				    [ ${newscontentlist.newsTypeName}  ]
 			<c:choose>
-  			    <c:when test="${fn:length(newscontentlist.title) > 17}">
-				${fn:substring(newscontentlist.title,0,17)}...
+  			    <c:when test="${fn:length(newscontentlist.title) > 20}">
+				${fn:substring(newscontentlist.title,0,20)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -593,15 +591,18 @@ String path = request.getContextPath();
 				  </a>
 				  </c:if>
 				  <c:if test="${newscontentlist.newsTypeName eq null}">
+				   <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				 				 <c:choose>
-  			    <c:when test="${fn:length(newscontentlist.title) > 17}">
-				${fn:substring(newscontentlist.title,0,17)}...
+  			    <c:when test="${fn:length(newscontentlist.title) > 20}">
+				${fn:substring(newscontentlist.title,0,20)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
 			  </c:otherwise>
 			  </c:choose>
+			  	  </a>
 				  </c:if>
+			
 		          </li>	
 		          </c:if>
 		          </c:if>	
@@ -651,12 +652,12 @@ String path = request.getContextPath();
 						<dt class="fl">
 							<div>
 							   <c:if test="${newscontentlist.imageUrl ne null and newscontentlist.imageUrl ne ''}">
-							    <a href="javascript:toNewsDetail(${newscontentlist.id })">
+							    <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 								<img width="95" height="70" border="0" alt="" src="http://www.xinhuanet.com/titlepic/119970757_title0h.jpg">
 							   </a>
 							  </c:if>
 						      <c:if test="${newscontentlist.imageId ne null }">
-						     <a href="javascript:toNewsDetail(${newscontentlist.id })">
+						     <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 						    <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${newscontentlist.imageId}"  width="95" height="70" border="0" />
 						   </a>
 						    </c:if>
@@ -664,10 +665,10 @@ String path = request.getContextPath();
 						</dt>
 						<dd class="fr">
 							<h4>
-							<a href="javascript:toNewsDetail(${newscontentlist.id })">
+							<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				<c:choose>
-  			    <c:when test="${fn:length(newscontentlist.title) > 15}">
-				${fn:substring(newscontentlist.title,0,15)}...
+  			    <c:when test="${fn:length(newscontentlist.title) > 20}">
+				${fn:substring(newscontentlist.title,0,20)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -677,10 +678,10 @@ String path = request.getContextPath();
 							<p class="c969696">
 								<c:choose>
 				              <c:when test="${fn:length(newscontentlist.remark) > 30}">
-					           ${fn:substring(newscontentlist.remark,0,30)}...<span></span>
+					           ${fn:substring(newscontentlist.remark,0,30)}<span></span>
 	                         </c:when>
 				                <c:otherwise>
-					            ${newscontentlist.remark}…<span></span>
+					            ${newscontentlist.remark}<span></span>
 				                </c:otherwise>
 			                 </c:choose>
 								<a class="c2f5397" href="#">
@@ -699,11 +700,11 @@ String path = request.getContextPath();
 				 
 			     	<li>
 			     <c:if test="${newscontentlist.newsTypeName ne null}">
-				  <a href="javascript:toNewsDetail(${newscontentlist.id })">
+				  <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				    [ ${newscontentlist.newsTypeName}  ]
 				  			<c:choose>
-  			    <c:when test="${fn:length(newscontentlist.title) > 17}">
-				${fn:substring(newscontentlist.title,0,17)}...
+  			    <c:when test="${fn:length(newscontentlist.title) > 20}">
+				${fn:substring(newscontentlist.title,0,20)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -711,15 +712,17 @@ String path = request.getContextPath();
 			  </c:choose>
 				  </a>
 				  </c:if>
-				  <c:if test="${newscontentlist.newsTypeName eq null}">
+				<c:if test="${newscontentlist.newsTypeName eq null}">
+				  <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				 			<c:choose>
-  			    <c:when test="${fn:length(newscontentlist.title) > 17}">
-				${fn:substring(newscontentlist.title,0,17)}...
+  			    <c:when test="${fn:length(newscontentlist.title) > 20}">
+				${fn:substring(newscontentlist.title,0,20)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
 			  </c:otherwise>
 			  </c:choose>
+			  </a>
 				  </c:if>
 		          </li>	
 		          </c:if>	  
@@ -765,12 +768,12 @@ String path = request.getContextPath();
 						<dt class="fl">
 							<div>
 							   <c:if test="${newscontentlist.imageUrl ne null and newscontentlist.imageUrl ne ''}">
-							    <a href="javascript:toNewsDetail(${newscontentlist.id })">
+							    <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 								<img width="95" height="70" border="0" alt="" src="http://www.xinhuanet.com/titlepic/119970757_title0h.jpg">
 							   </a>
 							  </c:if>
 						      <c:if test="${newscontentlist.imageId ne null }">
-						     <a href="javascript:toNewsDetail(${newscontentlist.id })">
+						     <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 						    <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${newscontentlist.imageId}"  width="95" height="70" border="0" />
 						   </a>
 						    </c:if>
@@ -778,10 +781,10 @@ String path = request.getContextPath();
 						</dt>
 						<dd class="fr">
 							<h4>
-							<a href="javascript:toNewsDetail(${newscontentlist.id })">
+							<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				<c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 15}">
-				${fn:substring(newscontentlist.title,0,15)}...
+				${fn:substring(newscontentlist.title,0,15)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -791,13 +794,13 @@ String path = request.getContextPath();
 							<p class="c969696">
 							<c:choose>
 				              <c:when test="${fn:length(newscontentlist.remark) > 30}">
-					           ${fn:substring(newscontentlist.remark,0,30)}...<span></span>
+					           ${fn:substring(newscontentlist.remark,0,30)}<span></span>
 	                         </c:when>
 				                <c:otherwise>
 					            ${newscontentlist.remark}…<span></span>
 				                </c:otherwise>
 			                 </c:choose>
-								<a href="javascript:toNewsDetail(${newscontentlist.id })">
+								<a href="javascript:toNewsDetail(${newscontentlist.id })" >
 									[详细]
 								</a>
 							</p>
@@ -809,14 +812,14 @@ String path = request.getContextPath();
 					
 					<ul>
 				<c:forEach items="${contentlist.contentList}" var="newscontentlist"  varStatus="status10">
-				<c:if test="${status10.index lt 7 and status10.index gt 0}">
+				<c:if test="${status10.index lt 10 and status10.index gt 0}">
 			     	<li>
 			     <c:if test="${newscontentlist.newsTypeName ne null}">
-				  <a href="javascript:toNewsDetail(${newscontentlist.id })">
+				  <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				    [ ${newscontentlist.newsTypeName}  ]
 				 			<c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 17}">
-				${fn:substring(newscontentlist.title,0,17)}...
+				${fn:substring(newscontentlist.title,0,17)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -825,10 +828,10 @@ String path = request.getContextPath();
 				  </a>
 				  </c:if>
 				  <c:if test="${newscontentlist.newsTypeName eq null}">
-				  <a href="javascript:toNewsDetail(${newscontentlist.id })">
+				  <a href="javascript:toNewsDetail(${newscontentlist.id })" >
 				  			<c:choose>
   			    <c:when test="${fn:length(newscontentlist.title) > 17}">
-				${fn:substring(newscontentlist.title,0,17)}...
+				${fn:substring(newscontentlist.title,0,17)}
 				 </c:when>
 		          <c:otherwise>
 		          ${newscontentlist.title}
@@ -897,16 +900,12 @@ String path = request.getContextPath();
 				<div class="bd">
 					<div style="overflow:hidden; position:relative; width:966px" class="tempWrap">
 						<ul style="width: 2415px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -498px;">
-					<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
-					<c:if test="${newsAdvertisingList.adWeight gt 14}">
-					<c:if test="${newsAdvertisingList.adWeight gt 1 }">
+					<c:forEach items="${newsEndAdvertisingList}" var="newsEndAdvertisingList">
 					    <li class="clone" style="float: left; width: 145px;">
-					    <a href="${ newsAdvertisingList.imageLink}" target="_blank">
-					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}"  />
+					    <a href="${ newsEndAdvertisingList.imageLink}" target="_blank">
+					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsEndAdvertisingList.imageId}"  />
 					     </a>
 					     </li>
-					</c:if>
-					</c:if>
 					</c:forEach>
 						</ul>
 					</div>
@@ -931,9 +930,7 @@ String path = request.getContextPath();
 			
 		<div id="footer" class="footer">
 			<div class="content p10">
-				<p>
-					Copyright &copy; 2014-2018 <a href="http://www.zwzxnews.com" target="_blank">zwzxnews.com</a> All Rights Reserved.本站所刊登的各种新闻﹑信息和各种专题专栏资料，均为中闻在线权所有，未经协议授权禁止下载使用。
-				</p>
+
 				<p style=" width:980px; margin:0 auto">
 					<span style=" width:1000px;">
 			 <c:forEach items="${friendlinklist1}" var="linklist" varStatus="status">
@@ -944,6 +941,12 @@ String path = request.getContextPath();
 					</c:if>
 				</c:forEach>			
 			  </span>
+				</p>
+				<p>
+					Copyright &copy; 2014-2018 <a href="http://www.zwzxnews.com" target="_blank">zwzxnews.com</a> All Rights Reserved.本网登载的内容（凡注明来源为“中闻在线”）版权属中闻在线文化传播（四川）有限公司独家所有使用，未经协议授权禁止下载使用。
+					</p>
+					<p>
+					24小时信息报料热线:18000539556 18030799556 合作交流QQ：45681026 欢迎访问中闻在线<a href="http://www.zwzxnews.com" target="_blank"zwzxnews.com</a> 法律顾问:张杰  中华人民共和国信息产业部备案登记号：蜀ICP备14023943号
 				</p>
 			</div>
 		</div>

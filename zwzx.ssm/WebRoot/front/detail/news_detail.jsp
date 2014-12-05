@@ -474,23 +474,24 @@ function jsonDataToString(dateStr) {
 		<!---->
 		<div id="footer" class="footer">
 			<div class="content p10">
-				<p>
-					Copyright &copy; 2014-2018 <a href="http://www.zwzxnews.com" target="_blank">zwzxnews.com</a> All Rights Reserved.本站所刊登的各种新闻﹑信息和各种专题专栏资料，均为中闻在线权所有，未经协议授权禁止下载使用。
-				</p>
+
 				<p style=" width:980px; margin:0 auto">
 					<span style=" width:1000px;">
-						
-				<c:forEach items="${friendlinklistEnd}" var="linklist" varStatus="status">
+			 <c:forEach items="${friendlinklistEnd}" var="linklist" varStatus="status">
+			       <c:if test="${linklist.isEnabled eq 'true'}">
 					<a href="${linklist.domain }"  target="_blank">			
 				      ${linklist.siteName }
 					</a>|	
-				</c:forEach>	
-					</span>
+					</c:if>
+				</c:forEach>			
+			  </span>
+				</p>
+				<p>
+					Copyright &copy; 2014-2018 <a href="http://www.zwzxnews.com" target="_blank">zwzxnews.com</a> All Rights Reserved.本网登载的内容（凡注明来源为“中闻在线”）版权属中闻在线文化传播（四川）有限公司独家所有使用，未经协议授权禁止下载使用。
+					24小时信息报料热线:18000539556 18030799556 合作交流QQ：45681026 欢迎访问中闻在线<a href="http://www.zwzxnews.com" target="_blank"zwzxnews.com</a> 法律顾问:张杰  中华人民共和国信息产业部备案登记号：蜀ICP备14023943号
 				</p>
 			</div>
-
-
-</div>
+		</div>
 
 </body>
 </html>
