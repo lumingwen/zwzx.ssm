@@ -8,11 +8,16 @@ String path = request.getContextPath();
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>中闻传播-传播中闻</title>
+		<title>中闻在线</title>
+		<meta name="description" content="中闻传播-传播中闻" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
+		
+		<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 		<script src="${pageContext.request.contextPath}/js/front/jquery-1.8.2.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="${pageContext.request.contextPath}/js/front/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
-		<script src="${pageContext.request.contextPath}/js/front/datugundong.js" type="text/javascript" charset="utf-8"></script>		
+		<script src="${pageContext.request.contextPath}/js/front/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>		
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/front/startMove.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/front/imageMove.js"></script>
+		
 		<link type="text/css" href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet"/>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.event.drag-1.5.min.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.touchSlider.js"></script>
@@ -174,35 +179,80 @@ String path = request.getContextPath();
 					</div>
 					</c:if>
 					</c:forEach>
+	<div id="fwl_cov4" class="h_part2_left">				
+
+	<ul id="pic_list">
+	<c:forEach items="${recommendNews}" var="recommendNews"  varStatus="status">
+	 <c:if test="${recommendNews.isRecommend eq 1 }">	
+	  <c:if test="${recommendNews.imageId ne null}">
+	   <c:if test="${status.index eq 1}">
+	     <li style="z-index:2;opacity:1;fliter:alpha(opacity=100);">
+		<a href="javascript:toNewsDetail(${recommendNews.id })" ><img width="535" height="500" src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${recommendNews.imageId}" alt="" />
+		</a></li>
+		</c:if>
+		<c:if test="${status.index ne 1}">
+		<li>
+		<a href="javascript:toNewsDetail(${recommendNews.id })" ><img width="535" height="500" src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${recommendNews.imageId}" alt="" />
+		</a></li>
+		</c:if>
+      </c:if></c:if>
+		
+	</c:forEach>
+	</ul>
+
+	<div class="marke"></div>
+	<ul id="text_list">
+	<c:forEach items="${recommendNews}" var="recommendNews"  varStatus="status">
+	 <c:if test="${recommendNews.isRecommend eq 1 }">	
+	  <c:if test="${recommendNews.imageId ne null}">
+	   <c:if test="${status.index eq 1}">
+	    <li><h2 class="show">
+		<a href="javascript:toNewsDetail(${recommendNews.id })" >
+		${recommendNews.title }
+		</a></h2></li>
+		</c:if>
+		<c:if test="${status.index ne 1}">
+		<li><h2>
+		<a href="javascript:toNewsDetail(${recommendNews.id })" >
+		${recommendNews.title }
+		</a></h2></li>
+		</c:if>
+      </c:if></c:if>
+		
+	</c:forEach>
+	</ul>
+	
+	<div id="ico_list">
+		<ul>
+		
+		<c:forEach items="${recommendNews}" var="recommendNews"  varStatus="status">
+		 <c:if test="${recommendNews.isRecommend eq 1 }">	
+		  <c:if test="${recommendNews.imageId ne null}">
+		   <c:if test="${status.index eq 1}">
+		    <li class="active"><a href="javascript:void(0)">
+			<img width="64" height="34" src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${recommendNews.imageId}" alt="" />
+			</a></h2></li>
+			</c:if>
+			<c:if test="${status.index ne 1}">
+			<li><h2>
+			<a href="javascript:void(0)">
+			<img width="64" height="34" src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${recommendNews.imageId}" alt="" />
+			</a></h2></li>
+			</c:if>
+	      </c:if></c:if>
+			
+		</c:forEach>
+		
+		</ul>
+	</div>
+	
+	<a href="javascript:void(0)" id="btn_prev" class="btn"></a>
+	<a href="javascript:void(0)" id="btn_next" class="btn showBtn"></a>
+
+</div>					
 					
-					<div id="fwl_cov4" class="h_part2_left">
-						<div class="flicking_con">
-							<c:forEach items="${recommendNews}" var="recommendNews"  varStatus="status">	
-							   <c:if test="${status.index lt 6}">
-							    <c:if test="${recommendNews.isRecommend eq 1 }">
-							  <c:if test="${recommendNews.imageId ne null}">
-							    <a href="#">${status.index}</a>
-							 </c:if></c:if>
-							</c:if>
-                            </c:forEach>
-						</div>
-					<div class="main_image">
-						<ul>							
-							<c:forEach items="${recommendNews}" var="recommendNews"  varStatus="status">	
-	                         <c:if test="${status.index lt 6}">
-							 <c:if test="${recommendNews.isRecommend eq 1 }">
-							 <c:if test="${recommendNews.imageId ne null}">
-							<a href="javascript:toNewsDetail(${recommendNews.id })" >
-							 <li> <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${recommendNews.imageId}"  width="545"  height="300"></img></li>
-                            </a>
-                            </c:if></c:if>
-                            </c:if>
-							</c:forEach>
-						</ul>
-							<a href="javascript:;" id="btn_prev"></a>
-							<a href="javascript:;" id="btn_next"></a>
-						</div>
-					</div>
+					
+					
 					<div id="fwl_cov5" class="h_part2_right">
 						<!--重要新闻-->
 						<ul class="list fontblue">
@@ -254,7 +304,7 @@ String path = request.getContextPath();
 					<c:if test="${status.index lt 8}">
 						<li>
 						<a href="${linklist.domain }"  >			
-				        <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ linklist.imageId}"  width="70" height="70"/>
+				        <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${ linklist.imageId}"  width="70" height="74"/>
 							</a>
 						</li>
 				</c:if>
@@ -446,7 +496,7 @@ String path = request.getContextPath();
 				<div class="list_pic fontblue2">				
 					<ul>
 						<c:forEach items="${contentlist.contentList}" var="newscontentlist" varStatus="status12">
-						<c:if test="${status12.index lt 8 }">
+						<c:if test="${status12.index lt 6 }">
 						<li>
 						<p class="img">
 						<a href="javascript:toNewsDetail(${newscontentlist.id })" >
@@ -876,7 +926,7 @@ String path = request.getContextPath();
 						<c:forEach items="${newsAdvertisingList}" var="newsAdvertisingList">
 					       <c:if test="${newsAdvertisingList.adWeight eq 15 }">
 					     <a href="${ newsAdvertisingList.imageLink}"  target="${ newsAdvertisingList.imageTarget}">
-					     <img width="330" height="300" style="vertical-align: middle;" src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" />
+					     <img width="350" height="302" style="vertical-align: middle;" src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsAdvertisingList.imageId}" />
 					        	<i class="title">${ newsAdvertisingList.adName}</i>
 					      </a>
 					      </c:if>					    
@@ -902,8 +952,8 @@ String path = request.getContextPath();
 						<ul style="width: 2415px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -498px;">
 					<c:forEach items="${newsEndAdvertisingList}" var="newsEndAdvertisingList">
 					    <li class="clone" style="float: left; width: 145px;">
-					    <a href="${ newsEndAdvertisingList.imageLink}" target="_blank">
-					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${ newsEndAdvertisingList.imageId}"  />
+					    <a href="${newsEndAdvertisingList.imageLink}" target="_blank">
+					     <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${newsEndAdvertisingList.imageId}"  />
 					     </a>
 					     </li>
 					</c:forEach>
