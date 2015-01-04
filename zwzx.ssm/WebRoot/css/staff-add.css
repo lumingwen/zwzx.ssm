@@ -44,7 +44,7 @@ form{
 }
 .content-right-addinfo{
     position: relative;
-    min-height: 89%;
+   /* min-height: 89%;*/
     padding: 1% 0;
 }
 

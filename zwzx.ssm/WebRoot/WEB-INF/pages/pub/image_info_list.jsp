@@ -16,7 +16,7 @@
     		
     	}
     	function del(id){
-    	confirms("确认删除",'editComment.do?id='+id+'&deleteFlag=<%=Constants.DEL_FLAG_YES%>');
+    	confirms("确认删除",'deleteImage.do?id='+id);
     	}
     function add() {
 		var url = 'addImageNews.do';

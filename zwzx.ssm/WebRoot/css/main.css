@@ -26,14 +26,14 @@ i{font-style:normal; float:right;}
 .content .h_part2{float: left;overflow: hidden;width: 833px;}
 
 .h_part2 .h_part2_top {
-    height: 60px;
+    height: 80px;
     overflow: hidden;
     width: 833px;
 }
 /*-.h_part2 .h_part2_top .img{text-align: center;}*/
 .h_part2 .h_part2_top .img a{
     margin-bottom: 2px;
-    font-size: 23px;
+    font-size: 30px;
     color:#175a8f;
     font-weight: bold;
     text-align: center;
@@ -166,7 +166,7 @@ i{font-style:normal; float:right;}
 }.fontb {
     font-weight: bold !important;
 }
-.weibo{float: right;width: 165px;border:1px solid #9c9c9c;height: 380px;}
+.weibo{float: right;width: 165px;border:1px solid #9c9c9c;height: 406px;}
 .weibo .weibo_title{line-height: 34px; font-size: 14px;}
 .weibo ul{}
 .weibo ul li{padding: 2px 4px;float: left;}

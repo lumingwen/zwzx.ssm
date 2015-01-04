@@ -17,6 +17,9 @@
     <result column="review_id" property="reviewId" jdbcType="BIGINT" />
     <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="from_url" property="fromUrl" jdbcType="VARCHAR" />
+    
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.shili.lu.news.model.PubBroadcastContent" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -31,7 +34,7 @@
   
   <sql id="Base_Column_List" >
     id, create_time, update_time, delete_flag, user_id, title, source, content_type_id, 
-    view_id, news_type_id, is_recommend, image_id,review_id,image_url,remark
+    view_id, news_type_id, is_recommend, image_id,review_id,image_url,remark,type,from_url
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -39,7 +42,7 @@
      <sql id="Base_Column_List1" >
     t1.id, t1.create_time, t1.update_time, t1.delete_flag, t1.user_id, t1.title, t1.source, t1.content,
     t1.content_type_id,t1.view_id,t1.news_type_id,t1.is_recommend,t1.image_id,t1.review_id,t1.image_url,
-    t1.remark
+    t1.remark,t1.type,t1.from_url
   </sql>
    <sql id="Blob_Column_List1" >
     content
@@ -203,7 +206,7 @@
       delete_flag, user_id, title, 
       source, content_type_id, view_id, 
       news_type_id, is_recommend, review_id, 
-      content,image_id,image_url,remark)
+      content,image_id,image_url,remark,type,from_url)
     values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{deleteFlag,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
       #{source,jdbcType=VARCHAR}, #{contentTypeId,jdbcType=BIGINT}, #{viewId,jdbcType=BIGINT}, 
@@ -212,7 +215,9 @@
       #{content,jdbcType=LONGVARCHAR},
       #{imageId,jdbcType=BIGINT},
       #{imageUrl,jdbcType=VARCHAR},
-      #{remark,jdbcType=VARCHAR}
+      #{remark,jdbcType=VARCHAR},
+      #{type,jdbcType=INTEGER}, 
+      #{fromUrl,jdbcType=VARCHAR}
       
       )
   </insert>
@@ -233,7 +238,9 @@
       content = #{content,jdbcType=LONGVARCHAR},
       image_id=#{imageId,jdbcType=BIGINT},
       image_url=#{imageUrl,jdbcType=VARCHAR},
-      remark=#{remark,jdbcType=VARCHAR}
+      remark=#{remark,jdbcType=VARCHAR},
+      type=#{type,jdbcType=INTEGER},
+      from_url=#{fromUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.shili.lu.news.model.PubBroadcastContent" >

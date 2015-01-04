@@ -42,9 +42,17 @@
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from image_material_detail
+    update image_material_detail
+    set delete_flag=1
     where id = #{id,jdbcType=BIGINT}
   </delete>
+  
+    <delete id="deleteByImageMaterialId" parameterType="java.lang.Long" >
+    update image_material_detail
+    set delete_flag=1
+    where image_material_id = #{imageMaterialId,jdbcType=BIGINT}
+  </delete>
+  
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.shili.lu.image.model.ImageMaterialDetail" >
     insert into image_material_detail (id, image_material_id, sort_number, 
       image_id, image_detail,create_time,update_time,delete_flag)

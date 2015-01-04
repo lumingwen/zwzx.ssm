@@ -511,20 +511,20 @@ public class NewsMainController extends BaseController {
         	if(imageMaterialList.get(i).getId().toString().equals(imageMaterialId)){
         		 if(i==0)
         		 {
-        			 next=i;
-        			 preval=imageMaterialList.size()-1;
+        			 imageMaterialNext=imageMaterialList.get(1);
         		 }
         		 else if(i==imageMaterialList.size()-1){
-        			 preval=imageMaterialList.size()-1;
-        			 next=0;
+        			 imageMaterialPreval=imageMaterialList.get(imageMaterialList.size()-2);
+        		
         		 }else
         		 {
         			 preval=i-1;
         			 next=i+1;
+        			 imageMaterialPreval=imageMaterialList.get(preval);
+            		 imageMaterialNext=imageMaterialList.get(next);
         		 }
         		 
-        		 imageMaterialPreval=imageMaterialList.get(preval);
-        		 imageMaterialNext=imageMaterialList.get(next);
+        		
         		 break;
         	}
         }

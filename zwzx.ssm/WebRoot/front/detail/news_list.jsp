@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@include file="/WEB-INF/pages/common/taglibs.jsp"%>
+<%
+String path = request.getContextPath();
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>中闻传播-传播中闻</title>
+<title>中闻在线</title>
 <link rel="stylesheet" type="text/css" href="../css/valuedate.css"/>
 <link rel="stylesheet" type="text/css" href="../css/staff-add.css" />
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css"/>
@@ -20,11 +23,19 @@
 <script type="text/javascript"
 	src="../js/artDialog/plugins/iframeTools.js"></script>
 <script type="text/javascript">
-function toNewsDetail(id)
+function toNewsDetail(id,fromUrl)
 {
-   var url="editNewsContentCount.do?newsId="+id;		
-   location=url;
+		 var url;
+		 if(fromUrl==null)
+		  {
+		   url="editNewsContentCount.do?newsId="+id;	
+		  }else{
+		   url="http://"+fromUrl;
+		  }	
+		  window.open(url ,"_blank") ;
+		
 }
+
  var page = 2;	
 //查看更多
 function getMore(){
@@ -51,7 +62,6 @@ function appendMessage(datas,direction){
 			var html = '';         
 			for (var i=0;i<datas.length;i++){
 				var data = datas[i];
-				alert(data.id);
 			    html += '<div class="Q-tpList"><div class="Q-tpWrap" id="Q-tpWrap">	';					   
 				html += '<em bosszone="news2" class="f14 l24"><span><span>';
 				html += '<a href="editNewsContentCount.do?newsId="'+data.id+' class="linkto">';
@@ -141,7 +151,7 @@ function appendMessage(datas,direction){
 				<div class="Q-tpList">
 					<div class="Q-tpWrap" id="Q-tpWrap">					
 					<em bosszone="news2" class="f14 l24"><span><span>
-						<a href="editNewsContentCount.do?newsId=${ newsContentList.id}"  class="linkto">
+						<a href="javascript:toNewsDetail(${newsContentList.id },'${newsContentList.fromUrl}')"  class="linkto">
 									${newsContentList.title}
 						</a></span></span></em>
 							<c:choose>
@@ -159,7 +169,7 @@ function appendMessage(datas,direction){
 			                	
 			                
 						<div class="btns">
-						<a href="editNewsContentCount.do?newsId=${ newsContentList.id}"  class="discuzBtn">
+						<a href="javascript:toNewsDetail(${newsContentList.id },'${newsContentList.fromUrl}')"  class="discuzBtn">
 								${newsContentList.commentCount}
 							</a>
 						</div>
@@ -191,21 +201,21 @@ function appendMessage(datas,direction){
 						<li>
 					   <c:if test="${mostNewstList.imageUrl ne '' and not empty mostNewstList.imageUrl}">
 							<p class="img">
-							<a href="editNewsContentCount.do?newsId=${ mostNewstList.id}" >
+							<a href="javascript:toNewsDetail(${mostNewstList.id },'${mostNewstList.fromUrl}')" >
 								<img width="135" height="100" border="0"  alt="${mostNewstList.imageUrl}" src="${mostNewstList.imageUrl}">
 							</a>
 							</p>
 						</c:if>
 						<c:if test="${mostNewstList.imageId ne null }">
 						<p class="img">
-						<a href="editNewsContentCount.do?newsId=${ mostNewstList.id}" >
+						<a href="javascript:toNewsDetail(${mostNewstList.id },'${mostNewstList.fromUrl}" >
 						    <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${mostNewstList.imageId}"  width="135" height="100" border="0" />
 						</a>
 						</p>
 						</c:if>
 							<p class="bg"></p>
 							<p class="name">
-								<a href="editNewsContentCount.do?newsId=${ mostNewstList.id}" >
+								<a href="javascript:toNewsDetail(${mostNewstList.id },'${mostNewstList.fromUrl}" >
 									${mostNewstList.title}
 								</a>
 							</p>
@@ -220,7 +230,7 @@ function appendMessage(datas,direction){
 				<c:forEach items="${newscontentNewstNewsList}" var="newstNesList"  varStatus="status1">
 				<c:if test="${status1.index lt 11 and status1.index gt 6}">
 			     	<li>
-			     	<a href="editNewsContentCount.do?newsId=${ newstNesList.id}" >
+			     	<a href="javascript:toNewsDetail(${mostNewstList.id },'${mostNewstList.fromUrl}" >
 				   ${newstNesList.title }
 				   </a>
 		          </li>	
@@ -240,21 +250,21 @@ function appendMessage(datas,direction){
 						<li>
 					   <c:if test="${mostCommentList.imageUrl ne '' and not empty mostCommentList.imageUrl}">
 							<p class="img">
-						 <a href="editNewsContentCount.do?newsId=${ mostCommentList.id}" >
+						 <a href="javascript:toNewsDetail(${mostCommentList.id },'${mostCommentList.fromUrl}" >
 								<img width="135" height="100" border="0"  alt="${mostCommentList.imageUrl}" src="${mostCommentList.imageUrl}">
 							</a>
 							</p>
 						</c:if>
 						<c:if test="${mostCommentList.imageId ne null }">
 						<p class="img">
-						<a href="editNewsContentCount.do?newsId=${ mostCommentList.id}" >
+						<a href="javascript:toNewsDetail(${mostCommentList.id },'${mostCommentList.fromUrl}" >
 						    <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${mostCommentList.imageId}"  width="135" height="100" border="0" />
 						</a>
 						</p>
 						</c:if>
 							<p class="bg"></p>
 							<p class="name">
-									<a href="editNewsContentCount.do?newsId=${ mostCommentList.id}" >
+									<a href="javascript:toNewsDetail(${mostCommentList.id },'${mostCommentList.fromUrl}" >
 									${mostCommentList.title}
 								</a>
 							</p>
@@ -269,7 +279,7 @@ function appendMessage(datas,direction){
 				<c:forEach items="${newscontentMostCommentList}" var="mostCommentList" varStatus="status1">
 				<c:if test="${status1.index lt 11 and status1.index gt 6}">
 			     	<li>
-			     <a href="editNewsContentCount.do?newsId=${ mostCommentList.id}" >
+			     <a href="javascript:toNewsDetail(${mostCommentList.id },'${mostCommentList.fromUrl}" >
 				   ${mostCommentList.title }
 				   </p>
 		          </li>	
@@ -291,21 +301,21 @@ function appendMessage(datas,direction){
 						<li>
 					   <c:if test="${mostViewList.imageUrl ne '' and not empty mostViewList.imageUrl}">
 							<p class="img">
-							<a href="editNewsContentCount.do?newsId=${mostViewList.id}" >
+							<a href="javascript:toNewsDetail(${mostViewList.id },'${mostViewList.fromUrl}" >
 								<img width="135" height="100" border="0"  alt="${mostViewList.imageUrl}" src="${mostViewList.imageUrl}">
 							</a>
 							</p>
 						</c:if>
 						<c:if test="${mostViewList.imageId ne null }">
 						<p class="img">
-						<a href="editNewsContentCount.do?newsId=${mostViewList.id}" >
+						<a href="javascript:toNewsDetail(${mostViewList.id },'${mostViewList.fromUrl}"
 						    <img src="../resClientAttachmentController/clientViewImage.do?attachmentId=${mostViewList.imageId}"  width="135" height="100" border="0" />
 						</a>
 						</p>
 						</c:if>
 							<p class="bg"></p>
 							<p class="name">
-							<a href="editNewsContentCount.do?newsId=${mostViewList.id}" >
+							<a href="javascript:toNewsDetail(${mostViewList.id },'${mostViewList.fromUrl}"
 									${mostViewList.title}
 								</a>
 							</p>
@@ -320,7 +330,7 @@ function appendMessage(datas,direction){
 				<c:forEach items="${newscontentMostViewList}" var="mostViewList"  varStatus="status1">
 				<c:if test="${status1.index lt 11 and status1.index gt 6}">
 			     	<li>
-			     	<a href="editNewsContentCount.do?newsId=${mostViewList.id}" >
+			     	<a href="javascript:toNewsDetail(${mostViewList.id },'${mostViewList.fromUrl}"
 				   ${mostViewList.title }
 				   </p>
 		          </li>	

@@ -35,4 +35,6 @@ public interface ImageMaterialServiceI {
 	public int imageNewsCount(Long imageMaterialId);
 	
 	public ImageMaterial findImageMaterialById(Long id);
+	
+	int deleteImageMaterialById(Long id);
 }

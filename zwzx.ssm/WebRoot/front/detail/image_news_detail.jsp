@@ -20,7 +20,9 @@
   <div class="firsttop">
     <div class="firsttop_left"> 
 		广告图片
-		<img src="../images/potoList/1.jpg" alt="" bigimg="../images/potoList/1.jpg">
+		<a href="http://www.jd.com" target="_blank">
+		<img src="../images/potoList/jindong.jpg" alt="" bigimg="../images/potoList/jindong.jpg" height="268" width="273">
+		</a>
     </div>
     <div class="firsttop_right">
       <div class="close2"> <a class="closebtn1" title="关闭" href="javascript:void(0)"></a> </div>
@@ -30,26 +32,30 @@
       </div>
       <div class="pictwo">
         <ul>
+         <c:if test="${not empty imageMaterialPreval.id}">
           <li><a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialPreval.id}" title="${imageMaterialPreval.title }" target="_blank">
            <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${imageMaterialPreval.imageId}" alt="${imageMaterialPreval.title }" /></a>
             <div class="imgdivtext"> <a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialPreval.id}" title="${imageMaterialPreval.title }" target="_blank">上一图集</a> </div>
           </li> 
-          
-                   
+          </c:if>
+           <c:if test="${not empty imageMaterialNext.id}">        
           <li><a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialNext.id}" title="${imageMaterialNext.title }" target="_blank">
           <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${imageMaterialNext.imageId}" alt="${imageMaterialNext.title}" /></a>
             <div class="imgdivtext"> <a href="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${imageMaterialNext.imageId}" title="${imageMaterialPreval.title }" target="_blank">下一图集</a> </div>
           </li>
+          </c:if>
         </ul>
       </div>
-      <div class="returnbtn"> <a href="http://www.17sucai.com">返回图库首页</a> </div>
+      <div class="returnbtn"> <a href="http://http://www.zwzxnews.com">返回新闻首页</a> </div>
     </div>
   </div>
   <!--播放到最后一张图的提示-->
   <div class="endtop">
     <div class="firsttop_left"> 
 	广告图片
-	<img src="../images/potoList/1.jpg" alt="" bigimg="../images/potoList/1.jpg">
+	<a href="http://www.wuliangye.com.cn/" target="_blank">
+	<img src="../images/potoList/wuliangye.jpg" alt="" bigimg="../images/potoList/wuliangye.jpg" height="268" width="273">
+	</a>
     </div>
     <div class="firsttop_right">
       <div class="close2"> <a class="closebtn2" title="关闭" href="javascript:void(0)"></a> </div>
@@ -59,19 +65,22 @@
       </div>
       <div class="pictwo">
         <ul>
+        <c:if test="${not empty imageMaterialPreval.id}">
           <li><a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialPreval.id}" title="${imageMaterialPreval.title }" target="_blank">
            <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${imageMaterialPreval.imageId}" alt="${imageMaterialPreval.title }" /></a>
             <div class="imgdivtext"> <a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialPreval.id}" title="${imageMaterialPreval.title }" target="_blank">上一图集</a> </div>
           </li> 
-          
-                   
+        </c:if>
+           
+         <c:if test="${not empty imageMaterialNext.id}">        
           <li><a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialNext.id}" title="${imageMaterialNext.title }" target="_blank">
           <img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${imageMaterialNext.imageId}" alt="${imageMaterialNext.title}" /></a>
             <div class="imgdivtext"> <a href="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${imageMaterialNext.imageId}" title="${imageMaterialPreval.title }" target="_blank">下一图集</a> </div>
           </li>
+          </c:if>
         </ul>
       </div>
-      <div class="returnbtn"> <a href="http://www.17sucai.com">返回图库首页</a> </div>
+      <div class="returnbtn">  <a href="http://http://www.zwzxnews.com">返回新闻首页</a> </div>
     </div>
   </div>
   <!--弹出层结束--> 
@@ -101,6 +110,7 @@
         <div class="picshowtxt_right"></div>
       </div>
       <div class="picshowlist"> 
+       <c:if test="${not empty imageMaterialPreval.id}">
         <!--上一条图库-->
         <div class="picshowlist_left">
           <div class="picleftimg">
@@ -111,6 +121,8 @@
           <div class="piclefttxt"> 
           <a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialPreval.id}" title="${imageMaterialPreval.title }" target="_blank">${imageMaterialPreval.title }</a> </div>
         </div>
+        </c:if>
+        
         <div class="picshowlist_mid">
           <div class="picmidleft"> <a href="javascript:void(0)" id="preArrow_B"><img src="../images/potoList/left1.jpg" alt="上一个" /></a> </div>
           <div class="picmidmid">
@@ -123,11 +135,14 @@
           </div>
           <div class="picmidright"> <a href="javascript:void(0)" id="nextArrow_B"><img src="../images/potoList/right1.jpg" alt="下一个" /></a> </div>
         </div>
+        
+         <c:if test="${not empty imageMaterialNext.id}">
         <!--下一张图库新闻-->
         <div class="picshowlist_right">
           <div class="picleftimg"> <a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialNext.id}" title="${imageMaterialNext.title }" target="_blank"><img src="${pageContext.request.contextPath}/resClientAttachmentController/clientViewImage.do?attachmentId=${imageMaterialNext.imageId}" alt="${imageMaterialNext.title }" /></a> </div>
           <div class="piclefttxt"> <a href="${pageContext.request.contextPath}/front/findImageNewsByImageId.do?imageMaterialId=${imageMaterialNext.id}" title="${imageMaterialNext.title }" target="_blank">${imageMaterialNext.title }</a> </div>
         </div>
+        </c:if>
       </div>
     </div>
     

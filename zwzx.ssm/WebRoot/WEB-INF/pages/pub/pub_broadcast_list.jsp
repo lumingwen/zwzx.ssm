@@ -72,8 +72,15 @@
 		location = url;
 	}
 	
-	function edit(id) {
-		var url = 'editBroadcast.do?bid=' + (id ? id : '');
+	function edit(id,type) {
+	var url;
+	    if(type==0)
+	    {
+		 url = 'editBroadcast.do?bid=' + (id ? id : '');
+		}else
+		{
+		 url='editSurfaceNews.do?bid=' + (id ? id : '');
+		}
 		location = url;
 	}
 	
@@ -182,7 +189,7 @@
 							<td><fmt:formatDate type="both" dateStyle="medium"  timeStyle="medium" value="${requirement.createTime}"/></td>
 							<td class="handle">
 	                        <span class="iconfont show" onclick="view(${requirement.id});"><i class="fa fa-eye"></i></span>                   
-	                    	<span class="iconfont update" onclick="edit(${requirement.id});"><i class="fa fa-edit"></i></span>
+	                    	<span class="iconfont update" onclick="edit(${requirement.id},${requirement.type});"><i class="fa fa-edit"></i></span>
 	                    	<span class="iconfont deletes" onclick="del(${requirement.id});"><i class="fa fa-trash-o"></i></span>	              
 	                        </td>
 					  </tr>

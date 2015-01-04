@@ -34,6 +34,11 @@ public class PubBroadcastContent {
 	private String imageUrl;
 
 	private String remark;
+	
+	private Integer type;
+	
+	private String fromUrl;
+	
 
 	public String getRemark() {
 		return remark;
@@ -162,4 +167,21 @@ public class PubBroadcastContent {
 	public void setContent(String content) {
 		this.content = content == null ? null : content.trim();
 	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getFromUrl() {
+		return fromUrl;
+	}
+
+	public void setFromUrl(String fromUrl) {
+		this.fromUrl = fromUrl;
+	}
+	
 }

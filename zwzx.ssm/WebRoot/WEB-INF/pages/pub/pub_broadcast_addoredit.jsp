@@ -133,7 +133,6 @@ input{ vertical-align:middle; margin:0; padding:0}
 	
 </head>
 <body onload="init()">
-	
 	<c:if test="${type=='edit'}">
 			   <div id="breadcrumbs">
 					<ul class="breadcrumb">
@@ -148,6 +147,11 @@ input{ vertical-align:middle; margin:0; padding:0}
 						</li>
 					</ul>
 				</div>
+			<div class="tools_bar">
+				<a href="surfaceNews.do"  class="tools_btn">
+				发布途径：外
+					<span><b class="add">添加</b></span>
+			</a></div>
 	<form action="saveBroadcast.do"  id="form1"  method="post">
 		<!--添加新员工开始-->
 		<div class="content-right-add">
@@ -248,6 +252,11 @@ input{ vertical-align:middle; margin:0; padding:0}
 						</li>
 					</ul>
 				</div>
+											<div class="tools_bar">
+				<a href="surfaceNews.do" class="tools_btn">
+				发布途径：外
+					<span><b class="add">添加</b></span>
+				</a></div>
 	<form action="saveBroadcast.do"  id="form1"  method="post">
 		<!--添加新员工开始-->
 		<div class="content-right-add">
@@ -266,7 +275,6 @@ input{ vertical-align:middle; margin:0; padding:0}
                     <option value="">请选择</option>   
 			     </select>
 			     </li>
-			  
 					<li><span><h3>标题：</h3></span> <input type="text" id="biaoti" name="title" maxlength="30"
 						 /> <span class="error">请输入正确标题</span>最多输入20字符标题
 					</li>

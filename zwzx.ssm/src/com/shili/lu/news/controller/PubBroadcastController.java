@@ -208,4 +208,52 @@ public class PubBroadcastController {
 		m.setViewName("forward:/WEB-INF/pages/pub/pub_broadcast_detail.jsp");
 		return m;
 	}
+	
+	/**
+	 * 外部新闻添加
+	 * 
+	 */
+	@RequestMapping("/surfaceNews")
+	public ModelAndView surfaceNews(HttpServletRequest request) {
+		ModelAndView m = new ModelAndView();
+		List<ResDict> resdict = resDictService.getDictByTypeName("NEWROOT",
+				"新闻");
+		List<ResDict> list = resDictService.listAllDictByType("NEWROOT",
+				resdict.get(0).getId());
+		m.getModel().put("type", "insert");
+		m.getModel().put("typelist", list);
+		m.setViewName("forward:/WEB-INF/pages/pub/surfaceNews.jsp");
+		return m;
+	}	
+	
+	
+	/**
+	 * 根据特定id查询相应的新闻
+	 * 
+	 */
+	@RequestMapping("/editSurfaceNews")
+	public ModelAndView editSurfaceNews(String bid, HttpServletRequest request) {
+		PubBroadcastContent pubBroadcastContent = pubBroadcastService
+				.findById(bid);
+		ModelAndView m = new ModelAndView();
+		List<ResDict> resdict = resDictService.getDictByTypeName("NEWROOT",
+				"新闻");
+		List<ResDict> contentTypeList = resDictService.listAllDictByType(
+				"NEWROOT", resdict.get(0).getId());
+		if (pubBroadcastContent.getNewsTypeId() != null) {
+
+			ResDict r = resDictService.getDictById(pubBroadcastContent
+					.getNewsTypeId());
+			List<ResDict> newsTypeList = resDictService.listAllDictByType(
+					"NEWROOT", r.getPid());
+			m.getModel().put("newstypelist", newsTypeList);
+		}
+		// 查询相应的类型
+		m.getModel().put("type", "edit");
+		m.getModel().put("contenttypelist", contentTypeList);
+		m.getModel().put("dto", pubBroadcastContent);
+		m.setViewName("forward:/WEB-INF/pages/pub/surfaceNews.jsp");
+		return m;
+	}
+	
 }

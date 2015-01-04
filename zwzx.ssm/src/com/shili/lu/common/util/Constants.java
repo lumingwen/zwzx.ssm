@@ -4,7 +4,7 @@ package com.shili.lu.common.util;
  * 
  * 公共常量类
  * 
- * @author zhangxujun
+ * @author lumw
  * 
  * 
  */

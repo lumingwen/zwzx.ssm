@@ -54,7 +54,7 @@ public class ImageMaterialServiceImpl implements ImageMaterialServiceI {
 			dto.setUpdateTime(new Date());
 			dto.setDeleteFlag(db.getDeleteFlag());
 			imageMaterialMapper.updateByPrimaryKey(dto);
-			imageMaterialDetailMapper.deleteByImageId(dto.getId());
+			imageMaterialDetailMapper.deleteByImageMaterialId(dto.getId());
 
 			ResAttachment attachment = new ResAttachment();
 			attachment.setRelId(dto.getId());
@@ -129,6 +129,20 @@ public class ImageMaterialServiceImpl implements ImageMaterialServiceI {
 	public PageList<ImageMaterial> findPageImageMaterial(ImageNewsDto queryParam,
 			PageBounds pageBounds) {
 		return imageMaterialMapper.findPageImageMaterial(queryParam, pageBounds);
+	}
+
+
+	@Override
+	public int deleteImageMaterialById(Long id) {
+		
+		 if(imageMaterialMapper.deleteImageMaterialById(id)!=-1 &&imageMaterialDetailMapper.deleteByImageMaterialId(id)!=-1)
+		 {
+			 return 1;
+		 }else
+			 
+		 {
+			 return -1;
+		 }
 	}
 	
 }

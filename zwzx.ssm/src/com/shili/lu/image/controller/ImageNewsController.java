@@ -1,8 +1,8 @@
 package com.shili.lu.image.controller;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,6 @@ import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.github.miemiedev.mybatis.paginator.domain.Order.Direction;
 import com.shili.lu.common.annotation.NoSecurity;
-import com.shili.lu.common.util.Constants;
 import com.shili.lu.common.util.PageUtils;
 import com.shili.lu.image.dto.ImageNewsDto;
 import com.shili.lu.image.model.ImageMaterial;
@@ -30,9 +29,8 @@ public class ImageNewsController {
 	
 	@Autowired
 	ImageMaterialServiceI imageMaterialService;
-	
-	
-	
+    
+	private final Logger log = Logger.getLogger(getClass());
 	/**
 	 * 添加
 	 * 
@@ -91,4 +89,21 @@ public class ImageNewsController {
 		return m;
 
 	}
+	
+	@RequestMapping("/deleteImage")
+	public ModelAndView deleteImage(HttpServletRequest req,
+			Long id) {
+		String message="";
+		if(imageMaterialService.deleteImageMaterialById(id)!=-1)
+		{
+		 message="删除成功";	
+		}else{
+		 message="删除失败";	
+		}
+		ModelAndView m = new ModelAndView();
+		log.error(message);
+		m.setViewName("redirect:listImageInfo.do?page=1&limit=10");
+		return m;
+	}
+	
 }

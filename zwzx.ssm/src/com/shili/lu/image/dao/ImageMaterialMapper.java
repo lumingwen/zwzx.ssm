@@ -23,5 +23,6 @@ public interface ImageMaterialMapper {
 	PageList<ImageMaterial> findPageImageMaterial(ImageNewsDto queryParam,
 			PageBounds pageBounds);
 	
+	int deleteImageMaterialById(Long id);
 	
 }

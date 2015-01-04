@@ -13,7 +13,7 @@ public interface ImageMaterialDetailMapper {
 
 	int updateByPrimaryKey(ImageMaterialDetail record);
 	
-	int deleteByImageId(Long imageId);
+	int deleteByImageMaterialId(Long imageMaterialId);
 	
 	List<ImageMaterialDetail> findImageMaterialDetailByIMId(Long imageMaterialId);
 	
